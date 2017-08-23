@@ -2,12 +2,7 @@ extends layout
 
 
 block content
-  header.header
-    ul.nav-bar
-      li.nav-bar-item 首页
-      li.nav-bar-item 前端技术
-      li.nav-bar-item 生活与电影
-      li.nav-bar-item 关于博主
+  include ../components/header
   .main-container
     .left-content
       ul.article-list
@@ -97,6 +92,6 @@ block content
           span.iconfont.icon-github
           span.iconfont.icon-weixin
           span.iconfont.icon-weibo
-  footer.footer xiaodi blog &copy 2017
+  include ../components/footer
   .tool-bar
     span.iconfont.icon-top
