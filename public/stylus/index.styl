@@ -1,0 +1,228 @@
+@import '../static/reset.css'
+@import '../static/font/iconfont.css'
+@import "../static/markdown.css"
+@import 'mixin.styl'
+body
+  background main-color
+.header
+  height 100px
+  width 100%
+  background-color #13CE66
+  animation background-fade  5s linear infinite 
+  .nav-bar
+    width 1180px
+    margin 0 auto
+    height 40px
+    line-height 40px
+    font-size 0
+    text-align center
+    padding-top 30px
+    .nav-bar-item
+      font-size 16px
+      color #fff
+      display inline-block
+      padding 0 20px
+      cursor pointer
+      &:hover
+        transform-origin: center center
+        transform rotate(360deg)
+        transition all 1s ease
+.main-container
+  width 1180px
+  margin 20px auto 30px
+  display flex
+  .left-content
+    flex 1
+    background-color #fff
+    border-radius(4px)
+    box-shadow(10px)
+    padding 30px 20px
+    .article-item
+      border-bottom 1px dashed #8492A6
+      position relative
+      margin-bottom 20px
+      .article-title
+        font-size 24px
+        font-weight 700
+        border-left 5px solid header-color
+        height 40px
+        line-height 40px 
+        padding-left 30px
+      .pulish-time
+        font-size 14px
+        margin 20px 0
+        color #99A9BF
+      .article-abstract
+        font-size 16px
+        line-height 24px
+      .article-footer
+        height 40px
+        margin-top 10px
+        .label-box
+          height 16px
+          font-size 0
+          .iconfont
+            color header-color
+            display inline-block
+            padding 0 10px 0 0
+            line-height 16px
+          .label-item
+            display: inline-block
+            padding 2px 8px
+            background-color #FF4949
+            color #fff
+            font-size 12px
+            line-height 16px
+            margin-right 10px
+            border-radius(4px)
+        .read-total
+          position absolute
+          right 20px
+          bottom 20px
+          background-color header-color
+          border-radius(4px)
+          padding 8px 15px
+          color #fff
+          cursor pointer
+      .tag
+        position absolute
+        width 40px
+        height 40px
+        background #13CE66
+        text-align center
+        line-height 40px
+        color #fff
+        left -40px
+        top 32px
+        transform rotate(45deg)
+        span
+          display: inline-block
+          transform rotate(-45deg)
+          font-size 18px
+        
+  .right-side
+    flex 0 0 300px
+    margin-left 30px
+    .search-box
+      border-radius 5px
+      height 60px
+      background-color #fff
+      line-height 60px
+      font-size 0
+      .search-input
+        border 1px solid main-color
+        height 30px
+        border-radius 4px
+        margin-left 20px
+        padding 0 10px
+        font-size 14px
+        outline none
+        vertical-align middle
+        &:focus
+          border 1px solid header-color
+      .search-btn
+        vertical-align middle
+        background-color header-color
+        border none
+        color #fff
+        height 30px 
+        line-height 30px
+        padding 0 10px
+        margin-left 10px
+        border-radius(4px)
+    .login-box
+      height 300px
+      border-radius(4px)
+      background-color #fff
+      margin-top 20px
+      padding 20px
+      box-sizing border-box
+      .username,.password
+        font-size 0 
+        margin-bottom 15px
+        input
+          height 30px
+          border-radius(4px)
+          border 1px solid main-color
+          padding 0 10px
+          vertical-align middle
+          margin-left 15px
+          outline none
+          background-color: #fff
+          &:focus
+            border 1px solid header-color
+        label
+          display inline-block
+          font-size 16px
+          color #475669
+          height 30px
+          width 50px
+          line-height 30px
+          vertical-align middle
+      .login-btn
+        background-color header-color
+        height 30px
+        border-radius(4px)
+        line-height 30px
+        text-align center
+        color #fff
+        cursor pointer
+        font-size 14px
+        margin-bottom 20px
+      .lose-password
+        font-size: 12px
+        text-align: right
+        cursor: pointer
+        color: header-color
+        margin-bottom: 20px
+      .quick-login
+        display flex
+        .line
+          border-bottom 1px solid #475669
+          position relative
+          flex 1
+          top -6px
+        .text
+          display inline-block
+          padding 0 10px
+          color #475669
+          font-size 14px
+      .quick-login-icon
+        margin-top: 20px
+        font-size: 0
+        .iconfont
+          display: inline-block
+          font-size: 40px
+          color: header-color
+          margin-right: (100px/4)
+          cursor: pointer
+          &:last-child
+            margin-right: 0
+
+.footer
+  height 80px
+  background #475669
+  font-size 16px
+  color #fff
+  text-align center
+  line-height 80px
+.tool-bar
+  position: fixed
+  right: 20px
+  width: 40px
+  bottom: 100px
+  text-align: center
+  &.top
+    bottom: 200px
+    opacity: 0
+    transition: 0.5s all cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  .iconfont
+    display: block
+    width: 40px
+    height: 40px
+    line-height: 40px
+    color: #20a0ff
+    font-size: 40px
+    cursor: pointer
+
+    

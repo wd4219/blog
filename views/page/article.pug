@@ -1,0 +1,32 @@
+extends layout
+block content
+    header.header
+        ul.nav-bar
+          li.nav-bar-item 首页
+          li.nav-bar-item 前端技术
+          li.nav-bar-item 生活与电影
+          li.nav-bar-item 关于博主
+    .main-container
+      .left-content !{article}
+      .right-side
+        .search-box
+          input(type="text", placeholder="根据关键字搜索",class="search-input")
+          button.search-btn 搜索
+        .login-box
+          .username
+            label(for="username") 用户名
+            input(type="text", id="username",placeholder="请输入用户名",autocomplete="off")
+          .password
+            label(for="password") 密码
+            input(type="password", id="password",placeholder="请输入密码",autocomplete="off")
+          .login-btn 登录
+          .lose-password 忘记密码？
+          .quick-login
+            .line
+            .text 快捷登录
+            .line
+          .quick-login-icon
+            span.iconfont.icon-qq
+            span.iconfont.icon-github
+            span.iconfont.icon-weixin
+            span.iconfont.icon-weibo
