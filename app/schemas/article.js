@@ -19,4 +19,4 @@ let ArticleSchema = new Schema({
   content:{
     type:Text
   }
-})
+});

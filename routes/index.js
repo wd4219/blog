@@ -17,19 +17,11 @@ router.get('/', async (ctx, next) => {
   })
 })
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
 router.get('/article',async (ctx,next)=>{
   await ctx.render('article',{
     title:'文章标题',
     article:marked("```javascript\n const a = 1;\nconst a = 1;\nconst a = 1;\n```")
   });
 });
+
 module.exports = router
