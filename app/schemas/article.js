@@ -18,5 +18,16 @@ let ArticleSchema = new Schema({
   },
   content:{
     type:Text
+  },
+  description:{
+    type:String
+  },
+  read_amount:{
+    type:Number,
+    default:0
+  },
+  like_amount:{
+    type:Number,
+    default:0
   }
 });

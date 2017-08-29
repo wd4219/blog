@@ -1,0 +1,64 @@
+.container {
+  padding: 20px;
+  background: #eee;
+  font-size: 14px;
+}
+.container label {
+  display: block;
+  font-size: 14px;
+  line-height: 21px;
+  margin: 10px 0;
+}
+.container select {
+  height: 30px;
+  width: 200px;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #d7d7d7;
+  appearance: none;
+}
+.container select option {
+  height: 30px;
+  line-height: 30px;
+  padding: 10px;
+}
+.container input,
+.container textarea {
+  width: 100%;
+}
+.container .blog-label {
+  height: 30px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  border: 1px solid #d7d7d7;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.container textarea {
+  font-size: 14px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  border: 1px solid #d7d7d7;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+}
+.container textarea.blog-description {
+  height: 100px;
+}
+.container textarea.blog-content {
+  height: 600px;
+}
+.container .submit-blog {
+  height: 40px;
+  width: 200px;
+  text-align: center;
+  background-color: #20a0ff;
+  font-size: 16px;
+  line-height: 40px;
+  color: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+}
