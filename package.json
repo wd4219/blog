@@ -21,7 +21,6 @@
     "koa-views": "^5.2.1",
     "marked": "^0.3.6",
     "mongoose": "^4.11.7",
-    "nprogress": "^0.2.0",
     "pug": "^2.0.0-rc.1",
     "stylus": "0.42.3"
   },

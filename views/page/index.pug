@@ -1,6 +1,5 @@
 extends layout
 
-
 block content
   include ../components/header
   .main-container
@@ -9,24 +8,26 @@ block content
         li
           .article-item
             h2.article-title Est quos illo est hic itaque dolores optio.
-            p.pulish-time 
-              span 日期：
+            p.top-status 
+              span.pulish-time 日期：2017-08-08
+              span.read-amount 阅读量：200
+              span.like-amount 点赞量：200
             .article-abstract
               |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
             .article-footer
               .label-box
                 i.iconfont.icon-label
                 span.label-item vue
-                span.label-item css3
+                span.label-item CSS3
                 span.label-item vue-router
               .read-total 阅读全文
-            .tag
-              span 新
         li
           .article-item
             h2.article-title Est quos illo est hic itaque dolores optio.
-            p.pulish-time 
-              span 日期：
+            p.top-status 
+              span.pulish-time 日期：2017-08-08
+              span.read-amount 阅读量：200
+              span.like-amount 点赞量：200
             .article-abstract
               |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
             .article-footer
@@ -36,13 +37,13 @@ block content
                 span.label-item css3
                 span.label-item vue-router
               .read-total 阅读全文
-            .tag
-              span 新
         li
           .article-item
             h2.article-title Est quos illo est hic itaque dolores optio.
-            p.pulish-time 
-              span 日期：
+            p.top-status 
+              span.pulish-time 日期：2017-08-08
+              span.read-amount 阅读量：200
+              span.like-amount 点赞量：200
             .article-abstract
               |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
             .article-footer
@@ -52,13 +53,13 @@ block content
                 span.label-item css3
                 span.label-item vue-router
               .read-total 阅读全文
-            .tag
-              span 新
         li
           .article-item
             h2.article-title Est quos illo est hic itaque dolores optio.
-            p.pulish-time 
-              span 日期：
+            p.top-status 
+              span.pulish-time 日期：2017-08-08
+              span.read-amount 阅读量：200
+              span.like-amount 点赞量：200
             .article-abstract
               |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
             .article-footer
@@ -68,8 +69,6 @@ block content
                 span.label-item css3
                 span.label-item vue-router
               .read-total 阅读全文
-            .tag
-              span 新
     .right-side
       .search-box
         input(type="text", placeholder="根据关键字搜索",class="search-input")
@@ -92,9 +91,30 @@ block content
           span.iconfont.icon-github
           span.iconfont.icon-weixin
           span.iconfont.icon-weibo
-  include ../components/footer
+      .tag-box
+        .tagcloud
+          a(href="#") css
+          a(href="#") Vue
+          a(href="#") React
+          a(href="#") Javascript
+          a(href="#") nodejs
+          a(href="#") css
+          a(href="#") Vue
+          a(href="#") React
+          a(href="#") Javascript
+          a(href="#") nodejs
+          a(href="#") css
+          a(href="#") Vue
+          a(href="#") React
+          a(href="#") Javascript
+          a(href="#") nodejs
+          a(href="#") css
+          a(href="#") Vue
+          a(href="#") React
+          a(href="#") Javascript
+          a(href="#") nodejs
   .tool-bar
     span.iconfont.icon-top
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
-  script(src="./scripts/nprogress.js")
+  script(src="./scripts/tagcloud.js")
   script(src="./scripts/index.js")

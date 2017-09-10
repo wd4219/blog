@@ -5,6 +5,9 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const mongoose = require('mongoose');
+const DB_URL = 'mongodb://localhost/myblog'
+mongoose.connect(DB_URL,{ useMongoClient: true});
 
 const index = require('./routes/index')
 const users = require('./routes/users')

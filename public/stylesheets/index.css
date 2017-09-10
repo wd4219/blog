@@ -83,8 +83,6 @@ body {
 .main-container .left-content {
   flex: 1;
   background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 0 10px #99a9bf;
   padding: 30px 20px;
 }
 .main-container .left-content .article-item {
@@ -100,72 +98,60 @@ body {
   line-height: 40px;
   padding-left: 30px;
 }
-.main-container .left-content .article-item .pulish-time {
-  font-size: 14px;
-  margin: 20px 0;
+.main-container .left-content .article-item .top-status {
+  font-size: 12px;
+  padding-bottom: 10px;
+  margin: 10px 0;
+  border-bottom: 1px dashed #8492a6;
   color: #99a9bf;
+}
+.main-container .left-content .article-item .top-status span {
+  margin-right: 20px;
 }
 .main-container .left-content .article-item .article-abstract {
   font-size: 16px;
   line-height: 24px;
 }
 .main-container .left-content .article-item .article-footer {
-  height: 40px;
-  margin-top: 10px;
+  height: 30px;
+  margin-top: 20px;
 }
 .main-container .left-content .article-item .article-footer .label-box {
   height: 16px;
   font-size: 0;
 }
 .main-container .left-content .article-item .article-footer .label-box .iconfont {
-  color: #20a0ff;
+  color: #ccc;
   display: inline-block;
   padding: 0 10px 0 0;
   line-height: 16px;
 }
 .main-container .left-content .article-item .article-footer .label-box .label-item {
   display: inline-block;
-  padding: 2px 8px;
-  background-color: #ff4949;
-  color: #fff;
+  color: #ccc;
   font-size: 12px;
   line-height: 16px;
   margin-right: 10px;
-  border-radius: 4px;
+  cursor: pointer;
+}
+.main-container .left-content .article-item .article-footer .label-box .label-item:hover {
+  color: #29b4f0;
 }
 .main-container .left-content .article-item .article-footer .read-total {
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 15px;
   background-color: #20a0ff;
   border-radius: 4px;
   padding: 8px 15px;
   color: #fff;
   cursor: pointer;
 }
-.main-container .left-content .article-item .tag {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: #13ce66;
-  text-align: center;
-  line-height: 40px;
-  color: #fff;
-  left: -40px;
-  top: 32px;
-  transform: rotate(45deg);
-}
-.main-container .left-content .article-item .tag span {
-  display: inline-block;
-  transform: rotate(-45deg);
-  font-size: 18px;
-}
 .main-container .right-side {
   flex: 0 0 300px;
   margin-left: 30px;
 }
 .main-container .right-side .search-box {
-  border-radius: 5px;
   height: 60px;
   background-color: #fff;
   line-height: 60px;
@@ -197,7 +183,6 @@ body {
 }
 .main-container .right-side .login-box {
   height: 300px;
-  border-radius: 4px;
   background-color: #fff;
   margin-top: 20px;
   padding: 20px;
@@ -280,6 +265,11 @@ body {
 .main-container .right-side .login-box .quick-login-icon .iconfont:last-child {
   margin-right: 0;
 }
+.main-container .right-side .tag-box {
+  height: 300px;
+  background-color: #fff;
+  margin-top: 20px;
+}
 .footer {
   height: 80px;
   background: #475669;
@@ -308,4 +298,32 @@ body {
   color: #20a0ff;
   font-size: 40px;
   cursor: pointer;
+}
+.list-container {
+  width: 850px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.list-container .article-list-content-item {
+  font-size: 14px;
+  color: #333;
+  height: 21px;
+  line-height: 21px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #8492a6;
+}
+.list-container .article-list-content-item .title-text {
+  float: left;
+  cursor: pointer;
+}
+.list-container .article-list-content-item .title-text:hover {
+  color: #20a0ff;
+}
+.list-container .article-list-content-item .item-info {
+  float: right;
+  font-size: 12px;
+  color: #ccc;
+}
+.list-container .article-list-content-item .item-info span {
+  margin-left: 10px;
 }

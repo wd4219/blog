@@ -23,5 +23,10 @@ router.get('/article',async (ctx,next)=>{
     article:marked("```javascript\n const a = 1;\nconst a = 1;\nconst a = 1;\n```")
   });
 });
+router.get('/list',async (ctx,next)=>{
+  await ctx.render('list',{
+    title:'文章列表'
+  });
+});
 
 module.exports = router

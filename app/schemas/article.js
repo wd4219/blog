@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 
 let ArticleSchema = new Schema({
   title:{
@@ -8,16 +7,15 @@ let ArticleSchema = new Schema({
     default:'',
     unique:true
   },
-  pulish_time:new Date(),
-  label:{
-    type:String,
-    default:[]
+  pulish_time:{
+    type:Date,
+    default:Date.now()
   },
-  id:{
-    type:ObjectId,
-  },
+  tag:[
+    {type:Schema.Types.ObjectId,ref:'Tag'}
+  ],
   content:{
-    type:Text
+    type:String
   },
   description:{
     type:String
@@ -29,5 +27,25 @@ let ArticleSchema = new Schema({
   like_amount:{
     type:Number,
     default:0
+  },
+  meta:{
+    createAt:{
+      type:Date,
+      default:new Date()
+    },
+    updateAt:{
+      type:Date,
+      default:new Date()
+    }
   }
 });
+ArticleSchema.pre('save', function (next) {
+  if (this.isNew) {
+    this.meta.createAt = this.meta.updateAt = Date.now();
+  } else {
+    this.meta.updateAt = Date.now();
+  }
+  next();
+});
+
+module.exports = ArticleSchema;
