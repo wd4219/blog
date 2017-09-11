@@ -7,23 +7,6 @@ $(function () {
     direction: 135, //初始滚动方向
     keep: true //鼠标移出组件后是否继续随鼠标滚动
   });
-  $.ajax({
-    type: 'post',
-    url: '/admin/api/create_article',
-    data: {
-      title: 'dadadas',
-      content: 'dasdasdasdasda',
-      description: 'dadasdasdasda',
-      tags: [{
-        content: '标签1'
-      }, {
-        content: '标签2'
-      }]
-    },
-    success: function (res) {
-      console.log(res);
-    }
-  });
   var canvas = document.getElementById('canvas');
   var w = canvas.width = 1180,
     h = canvas.height = 100,

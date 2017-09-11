@@ -7,19 +7,20 @@ block content
       ul.article-list
         li
           .article-item
-            h2.article-title Est quos illo est hic itaque dolores optio.
+            h2.article-title #{title}
             p.top-status 
-              span.pulish-time 日期：2017-08-08
-              span.read-amount 阅读量：200
-              span.like-amount 点赞量：200
+              span.pulish-time 日期：#{pulish_time}
+              span.read-amount 阅读量：#{read_amount}
+              span.like-amount 赞：#{like_amount}
             .article-abstract
-              |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
+              |#{description}
             .article-footer
               .label-box
                 i.iconfont.icon-label
-                span.label-item vue
-                span.label-item CSS3
-                span.label-item vue-router
+                each item in tag
+                  span.label-item #{item.content}
+                //- span.label-item CSS3
+                //- span.label-item vue-router
               .read-total 阅读全文
         li
           .article-item
@@ -70,9 +71,6 @@ block content
                 span.label-item vue-router
               .read-total 阅读全文
     .right-side
-      .search-box
-        input(type="text", placeholder="根据关键字搜索",class="search-input")
-        button.search-btn 搜索
       .login-box
         .username
           label(for="username") 用户名
@@ -113,6 +111,34 @@ block content
           a(href="#") React
           a(href="#") Javascript
           a(href="#") nodejs
+      .hot-article
+        h2.title  热门文章
+        ul.hot-article-list
+          li.hot-article-list.clearfix 
+            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
+            span.read-amount 
+              span.iconfont.icon-yuedu
+              |200
+          li.hot-article-list.clearfix 
+            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
+            span.read-amount 
+              span.iconfont.icon-yuedu
+              |200
+          li.hot-article-list.clearfix 
+            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
+            span.read-amount 
+              span.iconfont.icon-yuedu
+              |200
+          li.hot-article-list.clearfix 
+            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
+            span.read-amount 
+              span.iconfont.icon-yuedu
+              |20000
+          li.hot-article-list.clearfix 
+            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
+            span.read-amount 
+              span.iconfont.icon-yuedu
+              |200
   .tool-bar
     span.iconfont.icon-top
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")

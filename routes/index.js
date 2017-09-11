@@ -1,5 +1,6 @@
 const router = require('koa-router')()
 const marked = require('marked');
+const Article = require('../app/controllers/article')
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -12,15 +13,15 @@ marked.setOptions({
 });
 
 router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: '王迪的博客-前端笔记与交流'
-  })
+  let data = await Article.find_article_all(ctx,next);
+  console.log(data.data[0]);
+  await ctx.render('index',data.data[0]);
 })
 
 router.get('/article',async (ctx,next)=>{
   await ctx.render('article',{
     title:'文章标题',
-    article:marked("```javascript\n const a = 1;\nconst a = 1;\nconst a = 1;\n```")
+    article:marked("# aaa")
   });
 });
 router.get('/list',async (ctx,next)=>{

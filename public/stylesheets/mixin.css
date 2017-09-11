@@ -1,3 +1,10 @@
+.clearfix:after {
+  content: '.';
+  height: 0;
+  visibility: hidden;
+  clear: both;
+  overflow: hidden;
+}
 @-moz-keyframes draw-nav-item {
   0% {
     stroke-dasharray: 140 540;

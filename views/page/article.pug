@@ -2,11 +2,9 @@ extends layout
 block content
     include ../components/header
     .main-container
-      .left-content !{article}
+      .left-content
+         .markdown-wd !{article}
       .right-side
-        .search-box
-          input(type="text", placeholder="根据关键字搜索",class="search-input")
-          button.search-btn 搜索
         .login-box
           .username
             label(for="username") 用户名

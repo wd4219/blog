@@ -1,6 +1,5 @@
 @import '../static/reset.css'
 @import '../static/font/iconfont.css'
-@import "../static/markdown.css"
 @import 'mixin.styl'
 body
   background main-color
@@ -16,9 +15,11 @@ body
     right: 0
     bottom:0
     transform: translateX(-50%)
-  .nav-bar
+  .nav-box
     width 1180px
     margin 0 auto
+    position:relative
+  .nav-bar
     height 40px
     line-height 40px
     font-size 0
@@ -48,6 +49,30 @@ body
         left:50%
         top:50%
         transform: translate3d(-50%,-50%,0)
+  .search-box
+    height:40px
+    width: 200px
+    line-height:40px
+    position: absolute
+    right:10px
+    top:30px
+    color:#8492a6
+    input
+      width: 100%
+      border: none;
+      height:20px
+      background: none
+      outline:none
+      border-bottom:1px solid #8492a6
+      padding: 0 12px 0 2px
+      color:#8492a6
+      box-sizing: border-box
+    .icon-search
+      position:absolute
+      right:0px
+      cursor: pointer
+      &:hover
+        color: #fff
 .main-container
   width 1180px
   margin 20px auto 30px
@@ -110,36 +135,9 @@ body
   .right-side
     flex 0 0 300px
     margin-left 30px
-    .search-box
-      height 60px
-      background-color #fff
-      line-height 60px
-      font-size 0
-      .search-input
-        border 1px solid main-color
-        height 30px
-        border-radius 4px
-        margin-left 20px
-        padding 0 10px
-        font-size 14px
-        outline none
-        vertical-align middle
-        &:focus
-          border 1px solid header-color
-      .search-btn
-        vertical-align middle
-        background-color header-color
-        border none
-        color #fff
-        height 30px 
-        line-height 30px
-        padding 0 10px
-        margin-left 10px
-        border-radius(4px)
     .login-box
       height 300px
       background-color #fff
-      margin-top 20px
       padding 20px
       box-sizing border-box
       .username,.password
@@ -207,7 +205,43 @@ body
       height 300px
       background-color #fff
       margin-top:20px
-
+    .hot-article
+      background-color #fff
+      margin-top:20px
+      padding: 20px
+      .title
+        font-size: 16px
+        line-height:32px
+        border-bottom: 1px dashed #8492A6
+      .hot-article-list
+        font-size:16px
+        padding:8px 2px
+        cursor: pointer
+        .list-link
+          display: block
+          width:170px
+          color:#8492A6
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap;
+          font-size:14px
+          float: left
+          text-decoration: none
+          &:hover
+            color:#20a0ff
+        .read-amount
+          float: right
+          width: 60px
+          font-size:12px
+          color: #888
+          text-align: right
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap;
+          .iconfont
+            font-size:12px
+            margin-right:4px
+            color: #888
 .footer
   height 80px
   background #475669

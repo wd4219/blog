@@ -1,6 +1,12 @@
 @import '../static/reset.css';
 @import '../static/font/iconfont.css';
-@import "../static/markdown.css";
+.clearfix:after {
+  content: '.';
+  height: 0;
+  visibility: hidden;
+  clear: both;
+  overflow: hidden;
+}
 @-moz-keyframes draw-nav-item {
   0% {
     stroke-dasharray: 140 540;
@@ -66,9 +72,12 @@ body {
   bottom: 0;
   transform: translateX(-50%);
 }
-.header .nav-bar {
+.header .nav-box {
   width: 1180px;
   margin: 0 auto;
+  position: relative;
+}
+.header .nav-bar {
   height: 40px;
   line-height: 40px;
   font-size: 0;
@@ -101,6 +110,34 @@ body {
   left: 50%;
   top: 50%;
   transform: translate3d(-50%, -50%, 0);
+}
+.header .search-box {
+  height: 40px;
+  width: 200px;
+  line-height: 40px;
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  color: #8492a6;
+}
+.header .search-box input {
+  width: 100%;
+  border: none;
+  height: 20px;
+  background: none;
+  outline: none;
+  border-bottom: 1px solid #8492a6;
+  padding: 0 12px 0 2px;
+  color: #8492a6;
+  box-sizing: border-box;
+}
+.header .search-box .icon-search {
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+.header .search-box .icon-search:hover {
+  color: #fff;
 }
 .main-container {
   width: 1180px;
@@ -178,40 +215,9 @@ body {
   flex: 0 0 300px;
   margin-left: 30px;
 }
-.main-container .right-side .search-box {
-  height: 60px;
-  background-color: #fff;
-  line-height: 60px;
-  font-size: 0;
-}
-.main-container .right-side .search-box .search-input {
-  border: 1px solid #d3dce6;
-  height: 30px;
-  border-radius: 4px;
-  margin-left: 20px;
-  padding: 0 10px;
-  font-size: 14px;
-  outline: none;
-  vertical-align: middle;
-}
-.main-container .right-side .search-box .search-input:focus {
-  border: 1px solid #20a0ff;
-}
-.main-container .right-side .search-box .search-btn {
-  vertical-align: middle;
-  background-color: #20a0ff;
-  border: none;
-  color: #fff;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px;
-  margin-left: 10px;
-  border-radius: 4px;
-}
 .main-container .right-side .login-box {
   height: 300px;
   background-color: #fff;
-  margin-top: 20px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -296,6 +302,50 @@ body {
   height: 300px;
   background-color: #fff;
   margin-top: 20px;
+}
+.main-container .right-side .hot-article {
+  background-color: #fff;
+  margin-top: 20px;
+  padding: 20px;
+}
+.main-container .right-side .hot-article .title {
+  font-size: 16px;
+  line-height: 32px;
+  border-bottom: 1px dashed #8492a6;
+}
+.main-container .right-side .hot-article .hot-article-list {
+  font-size: 16px;
+  padding: 8px 2px;
+  cursor: pointer;
+}
+.main-container .right-side .hot-article .hot-article-list .list-link {
+  display: block;
+  width: 170px;
+  color: #8492a6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  float: left;
+  text-decoration: none;
+}
+.main-container .right-side .hot-article .hot-article-list .list-link:hover {
+  color: #20a0ff;
+}
+.main-container .right-side .hot-article .hot-article-list .read-amount {
+  float: right;
+  width: 60px;
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.main-container .right-side .hot-article .hot-article-list .read-amount .iconfont {
+  font-size: 12px;
+  margin-right: 4px;
+  color: #888;
 }
 .footer {
   height: 80px;

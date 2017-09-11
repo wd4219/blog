@@ -5,7 +5,7 @@ const Tag = require('../controllers/tag')
 let  res_model = (code,message,data) => {
   return {
       code: code,
-      messageg: message,
+      message: message,
       data: data?data:{}
   }
 }
@@ -46,9 +46,9 @@ exports.save_article = async(ctx, next) => {
 exports.find_article_all = async(ctx, next) => {
   try{
     let result = await articleModel.find({},{meta:0,_id:0,__v:0,content:0}).populate('tag',{meta:0,_id:0,__v:0,count:0}).exec();
-    ctx.body = res_model(0,'获取文章列表成功',result);
+    return res_model(0,'获取文章列表成功',result);
   }catch(err){
-    ctx.body = res_model(0,'获取文章列表失败');
+    return res_model(0,'获取文章列表失败');
   }
 };
 // 获取文章列表信息

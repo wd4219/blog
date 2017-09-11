@@ -1,0 +1,98 @@
+.markdown-wd {
+  background-color: #fff;
+  word-wrap: break-word;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+.markdown-wd h1,
+.markdown-wd h2,
+.markdown-wd h3,
+.markdown-wd h4,
+.markdown-wd h5,
+.markdown-wd h6 {
+  padding: 5px 5px 5px 15px;
+  border-bottom: 1px dashed #d7d7d7;
+  box-sizing: border-box;
+  border-left: 4px solid #209fff;
+  margin: 10px 0;
+}
+.markdown-wd h2 {
+  font-size: 22px;
+}
+.markdown-wd h3 {
+  font-size: 20px;
+}
+.markdown-wd h4 {
+  font-size: 18px;
+}
+.markdown-wd h5 {
+  font-size: 16px;
+}
+.markdown-wd h6 {
+  font-size: 14px;
+}
+.markdown-wd p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.markdown-wd code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+.markdown-wd p code {
+  font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+  background-color: #eff2f7;
+  padding: 0 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.markdown-wd pre {
+  font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}
+.markdown-wd pre code {
+  border-left: 4px solid #13ce66;
+}
+.markdown-wd blockquote {
+  padding: 10px 15px 10px 15px;
+  border-left: 10px solid #d3dce6;
+  background-color: #eff2f7;
+  margin: 0;
+}
+.markdown-wd blockquote p {
+  margin: 0;
+}
+.markdown-wd blockquote ul,
+.markdown-wd blockquote ol {
+  margin: 0;
+}
+.markdown-wd ul,
+.markdown-wd ol {
+  padding-left: 15px;
+  font-size: 14px;
+}
+.markdown-wd ul ul,
+.markdown-wd ol ul,
+.markdown-wd ul ol,
+.markdown-wd ol ol {
+  border-left: none;
+  padding-left: 15px;
+}
+.markdown-wd ul li,
+.markdown-wd ol li {
+  line-height: 2;
+}
+.markdown-wd img {
+  max-width: 100%;
+}
+.markdown-wd a {
+  text-decoration: none;
+  color: #20a0ff;
+  margin: 0 4px;
+}
+.markdown-wd a:hover {
+  color: #fff;
+  display: inline-block;
+  padding: 0px 4px;
+  border-radius: 2px;
+  background-color: #20a0ff;
+}
