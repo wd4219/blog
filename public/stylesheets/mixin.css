@@ -1,44 +1,48 @@
-@-moz-keyframes background-fade {
+@-moz-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@-webkit-keyframes background-fade {
+@-webkit-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@-o-keyframes background-fade {
+@-o-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@keyframes background-fade {
+@keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }

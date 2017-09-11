@@ -7,8 +7,15 @@ body
 .header
   height 100px
   width 100%
-  background-color #13CE66
-  animation background-fade  5s linear infinite 
+  background-color #000
+  position:relative
+  #canvas
+    position:absolute
+    top:0
+    left: 50%
+    right: 0
+    bottom:0
+    transform: translateX(-50%)
   .nav-bar
     width 1180px
     margin 0 auto
@@ -21,12 +28,26 @@ body
       font-size 16px
       color #fff
       display inline-block
-      padding 0 20px
+      height:40px
+      width:150px
+      position: relative
       cursor pointer
+      .item-rect
+        fill: transparent
+        stroke-dasharray: 140 540
+        stroke-dashoffset: -474
+        stroke-width: 8px
+        stroke: #19f6e8
       &:hover
-        transform-origin: center center
-        transform rotate(360deg)
-        transition all 1s ease
+        .item-rect
+          -webkit-animation: 0.5s draw-nav-item linear forwards;
+          animation: 0.5s draw-nav-item 0%  linear forwards;
+      .item-text
+        width:100%
+        position:absolute
+        left:50%
+        top:50%
+        transform: translate3d(-50%,-50%,0)
 .main-container
   width 1180px
   margin 20px auto 30px

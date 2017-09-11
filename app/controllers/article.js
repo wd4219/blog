@@ -9,6 +9,7 @@ let  res_model = (code,message,data) => {
       data: data?data:{}
   }
 }
+//保存文章
 exports.save_article = async(ctx, next) => {
   let req = ctx.request.body;
   let tags_id = await Tag.save_tag(ctx);
@@ -35,14 +36,39 @@ exports.save_article = async(ctx, next) => {
       });
       res = await _article.save();
     }
-    ctx.body = res_model(1,'保存成功',{});
+    ctx.body = res_model(0,'保存成功',{});
   }catch(err){
     console.log(err);
     ctx.body = res_model(-1,'保存失败',{});
   }
 }
+// 获取文章摘要信息
+exports.find_article_all = async(ctx, next) => {
+  try{
+    let result = await articleModel.find({},{meta:0,_id:0,__v:0,content:0}).populate('tag',{meta:0,_id:0,__v:0,count:0}).exec();
+    ctx.body = res_model(0,'获取文章列表成功',result);
+  }catch(err){
+    ctx.body = res_model(0,'获取文章列表失败');
+  }
+};
+// 获取文章列表信息
+exports.find_article_list = async (ctx,next) =>{
+  try{
+    let result = await articleModel.find({},{meta:0,_id:0,__v:0,tag:0,content:0,description:0}).populate('tag',{meta:0,_id:0,__v:0,count:0}).exec();
+    ctx.body = res_model(0,'获取文章列表成功',result);
+  }catch(err){
+    ctx.body = res_model(0,'获取文章列表失败');
+  }
+};
 
-exports.find_article = async(ctx, next) => {
-  let result = await articleModel.find().populate('tag').exec();
-  ctx.body = result;
+// 通过tag获取文章列表
+exports.get_article_tag = async (ctx,next)=>{
+  let tag_id = ctx.request.query.tag_id;
+  try{
+    let result = await articleModel.find({tag:tag_id},{meta:0,_id:0,__v:0,content:0,description:0,tag:0}).exec();
+    ctx.body = res_model(0,'获取文章列表成功',result);
+  }catch(err){
+    console.log(err);
+    ctx.body = res_model(0,'获取文章列表失败');
+  }
 }

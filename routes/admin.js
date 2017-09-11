@@ -22,6 +22,9 @@ router.get('/nav', async (ctx, next) =>{
 });
 
 router.post('/api/create_article',Article.save_article);
-router.post('/api/create_tag',Tag.save_tag);  
-router.get('/api/get_article',Article.find_article);
+router.get('/api/get_tag',Tag.get_tag_list);  
+router.get('/api/get_article_all',Article.find_article_all);
+router.get('/api/get_article_list',Article.find_article_list);
+router.get('/api/get_article_tag',Article.get_article_tag);
+
 module.exports = router

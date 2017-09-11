@@ -20,6 +20,7 @@
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
     "marked": "^0.3.6",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.7",
     "pug": "^2.0.0-rc.1",
     "stylus": "0.42.3"

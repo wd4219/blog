@@ -1,48 +1,52 @@
 @import '../static/reset.css';
 @import '../static/font/iconfont.css';
 @import "../static/markdown.css";
-@-moz-keyframes background-fade {
+@-moz-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@-webkit-keyframes background-fade {
+@-webkit-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@-o-keyframes background-fade {
+@-o-keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
-@keyframes background-fade {
+@keyframes draw-nav-item {
   0% {
-    background-color: #13ce66;
-  }
-  50% {
-    background-color: #20a0ff;
+    stroke-dasharray: 140 540;
+    stroke-dashoffset: -474;
+    stroke-width: 8px;
   }
   100% {
-    background-color: #13ce66;
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 2px;
   }
 }
 body {
@@ -51,8 +55,16 @@ body {
 .header {
   height: 100px;
   width: 100%;
-  background-color: #13ce66;
-  animation: background-fade 5s linear infinite;
+  background-color: #000;
+  position: relative;
+}
+.header #canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-50%);
 }
 .header .nav-bar {
   width: 1180px;
@@ -67,13 +79,28 @@ body {
   font-size: 16px;
   color: #fff;
   display: inline-block;
-  padding: 0 20px;
+  height: 40px;
+  width: 150px;
+  position: relative;
   cursor: pointer;
 }
-.header .nav-bar .nav-bar-item:hover {
-  transform-origin: center center;
-  transform: rotate(360deg);
-  transition: all 1s ease;
+.header .nav-bar .nav-bar-item .item-rect {
+  fill: transparent;
+  stroke-dasharray: 140 540;
+  stroke-dashoffset: -474;
+  stroke-width: 8px;
+  stroke: #19f6e8;
+}
+.header .nav-bar .nav-bar-item:hover .item-rect {
+  -webkit-animation: 0.5s draw-nav-item linear forwards;
+  animation: 0.5s draw-nav-item 0% linear forwards;
+}
+.header .nav-bar .nav-bar-item .item-text {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 .main-container {
   width: 1180px;
