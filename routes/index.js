@@ -18,10 +18,12 @@ router.get('/', async (ctx, next) => {
   await ctx.render('index',data.data[0]);
 })
 
-router.get('/article',async (ctx,next)=>{
+router.get('/article/:id',async (ctx,next)=>{
+  let data = await Article.find_article_id(ctx,next);
+  console.log(data.data)
   await ctx.render('article',{
-    title:'文章标题',
-    article:marked("# aaa")
+    title:data.data.title,
+    article:marked(data.data.content)
   });
 });
 router.get('/list',async (ctx,next)=>{

@@ -14,9 +14,9 @@ let ArticleSchema = new Schema({
   tag:[
     {type:Schema.Types.ObjectId,ref:'Tag'}
   ],
-  content:{
-    type:String
-  },
+  // content:{
+  //   type:String
+  // },
   description:{
     type:String
   },
