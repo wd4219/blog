@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const articleModel = require('../models/article');
 const TagModel = require('../models/tag');
-const Tag = require('../controllers/tag')
+const Tag = require('../controllers/tag');
+const fs = require('fs');
 let  res_model = (code,message,data) => {
   return {
       code: code,
