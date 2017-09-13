@@ -3,7 +3,7 @@ const articleModel = require('../models/article');
 const TagModel = require('../models/tag');
 const Tag = require('../controllers/tag');
 const fs = require('fs');
-const OSS = require('ali-oss');
+const client = require('../../config/index.js');
 let res_model = (code, message, data) => {
   return {
     code: code,
@@ -11,12 +11,7 @@ let res_model = (code, message, data) => {
     data: data ? data : {}
   }
 }
-const client = new OSS.Wrapper({
-  region: '',
-  accessKeyId: '',
-  accessKeySecret: '',
-  bucket: ''
-});
+
 //保存文章
 exports.save_article = async(ctx, next) => {
   let req = ctx.request.body;

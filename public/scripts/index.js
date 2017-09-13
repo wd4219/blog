@@ -1,4 +1,7 @@
 $(function () {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
   tagcloud({
     fontsize: 16, //基本字体大小
     radius: 100, //滚动半径

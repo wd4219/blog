@@ -20,7 +20,7 @@ router.get('/', async (ctx, next) => {
 
 router.get('/article/:id',async (ctx,next)=>{
   let data = await Article.find_article_id(ctx,next);
-  console.log(data.data)
+  console.log(data.data.content);
   await ctx.render('article',{
     title:data.data.title,
     article:marked(data.data.content)

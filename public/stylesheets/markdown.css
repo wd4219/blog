@@ -50,6 +50,8 @@
   font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
 }
 .markdown-wd pre code {
+  padding:10px;
+  font-size:14px;
   border-left: 4px solid #13ce66;
 }
 .markdown-wd blockquote {
