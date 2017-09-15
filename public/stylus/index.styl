@@ -50,6 +50,8 @@ ul,li
         position:absolute
         left:50%
         top:50%
+        color:#fff
+        text-decoration: none
         transform: translate3d(-50%,-50%,0)
   .search-box
     height:40px
@@ -70,6 +72,9 @@ ul,li
       padding: 0 12px 0 2px
       color:#8492a6
       box-sizing: border-box
+      &:focus
+        color:#fff
+        text-decoration:none
     .icon-search
       position:absolute
       right:0px
@@ -84,6 +89,17 @@ ul,li
     flex 1
     background-color #fff
     padding 30px 20px
+    .article-header
+      .article-title
+        margin-top:10px
+      .article-status
+        font-size 12px
+        padding-bottom:10px
+        margin 10px 0
+        border-bottom:1px dashed #8492A6
+        color #99A9BF
+        span
+          margin-right:20px
     .article-item
       border-bottom 1px dashed #8492A6
       position relative
@@ -133,6 +149,7 @@ ul,li
           bottom 15px
           background-color header-color
           border-radius(4px)
+          text-decoration:none
           padding 8px 15px
           color #fff
           cursor pointer
@@ -279,6 +296,8 @@ ul,li
   width: 850px
   background-color: #fff
   box-sizing: border-box
+  .title
+    margin:0
   .article-list-content-item
     font-size:14px
     color:#333
@@ -292,7 +311,9 @@ ul,li
       &:hover
         color:#20a0ff
     .item-info
-      float: right
+      float:right
+      line-height:12px
+      vertical-align:bottom
       font-size: 12px
       color:#ccc
       span

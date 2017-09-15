@@ -1,6 +1,7 @@
-const router = require('koa-router')()
+const router = require('koa-router')();
 const marked = require('marked');
-const Article = require('../app/controllers/article')
+const Article = require('../app/controllers/article');
+const Tag = require('../app/controllers/tag');
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -13,18 +14,18 @@ marked.setOptions({
 });
 
 router.get('/', async (ctx, next) => {
-  let data = await Article.find_article_all(ctx,next);
-  console.log(data.data[0]);
-  await ctx.render('index',data.data[0]);
+  let data = {};
+  let article = await Article.find_article_all(ctx,next);
+  let tags = await Tag.get_tag_list(ctx,next);
+  data.article = article.data[0];
+  data.tags = tags.data;
+  await ctx.render('index',data);
 })
 
 router.get('/article/:id',async (ctx,next)=>{
   let data = await Article.find_article_id(ctx,next);
-  console.log(data.data.content);
-  await ctx.render('article',{
-    title:data.data.title,
-    article:marked(data.data.content)
-  });
+  data.data.content = marked(data.data.content);
+  await ctx.render('article',data.data);
 });
 router.get('/list',async (ctx,next)=>{
   await ctx.render('list',{

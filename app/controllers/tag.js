@@ -32,8 +32,8 @@ exports.save_tag = async(ctx, next) => {
 exports.get_tag_list = async(ctx,next)=>{
   try{
     let tag_list =  await TagModel.find({},{meta:0,__v:0}).exec();
-    ctx.body = res_model(0,'获取标签列表成功',tag_list);
+    return res_model(0,'获取标签列表成功',tag_list);
   }catch(err){
-    ctx.body = res_model('-1','获取标签列表失败');
+     return res_model('-1','获取标签列表失败',{});
   }
 };

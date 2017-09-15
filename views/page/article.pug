@@ -3,7 +3,13 @@ block content
     include ../components/header
     .main-container
       .left-content
-         .markdown-wd !{article}
+        .article-header
+          h1.article-title #{title}
+          p.article-status
+            span.pulish-time 日期：#{pulish_time}
+            span.read-amount #{read_amount} 浏览
+            span.like-amount 赞：#{like_amount}
+        .markdown-wd !{content}
       .right-side
         .login-box
           .username

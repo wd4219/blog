@@ -11,7 +11,6 @@ let res_model = (code, message, data) => {
     data: data ? data : {}
   }
 }
-
 //保存文章
 exports.save_article = async(ctx, next) => {
   let req = ctx.request.body;
@@ -55,7 +54,6 @@ exports.find_article_all = async(ctx, next) => {
   try {
     let result = await articleModel.find({}, {
       meta: 0,
-      _id: 0,
       __v: 0,
     }).populate('tag', {
       meta: 0,
@@ -112,7 +110,7 @@ exports.get_article_tag = async(ctx, next) => {
 exports.find_article_id = async (ctx,next)=>{
   let article_id = ctx.params.id;
   try{
-    let result = await articleModel.findById(article_id).populate('tag').exec();
+    let result = await articleModel.findById(article_id,{__v:0,_id:0,meta:0}).populate('tag',{__v:0,_id:0,meta:0}).exec();
     let article_content = await client.get('/article/'+article_id+'.md');
     result.content = article_content.content.toString('utf8');
     return res_model(0, '获取文章列表成功', result)
