@@ -445,3 +445,27 @@ template {
 [hidden] {
   display: none;
 }
+ p {
+  font-size: 14px;
+  line-height: 2;
+}
+ code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+ p code {
+  font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+  background-color: #eff2f7;
+  padding: 0 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+  display: inline-block;
+}
+ pre {
+  font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}
+ pre code {
+  padding:10px;
+  font-size:14px;
+  border-left: 4px solid #13ce66;
+}

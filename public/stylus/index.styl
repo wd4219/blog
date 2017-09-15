@@ -2,7 +2,7 @@
 @import 'mixin.styl'
 body
   background main-color
-ul,li
+ul
   list-style: none
   padding:0
 .header
@@ -84,6 +84,15 @@ ul,li
     flex 1
     background-color #fff
     padding 30px 20px
+    // .read-all-box
+    //   position: relative;
+    //   z-index: 2;
+    //   padding: 200px 0 25px;
+    //   margin-top: -320px;
+    //   text-align: center;
+    //   background: #fff;
+    //   background: -moz-linear-gradient(bottom,rgba(255,255,255,0.1),rgba(255,255,255,0));
+    //   background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff));
     .article-item
       border-bottom 1px dashed #8492A6
       position relative
@@ -107,6 +116,7 @@ ul,li
       .article-abstract
         font-size 16px
         line-height 24px
+        background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff))
       .article-footer
         height 30px
         margin-top 20px
