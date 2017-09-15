@@ -4,6 +4,7 @@ const TagModel = require('../models/tag');
 const Tag = require('../controllers/tag');
 const fs = require('fs');
 const client = require('../../config/index.js');
+const marked = require('marked');
 let res_model = (code, message, data) => {
   return {
     code: code,
@@ -14,6 +15,7 @@ let res_model = (code, message, data) => {
 //保存文章
 exports.save_article = async(ctx, next) => {
   let req = ctx.request.body;
+  req.description = marked(req.description);
   let tags_id = await Tag.save_tag(ctx);
   let _article = await articleModel.findOne({title:req.title}).exec();
   let res = {}; 

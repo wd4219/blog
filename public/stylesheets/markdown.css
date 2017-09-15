@@ -13,7 +13,7 @@
   border-bottom: 1px dashed #d7d7d7;
   box-sizing: border-box;
   border-left: 4px solid #209fff;
-  margin: 10px 0;
+  margin: 15px 0 20px;
 }
 .markdown-wd h2 {
   font-size: 22px;
@@ -32,7 +32,7 @@
 }
 .markdown-wd p {
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 2;
 }
 .markdown-wd code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
@@ -51,7 +51,7 @@
 }
 .markdown-wd pre code {
   padding:10px;
-  font-size:14px;
+  font-size:12px;
   border-left: 4px solid #13ce66;
 }
 .markdown-wd blockquote {
@@ -66,6 +66,15 @@
 .markdown-wd blockquote ul,
 .markdown-wd blockquote ol {
   margin: 0;
+}
+.markdown-wd blockquote ul{
+  list-style-type: disc !important;
+}
+.markdown-wd ul{
+  list-style-type: disc !important;
+}
+.markdown-wd ul ul, .markdown-wd ol ul {
+  list-style-type: circle !important;
 }
 .markdown-wd ul,
 .markdown-wd ol {
@@ -89,7 +98,7 @@
 .markdown-wd a {
   text-decoration: none;
   color: #20a0ff;
-  margin: 0 4px;
+  padding: 0px 4px;
 }
 .markdown-wd a:hover {
   color: #fff;

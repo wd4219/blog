@@ -13,13 +13,14 @@ block content
               span.read-amount 阅读量：#{article.read_amount}
               span.like-amount 赞：#{article.like_amount}
             .article-abstract
-              |#{article.description}
+              |!{description}
             .article-footer
               .label-box
                 i.iconfont.icon-label
                 each item in article.tag
                   span.label-item #{item.content}
               a(href="/article/"+article._id).read-total 阅读全文
+          //- .read-all-box
         li
           .article-item
             h2.article-title Est quos illo est hic itaque dolores optio.
