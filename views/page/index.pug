@@ -5,70 +5,23 @@ block content
   .main-container
     .left-content
       ul.article-list
-        li
-          .article-item
-            h2.article-title #{article.title}
-            p.top-status 
-              span.pulish-time 日期：#{article.pulish_time}
-              span.read-amount 阅读量：#{article.read_amount}
-              span.like-amount 赞：#{article.like_amount}
-            .article-abstract
-              |!{description}
-            .article-footer
-              .label-box
-                i.iconfont.icon-label
-                each item in article.tag
-                  span.label-item #{item.content}
-              a(href="/article/"+article._id).read-total 阅读全文
-          //- .read-all-box
-        li
-          .article-item
-            h2.article-title Est quos illo est hic itaque dolores optio.
-            p.top-status 
-              span.pulish-time 日期：2017-08-08
-              span.read-amount 阅读量：200
-              span.like-amount 点赞量：200
-            .article-abstract
-              |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
-            .article-footer
-              .label-box
-                i.iconfont.icon-label
-                span.label-item vue
-                span.label-item css3
-                span.label-item vue-router
-              .read-total 阅读全文
-        li
-          .article-item
-            h2.article-title Est quos illo est hic itaque dolores optio.
-            p.top-status 
-              span.pulish-time 日期：2017-08-08
-              span.read-amount 阅读量：200
-              span.like-amount 点赞量：200
-            .article-abstract
-              |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
-            .article-footer
-              .label-box
-                i.iconfont.icon-label
-                span.label-item vue
-                span.label-item css3
-                span.label-item vue-router
-              .read-total 阅读全文
-        li
-          .article-item
-            h2.article-title Est quos illo est hic itaque dolores optio.
-            p.top-status 
-              span.pulish-time 日期：2017-08-08
-              span.read-amount 阅读量：200
-              span.like-amount 点赞量：200
-            .article-abstract
-              |Non sit molestiae dolore rerum voluptatem. Voluptatem omnis delectus. Eveniet corrupti dolorem repellendus nihil tempora.Est culpa incidunt fugit suscipit in ducimus. Asperiores vero dolor labore in nostrum vitae consequuntur quia.
-            .article-footer
-              .label-box
-                i.iconfont.icon-label
-                span.label-item vue
-                span.label-item css3
-                span.label-item vue-router
-              .read-total 阅读全文
+        each list_item in article_list
+          li
+            .article-item
+              h2.article-title #{list_item.title}
+              p.top-status 
+                span.pulish-time 日期：#{list_item.pulish_time}
+                span.read-amount 阅读量：#{list_item.read_amount}
+                span.like-amount 赞：#{list_item.like_amount}
+              .article-abstract
+                |!{list_item.description}
+              .article-footer
+                .label-box
+                  i.iconfont.icon-label
+                  each item in list_item.tag
+                    a(href="/list/tag/"+item._id,class="label-item") #{item.content}
+                a(href="/article/"+list_item._id).read-total 阅读全文
+            //- .read-all-box
     .right-side
       .login-box
         .username
@@ -91,35 +44,16 @@ block content
       .tag-box
         .tagcloud
           each tag in tags
-            a(href="#") #{tag.content}
+            a(href="/list/tag/"+tag._id) #{tag.content}
       .hot-article
         h2.title  热门文章
         ul.hot-article-list
-          li.hot-article-list.clearfix 
-            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
-            span.read-amount 
-              span.iconfont.icon-yuedu
-              |200
-          li.hot-article-list.clearfix 
-            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
-            span.read-amount 
-              span.iconfont.icon-yuedu
-              |200
-          li.hot-article-list.clearfix 
-            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
-            span.read-amount 
-              span.iconfont.icon-yuedu
-              |200
-          li.hot-article-list.clearfix 
-            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
-            span.read-amount 
-              span.iconfont.icon-yuedu
-              |20000
-          li.hot-article-list.clearfix 
-            a(href="#",class="list-link") 详解vuejssdsadasjkdhasjkdhajdhasjkdhaskjdhaskj
-            span.read-amount 
-              span.iconfont.icon-yuedu
-              |200
+          each item in hot_article_list
+            li.hot-article-list.clearfix 
+              a(href="/article/"+item._id,class="list-link") #{item.title}
+              span.read-amount 
+                span.iconfont.icon-read
+                |#{item.read_amount}
   .tool-bar
     span.iconfont.icon-top
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")

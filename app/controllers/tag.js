@@ -37,3 +37,22 @@ exports.get_tag_list = async(ctx,next)=>{
      return res_model('-1','获取标签列表失败',{});
   }
 };
+
+exports.get_tag_list_of_value = async(ctx,next)=>{
+  try{
+    let value = ctx.request.query.value;
+    let tag_list = await TagModel.find({content:eval("/^"+value+"/")}).limit(6);
+    ctx.body = {
+      code:0,
+      message:"获取数据成功",
+      data:tag_list
+    };
+  }catch(err){
+    console.log(err);
+    ctx.body ={
+      code:-1,
+      message:"获取数据失败",
+      data:[]
+    };
+  }
+}

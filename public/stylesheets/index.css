@@ -55,7 +55,13 @@
   }
 }
 body {
-  background: #d3dce6;
+  background-color: #f4f5f5;
+}
+html,
+body {
+  font-family: -apple-system, PingFang SC, Hiragino Sans GB, Arial, Microsoft YaHei, Helvetica Neue, sans-serif;
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
 }
 ul {
   list-style: none;
@@ -153,80 +159,121 @@ ul {
   width: 1180px;
   margin: 20px auto 30px;
   display: flex;
+  overflow: hidden;
 }
 .main-container .left-content {
   flex: 1;
+  overflow: hidden;
   background-color: #fff;
-  padding: 30px 20px;
 }
-.main-container .left-content .article-header .article-title {
+.main-container .left-content .article-page {
+  padding: 15px 20px 40px;
+}
+.main-container .left-content .article-page .article-header .article-title {
+  font-size: 24px;
   margin-top: 10px;
+  font-weight: 600;
 }
-.main-container .left-content .article-header .article-status {
+.main-container .left-content .article-page .article-header .article-status {
   font-size: 12px;
   padding-bottom: 10px;
   margin: 10px 0;
   border-bottom: 1px dashed #8492a6;
   color: #99a9bf;
 }
-.main-container .left-content .article-header .article-status span {
+.main-container .left-content .article-page .article-header .article-status span {
   margin-right: 20px;
 }
-.main-container .left-content .article-item {
+.main-container .left-content .article-page .article-footer {
+  margin-top: 40px;
+  color: #404040;
+}
+.main-container .left-content .article-page .article-footer .footer-page {
+  padding: 15px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
+}
+.main-container .left-content .article-page .article-footer .footer-page a {
+  text-decoration: none;
+  color: #29b4f0;
+  font-size: 16px;
+}
+.main-container .left-content .article-page .article-footer .footer-page a.prev {
+  display: inline-block;
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.main-container .left-content .article-page .article-footer .footer-page a.next {
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.main-container .left-content .article-list {
+  padding: 20px;
+  margin: 0;
+}
+.main-container .left-content .article-list .article-item {
   border-bottom: 1px dashed #8492a6;
   position: relative;
   margin-bottom: 20px;
 }
-.main-container .left-content .article-item .article-title {
+.main-container .left-content .article-list .article-item .article-title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   border-left: 5px solid #20a0ff;
   height: 40px;
   line-height: 40px;
   padding-left: 30px;
   margin: 0;
 }
-.main-container .left-content .article-item .top-status {
+.main-container .left-content .article-list .article-item .top-status {
   font-size: 12px;
   padding-bottom: 10px;
   margin: 10px 0;
   border-bottom: 1px dashed #8492a6;
   color: #99a9bf;
 }
-.main-container .left-content .article-item .top-status span {
+.main-container .left-content .article-list .article-item .top-status span {
   margin-right: 20px;
 }
-.main-container .left-content .article-item .article-abstract {
+.main-container .left-content .article-list .article-item .article-abstract {
   font-size: 16px;
   line-height: 24px;
   background: -webkit-gradient(linear, 0 top, 0 center, from(rgba(255,255,255,0)), to(#fff));
 }
-.main-container .left-content .article-item .article-footer {
+.main-container .left-content .article-list .article-item .article-footer {
   height: 30px;
   margin-top: 20px;
 }
-.main-container .left-content .article-item .article-footer .label-box {
+.main-container .left-content .article-list .article-item .article-footer .label-box {
   height: 16px;
   font-size: 0;
 }
-.main-container .left-content .article-item .article-footer .label-box .iconfont {
+.main-container .left-content .article-list .article-item .article-footer .label-box .iconfont {
   color: #ccc;
   display: inline-block;
   padding: 0 10px 0 0;
   line-height: 16px;
 }
-.main-container .left-content .article-item .article-footer .label-box .label-item {
+.main-container .left-content .article-list .article-item .article-footer .label-box .label-item {
   display: inline-block;
   color: #ccc;
   font-size: 12px;
   line-height: 16px;
   margin-right: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
-.main-container .left-content .article-item .article-footer .label-box .label-item:hover {
+.main-container .left-content .article-list .article-item .article-footer .label-box .label-item:hover {
   color: #29b4f0;
 }
-.main-container .left-content .article-item .article-footer .read-total {
+.main-container .left-content .article-list .article-item .article-footer .read-total {
   position: absolute;
   right: 20px;
   bottom: 15px;
@@ -339,19 +386,24 @@ ul {
   padding: 20px;
 }
 .main-container .right-side .hot-article .title {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 32px;
+  margin: 0;
   border-bottom: 1px dashed #8492a6;
 }
 .main-container .right-side .hot-article .hot-article-list {
   font-size: 16px;
   padding: 8px 2px;
   cursor: pointer;
+  margin: 0;
+}
+.main-container .right-side .hot-article .hot-article-list .hot-article-list-item {
+  line-height: 24px;
 }
 .main-container .right-side .hot-article .hot-article-list .list-link {
   display: block;
   width: 170px;
-  color: #8492a6;
+  color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -366,14 +418,14 @@ ul {
   float: right;
   width: 60px;
   font-size: 12px;
-  color: #888;
+  color: #c2c2c2;
   text-align: right;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .main-container .right-side .hot-article .hot-article-list .read-amount .iconfont {
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 4px;
   color: #888;
 }
@@ -413,29 +465,73 @@ ul {
 }
 .list-container .title {
   margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 15px 20px;
 }
-.list-container .article-list-content-item {
+.list-container .title .tag {
+  float: right;
   font-size: 14px;
-  color: #333;
-  height: 21px;
-  line-height: 21px;
-  padding: 8px 0;
-  border-bottom: 1px dashed #8492a6;
+  color: #90979c;
 }
-.list-container .article-list-content-item .title-text {
-  float: left;
-  cursor: pointer;
-}
-.list-container .article-list-content-item .title-text:hover {
+.list-container .title .tag .tag_inner {
   color: #20a0ff;
 }
+.list-container .article-list-content {
+  margin: 0;
+}
+.list-container .article-list-content-item {
+  border-bottom: 1px solid rgba(178,186,194,0.15);
+  padding: 15px 20px;
+  font-size: 14px;
+  color: #2e3135;
+  cursor: pointer;
+}
+.list-container .article-list-content-item .article-list-content-item-title {
+  margin: 0 0 15px;
+}
+.list-container .article-list-content-item:first-child {
+  border-top: 1px solid rgba(178,186,194,0.15);
+}
+.list-container .article-list-content-item:hover {
+  background-color: rgba(0,0,0,0.01);
+}
+.list-container .article-list-content-item .title-text {
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #2e3135;
+  text-decoration: none;
+}
+.list-container .article-list-content-item .title-text:hover {
+  text-decoration: underline;
+}
 .list-container .article-list-content-item .item-info {
-  float: right;
-  line-height: 12px;
-  vertical-align: bottom;
   font-size: 12px;
-  color: #ccc;
+  color: #b2bac2;
+  height: 20px;
+  line-height: 20px;
 }
 .list-container .article-list-content-item .item-info span {
-  margin-left: 10px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #edeeef;
+  padding: 0 6px;
+  font-weight: normal;
+}
+.list-container .article-list-content-item .item-info span:first-child {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-right: none;
+}
+.list-container .article-list-content-item .item-info span:last-child {
+  border-left: none;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.list-container .article-list-content-item .item-info .iconfont {
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 5px;
 }

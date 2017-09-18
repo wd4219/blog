@@ -117,4 +117,16 @@ $(function () {
     }
   }
   loop();
+
+  $(window).scroll(function(){
+    var t=$(this).scrollTop();
+    if(t>200){
+        $(".top").stop().fadeIn(); 
+    }else{
+        $(".top").stop().fadeOut();    
+    }   
+  });
+  $(".icon-top").click(function(){    
+      $("body,html").stop().animate({scrollTop:0},300)
+  });
 });

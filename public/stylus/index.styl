@@ -1,7 +1,11 @@
 @import '../static/font/iconfont.css'
 @import 'mixin.styl'
 body
-  background main-color
+  background-color: #f4f5f5
+html,body
+  font-family:-apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
+  text-rendering: optimizeLegibility
+  word-break: break-word;
 ul
   list-style: none
   padding:0
@@ -85,84 +89,109 @@ ul
   width 1180px
   margin 20px auto 30px
   display flex
+  overflow: hidden
   .left-content
     flex 1
+    overflow: hidden
     background-color #fff
-    padding 30px 20px
-    .article-header
-      .article-title
-        margin-top:10px
-      .article-status
-        font-size 12px
-        padding-bottom:10px
-        margin 10px 0
-        border-bottom:1px dashed #8492A6
-        color #99A9BF
-        span
-          margin-right:20px
-    // .read-all-box
-    //   position: relative;
-    //   z-index: 2;
-    //   padding: 200px 0 25px;
-    //   margin-top: -320px;
-    //   text-align: center;
-    //   background: #fff;
-    //   background: -moz-linear-gradient(bottom,rgba(255,255,255,0.1),rgba(255,255,255,0));
-    //   background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff));
-    .article-item
-      border-bottom 1px dashed #8492A6
-      position relative
-      margin-bottom 20px
-      .article-title
-        font-size 24px
-        font-weight 700
-        border-left 5px solid header-color
-        height 40px
-        line-height 40px 
-        padding-left 30px
-        margin:0
-      .top-status
-        font-size 12px
-        padding-bottom:10px
-        margin 10px 0
-        border-bottom:1px dashed #8492A6
-        color #99A9BF
-        span
-          margin-right:20px
-      .article-abstract
-        font-size 16px
-        line-height 24px
-        background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff))
+    .article-page
+      padding:15px 20px 40px
+      .article-header
+        .article-title
+          font-size:24px
+          margin-top:10px
+          font-weight:600
+        .article-status
+          font-size 12px
+          padding-bottom:10px
+          margin 10px 0
+          border-bottom:1px dashed #8492A6
+          color #99A9BF
+          span
+            margin-right:20px  
       .article-footer
-        height 30px
-        margin-top 20px
-        .label-box
-          height 16px
-          font-size 0
-          .iconfont
-            color #ccc
-            display inline-block
-            padding 0 10px 0 0
-            line-height 16px
-          .label-item
-            display: inline-block
-            color #ccc
-            font-size 12px
-            line-height 16px
-            margin-right:10px
-            cursor: pointer
-            &:hover
-              color:#29B4F0
-        .read-total
-          position absolute
-          right 20px
-          bottom 15px
-          background-color header-color
-          border-radius(4px)
-          text-decoration:none
-          padding 8px 15px
-          color #fff
-          cursor pointer
+        margin-top:40px
+        color: #404040
+        .footer-page
+          padding:15px 0
+          border-top:1px solid #dddddd
+          border-bottom: 1px solid #dddddd
+          font-size:0
+          a
+            text-decoration:none
+            color:#29B4F0
+            font-size:16px
+            &.prev
+              display:inline-block
+              width:50%
+              text-overflow: ellipsis
+              overflow: hidden
+              white-space: nowrap
+            &.next
+              display:inline-block
+              width:50%
+              text-align: right
+              text-overflow: ellipsis
+              overflow: hidden
+              white-space: nowrap;
+    .article-list
+      padding:20px
+      margin:0
+      .article-item
+        border-bottom 1px dashed #8492A6
+        position relative
+        margin-bottom 20px
+        .article-title
+          font-size 24px
+          font-weight 600
+          border-left 5px solid header-color
+          height 40px
+          line-height 40px 
+          padding-left 30px
+          margin:0
+        .top-status
+          font-size 12px
+          padding-bottom:10px
+          margin 10px 0
+          border-bottom:1px dashed #8492A6
+          color #99A9BF
+          span
+            margin-right:20px
+        .article-abstract
+          font-size 16px
+          line-height 24px
+          background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff))
+        .article-footer
+          height 30px
+          margin-top 20px
+          .label-box
+            height 16px
+            font-size 0
+            .iconfont
+              color #ccc
+              display inline-block
+              padding 0 10px 0 0
+              line-height 16px
+            .label-item
+              display: inline-block
+              color #ccc
+              font-size 12px
+              line-height 16px
+              margin-right:10px
+              cursor: pointer
+              text-decoration: none
+              &:hover
+                color:#29B4F0
+          .read-total
+            position absolute
+            right 20px
+            bottom 15px
+            background-color header-color
+            border-radius(4px)
+            text-decoration:none
+            padding 8px 15px
+            color #fff
+            cursor pointer
   .right-side
     flex 0 0 300px
     margin-left 30px
@@ -245,17 +274,21 @@ ul
       margin-top:20px
       padding: 20px
       .title
-        font-size: 16px
+        font-size: 14px
         line-height:32px
+        margin:0
         border-bottom: 1px dashed #8492A6
       .hot-article-list
         font-size:16px
         padding:8px 2px
         cursor: pointer
+        margin:0
+        .hot-article-list-item
+          line-height:24px
         .list-link
           display: block
           width:170px
-          color:#8492A6
+          color: #333
           overflow: hidden
           text-overflow: ellipsis
           white-space: nowrap;
@@ -268,13 +301,13 @@ ul
           float: right
           width: 60px
           font-size:12px
-          color: #888
+          color: #c2c2c2
           text-align: right
           overflow: hidden
           text-overflow: ellipsis
           white-space: nowrap;
           .iconfont
-            font-size:12px
+            font-size:14px
             margin-right:4px
             color: #888
 .footer
@@ -308,26 +341,61 @@ ul
   box-sizing: border-box
   .title
     margin:0
-  .article-list-content-item
-    font-size:14px
-    color:#333
-    height:21px
-    line-height:21px
-    padding:8px 0
-    border-bottom:1px dashed #8492A6
-    .title-text
-      float:left
-      cursor: pointer
-      &:hover
+    font-size:16px
+    font-weight:normal
+    padding:15px 20px 
+    .tag
+      float: right
+      font-size: 14px;
+      color: #90979c;
+      .tag_inner
         color:#20a0ff
+  .article-list-content
+    margin:0
+  .article-list-content-item
+    border-bottom: 1px solid rgba(178,186,194,.15)
+    padding:15px 20px
+    font-size:14px
+    color:#2e3135
+    cursor: pointer
+    .article-list-content-item-title
+      margin:0 0 15px
+    &:first-child
+      border-top: 1px solid rgba(178,186,194,.15)
+    &:hover
+      background-color: rgba(0,0,0,.01)
+    .title-text
+      font-size:14px
+      font-weight: 600
+      cursor: pointer
+      color:#2e3135
+      text-decoration:none
+      &:hover
+        text-decoration: underline
     .item-info
-      float:right
-      line-height:12px
-      vertical-align:bottom
       font-size: 12px
-      color:#ccc
+      color:#b2bac2
+      height:20px
+      line-height: 20px
       span
-        margin-left:10px
+        display: inline-block
+        box-sizing: border-box
+        border:1px solid #edeeef
+        padding: 0 6px
+        font-weight: normal
+        &:first-child
+          border-top-left-radius: 2px
+          border-bottom-left-radius: 2px
+          border-right:none
+        &:last-child
+          border-left: none
+          border-top-right-radius: 2px
+          border-bottom-right-radius: 2px
+      .iconfont
+        font-size:14px
+        text-align:center
+        display:inline-block
+        margin-right:5px
 
 
     

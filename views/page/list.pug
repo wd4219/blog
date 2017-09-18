@@ -4,119 +4,25 @@ block content
   .main-container
     .left-content
       .list-container
+        h2.title 文章列表
+          if tag_content
+            .tag 标签：
+              span.tag_inner #{tag_content}
         ul.article-list-content
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
-          li.article-list-content-item
-            h3.title 
-              .title-text 详解vuejs的前世来生
-              .item-info
-                span.pulish-time 日期：2017-08-08
-                span.read-amount 阅读量：200
-                span.like-amount 点赞：200
+          each item in list
+            li.article-list-content-item
+              a(href="/article/"+item._id,class="title-text")
+                h3.article-list-content-item-title #{item.title}
+                .item-info
+                  span.pulish-time 
+                    i.iconfont.icon-riqi
+                    |#{item.pulish_time}
+                  span.read-amount
+                    i.iconfont.icon-read
+                    |#{item.read_amount}
+                  span.like-amount
+                    i.iconfont.icon-zan
+                    |#{item.like_amount}
     .right-side
       .login-box
         .username
