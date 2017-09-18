@@ -12,21 +12,26 @@ let  res_model = (code,message,data) => {
 exports.save_tag = async(ctx, next) => {
   let tags = ctx.request.body.tags;
   let tags_id =[]; 
-  for (let i = 0; i < tags.length; i++) {
-    let _tag = new TagModel(tags[i]);
-    let tag = await TagModel.findOne({
-      'content': _tag.content
-    }).exec();
-    let result;
-    if (tag) {
-      result = await tag.save(function (err) {});
-      tags_id.push(result._id);
-    } else {
-      result = await _tag.save(function (err) {});
-      tags_id.push(result._id);
+  try{
+    for (let i = 0; i < tags.length; i++) {
+      let tag = await TagModel.findOne({
+        'content': tags[i]
+      }).exec();
+      let result;
+      if (tag) {
+        result = await tag.save();
+        tags_id.push(result._id);
+      } else {
+        let _tag = new TagModel({content:tags[i]});
+        result = await _tag.save();
+        tags_id.push(result._id);
+      }
     }
+    return tags_id;
+  }catch(err){
+    console.log(err);
+    return [];
   }
-  return tags_id;
 };
 //获取标签列表
 exports.get_tag_list = async(ctx,next)=>{
@@ -37,7 +42,7 @@ exports.get_tag_list = async(ctx,next)=>{
      return res_model('-1','获取标签列表失败',{});
   }
 };
-
+// 根据传进来的值模糊查询tag表，返回符合条件的列表
 exports.get_tag_list_of_value = async(ctx,next)=>{
   try{
     let value = ctx.request.query.value;

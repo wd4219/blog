@@ -79,6 +79,7 @@ exports.find_article_list = async(ctx, next) => {
       meta: 0,
       __v: 0,
       tag: 0,
+      category:0,
       description: 0
     }).populate('tag', {
       meta: 0,
@@ -86,7 +87,7 @@ exports.find_article_list = async(ctx, next) => {
       _id:0,
       count: 0
     }).exec();
-     return res_model(0, '获取文章列表成功', result);
+    return res_model(0, '获取文章列表成功', result);
   } catch (err) {
     return res_model(0, '获取文章列表失败',{});
   }

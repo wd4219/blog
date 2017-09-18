@@ -8,6 +8,11 @@ let ArticleSchema = new Schema({
     default:'',
     unique:true
   },
+  autor:{
+    type:String,
+    unique:true,
+    default:'ezblog'
+  },
   pulish_time:{
     type:String,
   },

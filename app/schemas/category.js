@@ -8,7 +8,7 @@ let CategorySchema = new Schema({
   },
   count:{
     type:Number,
-    default:1
+    default:0
   },
   meta:{
     createAt:{

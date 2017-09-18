@@ -19,7 +19,6 @@ router.get('/', async(ctx, next) => {
   let article = await Article.find_article_all(ctx, next);
   let hot_article_list = await Article.find_hot_article_list(ctx, next);
   let tags = await Tag.get_tag_list(ctx, next);
-  data.title = '首页';
   data.article_list = article.data;
   data.hot_article_list = hot_article_list;
   data.tags = tags.data;
@@ -44,7 +43,7 @@ router.get('/list', async(ctx, next) => {
   let list = await Article.find_article_list(ctx, next);
   let data = {};
   data.list = list.data;
-  data.title = '文章列表';
+  console.log(data.list);
   await ctx.render('list', data);
 });
 
@@ -53,7 +52,6 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
   let data = {};
   data.list = result.list;
   data.tag_content = result.tag_content;
-  data.title = '文章列表';
   await ctx.render('list', data);
 });
 // 添加文章类别

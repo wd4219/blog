@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .top-box {
+      height: 80px;
+      line-height: 80px;
+      position: relative;
+    }
+
+    .title-input {
+      height: 80px;
+      width: 100%;
+      border: none;
+      padding: 0 120px 0 20px;
+      font-size: 20px;
+      font-weight: 600;
+      outline: none;
+      color: #000;
+      box-sizing: border-box;
+    }
+
+    .pulish-btn {
+      height: 40px;
+      line-height: 40px;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: #E23737;
+      color: #fff;
+      width: 100px;
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .CodeMirror-scroll {
+      min-height: 600px;
+    }
+
+    .editor-toolbar.fullscreen {
+      border-top: 1px solid #bbb;
+      top: 80px;
+    }
+
+    .editor-preview-side {
+      top: 130px;
+    }
+
+    .CodeMirror-fullscreen {
+      top: 130px;
+    }
+
+    .alert-box {
+      position: fixed;
+      padding: 15px;
+      width: 700px;
+      background-color: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      z-index: 100;
+      overflow: visible;
+    }
+
+    .alert-box .title {
+      font-size: 20px;
+      font-weight: normal;
+      line-height: 50px;
+      border-bottom: 1px solid #d7d7d7;
+    }
+
+    .alert-box .tag-box {
+      padding: 0px 10px 10px 10px;
+      border: 1px solid #d7d7d7;
+      border-radius: 4px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .alert-box .tag-box .suggest-list {
+      position: absolute;
+      right: 0px;
+      width: 100%;
+      z-index: 200;
+      background: #fff;
+      border: 1px solid #d7d7d7;
+      box-sizing: border-box;
+      border-radius: 2px;
+      margin: 5px 0;
+      padding: 5px 0;
+      max-height: 192px;
+      overflow: hidden;
+      margin-top: -1px;
+      top: 46px;
+    }
+
+    .alert-box .tag-box .suggest-list .suggest-list-item {
+      padding: 0px 10px;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #48576a;
+      height: 30px;
+      line-height: 30px;
+      box-sizing: border-box;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .alert-box .tag-box .suggest-list .suggest-list-item:hover {
+      background-color: #1c8de0;
+      color: #fff;
+    }
+
+    .alert-box .tag-box .suggest-list .suggest-list-item.selected {
+      background-color: #1c8de0;
+      color: #fff;
+    }
+
+    .alert-box .tag-box .tag-list {
+      display: inline;
+      font-size: 12px;
+    }
+
+    .alert-box .tag-box .tag-list .tag-list-item {
+      display: inline-block;
+      background-color: #f1f8ff;
+      line-height: 24px;
+      border-radius: 12px;
+      padding-left: 8px;
+      padding-right: 30px;
+      position: relative;
+      margin-top:10px;
+      margin-right: 8px;
+    }
+
+    .tag-list-item .iconfont {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .alert-box .tag-input {
+      border: none;
+      outline: none;
+      height: 24px;
+      text-decoration: none;
+      font-size:14px;
+      margin-top:10px;
+    }
+
+    .tag-label,
+    .description-label,
+    .category-label {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 2;
+    }
+
+    .description-content {
+      width: 100%;
+      height: 200px;
+      border: 1px solid #d7d7d7;
+      outline: none;
+      padding: 10px;
+      border-radius: 4px;
+      box-sizing: border-box;
+      text-decoration: none;
+      resize: none;
+    }
+
+    .category {
+      position: relative;
+      width: 240px;
+    }
+
+    .category-selected {
+      height: 36px;
+      border: 1px solid #d7d7d7;
+      border-radius: 4px;
+      width: 240px;
+      line-height: 36px;
+      padding-left: 10px;
+      padding-right: 30px;
+      position: relative;
+      font-weight: normal;
+      font-size: 14px;
+      box-sizing: border-box;
+      color: #bfcbd9;
+      user-select: none;
+    }
+
+    .category-selected.active {
+      color: #48576a;
+    }
+
+    .category-selected .iconfont {
+      position: absolute;
+      font-size: 14px;
+      height: 14px;
+      line-height: 14px;
+      right: 10px;
+      top: 50%;
+      margin-top: -7px;
+      transition: all linear 0.2s;
+    }
+
+    .icon-add {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -30px;
+      cursor: pointer;
+    }
+
+    .category .iconfont.show {
+      transform: rotate(180deg);
+    }
+
+    .category .option-list {
+      min-width: 240px;
+      position: absolute;
+      right: -1px;
+      z-index: 200;
+      background: #fff;
+      border: 1px solid #d7d7d7;
+      box-sizing: border-box;
+      border-radius: 2px;
+      margin: 5px 0;
+      padding: 5px 0;
+      max-height: 245px;
+      overflow-y: auto;
+    }
+
+    .category .option-list .option-list-item {
+      padding: 0px 10px;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #48576a;
+      height: 36px;
+      line-height: 36px;
+      box-sizing: border-box;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .category .option-list .option-list-item:hover {
+      background-color: #e4e8f1;
+    }
+
+    .category .option-list .selected {
+      background-color: #1c8de0;
+      color: #fff;
+    }
+
+    .category .option-list .selected:hover {
+      background-color: #1c8de0;
+    }
+
+    .mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 80;
+    }
+
+    .btn-box {
+      height: 30px;
+      margin-top: 20px;
+    }
+
+    .btn-box .btn {
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      float: right;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: #bfcbd9;
+      margin-right: 40px;
+    }
+
+    .confirm-btn {
+      background: #E23737;
+    }
+  </style>
+  <title>发表博客</title>
+  <link rel="stylesheet" href="../stylesheets/markdown.css">
+  <link rel="stylesheet" href="../stylesheets/atom-one-light.css">
+  <link rel="stylesheet" href="../static/font/iconfont.css">
+  <script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="top-box">
+    <input type="text" class="title-input" placeholder="请输入标题">
+    <div class="pulish-btn">发表博客</div>
+  </div>
+  <textarea id="content"></textarea>
+  <div class="mask" style="display:none;"></div>
+  <div class="alert-box" style="display:none;">
+    <h4 class="title">博客信息</h4>
+    <h3 class="category-label">分类：</h3>
+    <div class="category">
+      <h3 class="category-selected">
+        <div>请选择</div><i class="iconfont icon-select-arrow"></i></h3>
+      <i class="iconfont icon-add" style="font-size:24px;color: #ccc;"></i>
+      <ul class="option-list" style="display:none;">
+      </ul>
+    </div>
+    <h3 class="tag-label">标签：</h3>
+    <div class="tag-box">
+      <ul class="suggest-list" style="display:none;">
+      </ul>
+      <ul class="tag-list">
+        <!-- <li class="tag-list-item">
+          移动端
+          <i class="iconfont icon-close"></i>
+        </li> -->
+      </ul>
+      <input type="text" placeholder="请输入标签" class="tag-input">
+    </div>
+    <h3 class="description-label">摘要：</h3>
+    <textarea class="description-content"></textarea>
+    <div class="btn-box">
+      <div class="confirm-btn btn">确认</div>
+      <div class="cancel-btn btn">取消</div>
+    </div>
+  </div>
+  <script src="../scripts/marked.js"></script>
+  <script>
+    var is_req_category = true; //判断是否请求类别接口
+    var simplemde = new SimpleMDE({
+      autofocus: true,
+      autosave: {
+        enabled: true,
+        uniqueId: "blog",
+        delay: 1000,
+      },
+      blockStyles: {
+        bold: "__",
+        italic: "_"
+      },
+      element: document.getElementById("content"),
+      forceSync: true,
+      hideIcons: ["guide", "heading"],
+      indentWithTabs: false,
+      initialValue: "",
+      insertTexts: {
+        horizontalRule: ["", "\n\n-----\n\n"],
+        image: ["![](http://", ")"],
+        link: ["[", "](http://)"],
+        table: ["",
+          "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"
+        ],
+      },
+      lineWrapping: false,
+      parsingConfig: {
+        allowAtxHeaderWithoutSpace: true,
+        strikethrough: false,
+        underscoresBreakWords: true,
+      },
+      placeholder: "请输入博文",
+      previewRender: function (plainText, preview) { // Async method
+        preview.innerHTML = marked(plainText);
+        $('pre code').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+        return preview.innerHTML;
+      },
+      promptURLs: false,
+      renderingConfig: {
+        singleLineBreaks: false,
+      },
+      shortcuts: {
+        drawTable: "Cmd-Alt-T"
+      },
+      showIcons: ["code", "table"],
+      spellChecker: false,
+      status: false, // Another optional usage, with a custom status bar item that counts keystrokes
+      styleSelectedText: false,
+      tabSize: 2,
+    });
+    document.querySelector('.editor-preview-side').className += ' markdown-wd';
+    simplemde.toggleSideBySide();
+    $('.tag-input').keydown(function (e) {
+      if (e.which == '13') {
+        if ($('.suggest-list').css('display') == 'none' || $('.suggest-list').find('.selected').length == 0) {
+          if ($(this).val().trim() != '') {
+            let html = '<li class="tag-list-item">' + $(this).val().trim() + '<i class="iconfont icon-close"></i></li>'
+            $('.tag-list').append(html);
+            $(this).val('');
+          }
+        }
+      $('.suggest-list').slideUp(200);
+      } else if (e.which == '8' && $(this).val() == '') {
+        $('.tag-list-item').remove('.tag-list-item:last-child');
+      } else if (e.which == '40' && $('.suggest-list').css('display') != 'none') {
+        if ($('.suggest-list').find('.selected').length > 0) {
+          if ($('.suggest-list').find('.selected').next().length > 0) {
+            $('.suggest-list').find('.selected').next().addClass('selected').siblings().removeClass('selected');
+          } else {
+            $('.suggest-list-item').eq(0).addClass('selected').siblings().removeClass('selected');
+          }
+        } else {
+          $('.suggest-list-item').eq(0).addClass('selected');
+        }
+        $(this).val($('.suggest-list .selected').text());
+        e.preventDefault();
+      } else if (e.which == '38' && $('.suggest-list').css('display') != 'none') {
+        if ($('.suggest-list').find('.selected').length > 0) {
+          if ($('.suggest-list').find('.selected').prev().length > 0) {
+            $('.suggest-list').find('.selected').prev().addClass('selected').siblings().removeClass('selected');
+          } else {
+            $('.suggest-list-item:last-child').addClass('selected').siblings().removeClass('selected');
+          }
+        } else {
+          $('.suggest-list-item:last-child').addClass('selected');
+        }
+        $(this).val($('.suggest-list .selected').text());
+        e.preventDefault();
+      }
+    });
+    $('.tag-list').on('click', function (e) {
+      if ($(e.target).hasClass('iconfont')) {
+        $(e.target).parent().remove();
+      }
+    });
+    $('.tag-box').click(function () {
+      $('.tag-input').focus();
+    });
+    $('.category-selected').click(function (e) {
+      if ($('.option-list').css('display') != 'none') {
+        $('.category-selected .iconfont').removeClass('show');
+        $('.option-list').slideUp(200);
+      } else {
+        if (is_req_category) {
+          $.ajax({
+            type: 'get',
+            url: '/admin/category',
+            success: function (response) {
+              var html = '';
+              if (response.code == 0) {
+                if (response.data.length > 0) {
+                  for (var i = 0; i < response.data.length; i++) {
+                    html += '<li class="option-list-item">' + response.data[i].content + '</li>'
+                  }
+                } else {
+                  html =
+                    '<p style="font-size:14px;line-height:36px;text-align:center;color:#bbb;">无分类,请添加</p>';
+                }
+                is_req_category = false;
+              } else {
+                is_req_category = true;
+                html = '<p style="font-size:14px;line-height:36px;text-align:center;color:#bbb;">数据出错,请刷新页面重试</p>';
+              }
+              $('.option-list').html(html);
+              $('.category-selected .iconfont').addClass('show');
+              $('.option-list').slideDown(200);
+            },
+            error: function (err) {
+              console.log(err);
+            }
+          });
+        } else {
+          $('.category-selected .iconfont').addClass('show');
+          $('.option-list').slideDown(200);
+        }
+      }
+      e.stopPropagation();
+    });
+    $('.option-list').click(function (e) {
+      if ($(e.target).hasClass('option-list-item')) {
+        $(e.target).addClass('selected').siblings().removeClass('selected');
+        $('.category-selected div').html($(e.target).text());
+        $('.category-selected').addClass('active');
+        $('.category-selected .iconfont').removeClass('show');
+        $('.option-list').slideUp(200);
+        e.stopPropagation();
+      }
+    });
+
+    $('.cancel-btn').click(function () {
+      $('.alert-box').fadeOut();
+      $('.mask').fadeOut();
+    });
+
+    $('.pulish-btn').click(function () {
+      $('.alert-box').fadeIn();
+      $('.mask').fadeIn();
+    });
+
+    $('body').click(function (e) {
+      $('.category-selected .iconfont').removeClass('show');
+      $('.option-list').slideUp(200);
+    });
+
+    $('.confirm-btn').click(function () {
+      var data = {};
+      data.title = $('.title-input').val();
+      data.content = simplemde.value();
+      data.category = $('.category-selected > div').text();
+      data.tags = [];
+      $('.tag-list-item').each(function (index, item) {
+        data.tags.push($(item).text());
+      });
+      data.description = $('.description-content').val();
+      $.ajax({
+        type: 'post',
+        url: '/admin/create_article',
+        data: data,
+        timeout: 15000,
+        success: function (response) {
+          if(response.code == 0){
+            $('.alert-box').fadeOut();
+            $('.mask').fadeOut();
+            alert('文章保存成功');            
+          }
+          else{
+            alert('文章保存失败');
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      })
+    });
+    $('.icon-add').click(function (e) {
+      var category = prompt("请输入文章类别", "");
+      if (category) {
+        $.ajax({
+          type: 'post',
+          url: '/admin/category',
+          data: {
+            category: category
+          },
+          success: function (response) {
+            if (response.code == 0) {
+              alert('类别保存成功');
+              is_req_category = true;
+            } else {
+              alert('类别保存失败');
+            }
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        });
+      }
+    });
+    // 点击提示列表项给input赋值
+    $('.suggest-list').click(function (e) {
+      if ($(e.target).hasClass('suggest-list-item')) {
+        $('.tag-input').val($(e.target).text());
+        $(this).slideUp(200);
+      }
+    });
+
+    // 标签输入框输入提示功能实现
+    $('.tag-input').on('input', function (e) {
+      var timer = '';
+      if ($(this).val() == '') {
+        $('.suggest-list').slideUp();
+        if (timer) {
+          clearTimeout(timer);
+        }
+      }
+      if (timer) {
+        clearTimeout(timer);
+      } else {
+        timer = setTimeout(function () {
+          var val = $('.tag-input').val();
+          if (val != '') {
+            $.ajax({
+              type: 'get',
+              url: '/admin/suggest_tag',
+              data: {
+                value: val
+              },
+              success: function (response) {
+                if (response.code == 0) {
+                  if (response.data.length > 0) {
+                    var html = '';
+                    for (var i = 0; i < response.data.length; i++) {
+                      html += '<li class="suggest-list-item">' + response.data[i].content + '</li>';
+                    }
+                    if ($('.suggest-list').css('display') == 'none') {
+                      $('.suggest-list').css('top',$('.tag-box').outerHeight()-1);
+                      $('.suggest-list').html(html).slideDown(200);
+                    } else {
+                      $('.suggest-list').css('top',$('.tag-box').outerHeight()-1);
+                      $('.suggest-list').html(html)
+                    }
+                  } else {
+                    if ($('.suggest-list').css('display') != 'none') {
+                      $('.suggest-list').html(html).slideUp(200);
+                    }
+                  }
+                } else {
+                  console.log(response.message);
+                }
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            });
+          }
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+
+</html>
