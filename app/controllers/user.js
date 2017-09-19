@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 let  res_model = (code,message,data) => {
   return {
       code: code,
-      messageg: message,
+      message: message,
       data: data?data:{}
   }
 };
@@ -15,6 +15,7 @@ exports.sign_up = async(ctx,next)=>{
   try{
     let _user = new UserModel(user);
     let result = await _user.save();
+    ctx.session = result;
     ctx.body = res_model(0,'注册成功',result);
   }catch(err){
     console.log(err);
@@ -24,10 +25,10 @@ exports.sign_up = async(ctx,next)=>{
 
 exports.sign_in = async(ctx,next)=>{
   let user = ctx.request.body;
-  
   try{
-    let _user = await UserModel.findOne({email:user.email}).exec();
+    let _user = await UserModel.findOne({email_phone:user.email_phone}).exec();
     if(bcrypt.compareSync(user.password,_user.password)){
+      ctx.session = _user;
       ctx.body = res_model(0,'登录成功',_user);
     }
     else{
@@ -35,5 +36,20 @@ exports.sign_in = async(ctx,next)=>{
     }
   }catch(err){
     console.log(err);
+  }
+}
+
+exports.check_username = async(ctx,next)=>{
+  let username = ctx.request.query.username;
+  try{
+    let _user = await UserModel.findOne({username:username}).exec();
+    if(_user){
+      ctx.body = res_model(-1,'昵称已存在,请重新输入');
+    }
+    else{
+      ctx.body = res_model(0,'昵称可以使用');
+    }
+  }catch(err){
+    ctx.body = res_model(-2,'出错了',err);
   }
 }

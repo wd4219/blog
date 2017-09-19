@@ -4,7 +4,7 @@ const TagModel = require('../models/tag');
 let  res_model = (code,message,data) => {
   return {
       code: code,
-      messageg: message,
+      message: message,
       data: data?data:{}
   }
 };

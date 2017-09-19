@@ -43,7 +43,6 @@ router.get('/list', async(ctx, next) => {
   let list = await Article.find_article_list(ctx, next);
   let data = {};
   data.list = list.data;
-  console.log(data.list);
   await ctx.render('list', data);
 });
 

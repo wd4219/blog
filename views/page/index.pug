@@ -23,24 +23,6 @@ block content
                 a(href="/article/"+list_item._id).read-total 阅读全文
             //- .read-all-box
     .right-side
-      .login-box
-        .username
-          label(for="username") 用户名
-          input(type="text", id="username",placeholder="请输入邮箱号码",autocomplete="off")
-        .password
-          label(for="password") 密码
-          input(type="password", id="password",placeholder="请输入密码",autocomplete="off")
-        .login-btn 登录
-        .lose-password 忘记密码？
-        .quick-login
-          .line
-          .text 快捷登录
-          .line
-        .quick-login-icon
-          span.iconfont.icon-qq
-          span.iconfont.icon-github
-          span.iconfont.icon-weixin
-          span.iconfont.icon-weibo
       .tag-box
         .tagcloud
           each tag in tags

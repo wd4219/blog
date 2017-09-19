@@ -4,7 +4,7 @@ const CategoryModel = require('../models/category');
 let  res_model = (code,message,data) => {
   return {
       code: code,
-      messageg: message,
+      message: message,
       data: data?data:{}
   }
 };

@@ -6,6 +6,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const mongoose = require('mongoose');
+const session = require('koa-session2');
 const DB_URL = 'mongodb://localhost/myblog'
 mongoose.connect(DB_URL,{ useMongoClient: true});
 
@@ -19,6 +20,10 @@ onerror(app)
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
+}))
+app.use(session({
+  key:'ezblog_id',
+  maxAge:1000*60*60*24*7
 }))
 app.use(json())
 app.use(logger())

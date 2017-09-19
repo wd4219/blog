@@ -9,6 +9,143 @@ html,body
 ul
   list-style: none
   padding:0
+.mask
+  position: fixed;
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 300
+  display: none
+  background-color: rgba(0,0,0,0.4)
+.message-box
+  height:40px
+  background-color:#fff
+  border-radius: 2px
+  min-width:250px
+  line-height:40px
+  position: fixed
+  top:-50px
+  left:50%
+  transform: translate3d(-50%,0,0)
+  font-size:0
+  transition: top 0.3s linear
+  z-index: 350
+  overflow: hidden
+  color:#8391a5
+  box-sizing: border-box
+  display: flex
+  box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+  &.show
+    top:20px
+  span
+    font-size:14px
+    display: inline-block
+  .iconfont
+    flex: 0 0 40px
+    text-align: center;
+    line-height:40px
+    &.icon-success
+      color: #ffffff
+      background-color: #13CE66
+    &.icon-info
+      color: #ffffff
+      background: #20A0FF
+    &.icon-fail
+      color:#fff
+      background-color: #FF4949
+  .content
+    flex: 1
+    padding-left:10px
+.sign-box
+  position: fixed
+  top:40%;
+  left:50%;
+  transform:translate3d(-50%,-50%,0);
+  z-index:400
+  opacity: 0
+  visibility: hidden
+  transition: all  0.3s linear
+  &.show
+    visibility: visible
+    top:50%
+    opacity: 1
+.signin-box,.signup-box
+  display: none
+  background-color #fff
+  padding 20px
+  box-sizing border-box
+  width:320px
+  border-radius: 2px;
+  .title
+    text-align: center
+    margin: 10px 0 10px
+    font-size: 20px
+    font-weight: 600
+  input
+    height 40px
+    border-radius(2px)
+    border 1px solid main-color
+    padding 0 10px
+    vertical-align middle
+    outline none
+    background-color: #fff
+    width:100%
+    margin-bottom:15px
+    box-sizing:border-box
+    overflow: hidden;
+    display: inline-block
+    font-size:14px
+    &:focus
+      border 1px solid header-color
+  .signin-btn,.signup-btn
+    background-color header-color
+    height 40px
+    border-radius(2px)
+    line-height 40px
+    text-align center
+    color #fff
+    cursor pointer
+    font-size 14px
+    margin 5px 0 15px
+  .prompt-box
+    font-size: 14px
+    margin-bottom: 10px
+    color:#8b9196
+    .lose-password
+      cursor: pointer
+      color: header-color
+      float: right
+    .sign-up
+      cursor: pointer
+      color: header-color
+      margin-left:10px
+    .sign-in
+      display: block;
+      cursor: pointer
+      color: header-color
+      text-align: center
+  .quick-login
+    display flex
+    .line
+      border-bottom 1px solid #475669
+      position relative
+      flex 1
+      top -6px
+    .text
+      display inline-block
+      padding 0 10px
+      color #475669
+      font-size 14px
+  .quick-login-icon
+    margin-top: 20px
+    display: flex;
+    .iconfont
+      flex: 1;
+      font-size: 40px
+      color: header-color
+      margin: 0 10px;
+      cursor: pointer
 .header
   height 100px
   width 100%
@@ -57,12 +194,25 @@ ul
         color:#fff
         text-decoration: none
         transform: translate3d(-50%,-50%,0)
+  .right-box
+    display: flex
+    position: absolute
+    right:10px
+    top:30px
+    height:40px
+    color:#fff
+    line-height:40px
+    width:100px
+    span
+      flex: 1
+      text-align: center
+      cursor: pointer
   .search-box
     height:40px
     width: 200px
     line-height:40px
     position: absolute
-    right:10px
+    left:0px
     top:30px
     color:#8492a6
     font-size:14px
@@ -195,80 +345,9 @@ ul
   .right-side
     flex 0 0 300px
     margin-left 30px
-    .login-box
-      height 300px
-      background-color #fff
-      padding 20px
-      box-sizing border-box
-      .username,.password
-        font-size 0 
-        margin-bottom 15px
-        input
-          height 30px
-          border-radius(4px)
-          border 1px solid main-color
-          padding 0 10px
-          vertical-align middle
-          margin-left 15px
-          outline none
-          background-color: #fff
-          width:195px
-          box-sizing:border-box
-          display: inline-block
-          font-size:14px
-          &:focus
-            border 1px solid header-color
-        label
-          display inline-block
-          font-size 16px
-          color #475669
-          height 30px
-          width 50px
-          line-height 30px
-          vertical-align middle
-      .login-btn
-        background-color header-color
-        height 30px
-        border-radius(4px)
-        line-height 30px
-        text-align center
-        color #fff
-        cursor pointer
-        font-size 14px
-        margin-bottom 20px
-      .lose-password
-        font-size: 12px
-        text-align: right
-        cursor: pointer
-        color: header-color
-        margin-bottom: 20px
-      .quick-login
-        display flex
-        .line
-          border-bottom 1px solid #475669
-          position relative
-          flex 1
-          top -6px
-        .text
-          display inline-block
-          padding 0 10px
-          color #475669
-          font-size 14px
-      .quick-login-icon
-        margin-top: 20px
-        font-size: 0
-        .iconfont
-          display: inline-block
-          font-size: 40px
-          color: header-color
-          margin-right: (100px/4)
-          cursor: pointer
-          &:last-child
-            margin-right: 0
     .tag-box
       height 300px
       background-color #fff
-      margin-top:20px
     .hot-article
       background-color #fff
       margin-top:20px
@@ -335,6 +414,7 @@ ul
     color: #20a0ff
     font-size: 40px
     cursor: pointer
+    display: none;
 .list-container
   width: 850px
   background-color: #fff

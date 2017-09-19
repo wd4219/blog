@@ -1,10 +1,13 @@
 $(function () {
+  // highlight高亮代码
   $('pre code').each(function (i, block) {
     hljs.highlightBlock(block);
   });
+  //处理markdown a标签无法新开标签页打开
   $('a[href^="http"]').each(function () {
     $(this).attr('target', '_blank');
   });
+  //云标签
   tagcloud({
     fontsize: 16, //基本字体大小
     radius: 100, //滚动半径
@@ -13,6 +16,11 @@ $(function () {
     direction: 135, //初始滚动方向
     keep: true //鼠标移出组件后是否继续随鼠标滚动
   });
+  header_back_animate();
+  event_func();
+});
+
+function header_back_animate() {
   var canvas = document.getElementById('canvas');
   var w = canvas.width = 1180,
     h = canvas.height = 100,
@@ -117,39 +125,147 @@ $(function () {
     }
   }
   loop();
+}
 
+/**
+ * 页面点击事件集合
+ * 
+ */
+function event_func() {
   $(window).scroll(function () {
     var t = $(this).scrollTop();
     if (t > 200) {
-      $(".top").stop().fadeIn();
+      $(".icon-top").stop().fadeIn();
     } else {
-      $(".top").stop().fadeOut();
+      $(".icon-top").stop().fadeOut();
     }
   });
+  //点击回到顶部按钮
   $(".icon-top").click(function () {
     $("body,html").stop().animate({
       scrollTop: 0
     }, 300)
   });
-
-  $('.login-btn').click(function () {
+  $('#username').change(function(e){
     $.ajax({
-      type: 'post',
-      url: '/user/signup',
-      data: {
-        email: $('#username').val(),
-        password: $('#password').val()
+      type:'get',
+      url:'/user/check_username',
+      data:{
+        username:$(this).val().trim()
       },
-      success: function (response) {
-        if (response.code == 0) {
-          console.log(response.data);
-        } else {
-          console.log('注册失败');
+      success:function(response){
+        if(response.code != 0){
+          show_message('fail',response.message);
         }
-      },
-      error: function (err) {
-        console.log(err);
       }
     });
   });
-});
+  // 点击注册弹框的注册按钮
+  $('.signup-btn').click(function () {
+    let username =  $('#username').val();
+    let email_phone = $('.signup-box #email-phone').val();
+    let password = $('.signup-box #password').val();
+    if(username.trim() == ''){
+      show_message('info','昵称不能为空');
+    }
+    else{
+      if(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())){
+        if(password.trim() == ''){
+          show_message('info','密码不能为空');
+        }
+        else{
+          $.ajax({
+            type: 'post',
+            url: '/user/signup',
+            data: {
+              username: $('#username').val(),
+              email_phone: $('.signup-box #email-phone').val(),
+              password: $('.signup-box #password').val()
+            },
+            success: function (response) {
+              if (response.code == 0) {
+                show_message('success',response.message);
+                hide_sign_box();
+              } else {
+                show_message('info',response.message);
+                hide_sign_box();
+              }
+            },
+            error: function (err) {
+              show_message('fail','注册失败，请重试');
+              hide_sign_box();
+            }
+          });
+        }
+      }
+      else{
+        show_message('info','邮箱或手机号有误');
+      }
+    }
+  });
+  //点击登录弹框的登录按钮
+  $('.signin-btn').click(function () {
+    $.ajax({
+      type: 'post',
+      url: '/user/signin',
+      data: {
+        email: $('.signin-box #email-phone').val(),
+        password: $('.signin-box #password').val()
+      },
+      success: function (response) {
+        if (response.code == 0) {
+          show_message('success',response.message);
+          hide_sign_box();
+        } else {
+          show_message('info',response.message);
+        }
+      },
+      error: function (err) {
+        show_message('fail','登录失败,请重试');
+        hide_sign_box();
+      }
+    });
+  });
+  //点击头部登录/注册按钮
+  $('#header .right-box span').click(function (e) {
+    if ($(e.target).hasClass('top-sign-in')) {
+      $('.mask').fadeIn();
+      $('.sign-box').addClass('show');
+      $('.signin-box').show();
+      $('.signup-box').hide();
+    } else {
+      $('.mask').fadeIn();
+      $('.sign-box').addClass('show');
+      $('.signup-box').show();
+      $('.signin-box').hide();
+    }
+  });
+  //点击遮罩层
+  $('.mask').click(function (e) {
+    hide_sign_box();
+  });
+  // 点击弹框中的注册文字
+  $('.prompt-box .sign-up').click(function (e) {
+    $('.signin-box').hide();
+    $('.signup-box').show();
+  });
+  // 点击注册弹框中的登录文字
+  $('.prompt-box .sign-in').click(function (e) {
+    $('.signin-box').show();
+    $('.signup-box').hide();
+  });
+}
+
+function hide_sign_box() {
+  $('.mask').fadeOut();
+  $('.sign-box').removeClass('show');
+}
+
+function show_message(type,content){
+  $('.message-box').addClass('show');
+  $('.message-box .iconfont').addClass('icon-'+type);
+  $('.message-box .content').text(content);
+  setTimeout(function(){
+    $('.message-box').removeClass('show');
+  },2000);
+}

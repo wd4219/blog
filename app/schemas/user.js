@@ -6,7 +6,11 @@ let UserSchema = new Schema({
     type:String,
     default:'',
   },
-  email:{
+  username:{
+    type:String,
+    unique:true,
+  },
+  email_phone:{
     type:String,
     unique:true
   },
