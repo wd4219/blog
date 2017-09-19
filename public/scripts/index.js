@@ -1,9 +1,9 @@
 $(function () {
-  $('pre code').each(function(i, block) {
+  $('pre code').each(function (i, block) {
     hljs.highlightBlock(block);
   });
-  $('a[href^="http"]').each(function() {  
-    $(this).attr('target', '_blank');  
+  $('a[href^="http"]').each(function () {
+    $(this).attr('target', '_blank');
   });
   tagcloud({
     fontsize: 16, //基本字体大小
@@ -41,7 +41,7 @@ $(function () {
     tick = 0, //记号
     lines = [], //存储线条
     dieX = w / 2 / opts.len, //屏幕宽度/2/线条长度  也就是最大的位置，超过这个位置就消失
-    dieY = h  / opts.len, //同上
+    dieY = h / opts.len, //同上
     baseRad = Math.PI * 2 / 6; //120度角，就是六边形的角度
   ctx.fillStyle = 'black'; //背景颜色
   ctx.fillRect(0, 0, w, h); //绘制背景
@@ -118,15 +118,38 @@ $(function () {
   }
   loop();
 
-  $(window).scroll(function(){
-    var t=$(this).scrollTop();
-    if(t>200){
-        $(".top").stop().fadeIn(); 
-    }else{
-        $(".top").stop().fadeOut();    
-    }   
+  $(window).scroll(function () {
+    var t = $(this).scrollTop();
+    if (t > 200) {
+      $(".top").stop().fadeIn();
+    } else {
+      $(".top").stop().fadeOut();
+    }
   });
-  $(".icon-top").click(function(){    
-      $("body,html").stop().animate({scrollTop:0},300)
+  $(".icon-top").click(function () {
+    $("body,html").stop().animate({
+      scrollTop: 0
+    }, 300)
+  });
+
+  $('.login-btn').click(function () {
+    $.ajax({
+      type: 'post',
+      url: '/user/signup',
+      data: {
+        email: $('#username').val(),
+        password: $('#password').val()
+      },
+      success: function (response) {
+        if (response.code == 0) {
+          console.log(response.data);
+        } else {
+          console.log('注册失败');
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
   });
 });
