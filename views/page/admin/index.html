@@ -55,10 +55,6 @@
       cursor: pointer;
     }
 
-    .CodeMirror-scroll {
-      min-height: 600px;
-    }
-
     .editor-toolbar.fullscreen {
       border-top: 1px solid #bbb;
       top: 80px;
@@ -66,6 +62,10 @@
 
     .editor-preview-side {
       top: 130px;
+    }
+
+    .editor-toolbar a {
+      outline: none;
     }
 
     .CodeMirror-fullscreen {
@@ -77,11 +77,19 @@
       padding: 15px;
       width: 700px;
       background-color: #fff;
-      top: 50%;
+      top: -1000px;
       left: 50%;
-      transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, 0, 0);
       z-index: 100;
-      overflow: visible;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s linear;
+    }
+
+    .alert-box.show {
+      top: 50px;
+      opacity: 1;
+      visibility: visible;
     }
 
     .alert-box .title {
@@ -153,7 +161,7 @@
       padding-left: 8px;
       padding-right: 30px;
       position: relative;
-      margin-top:10px;
+      margin-top: 10px;
       margin-right: 8px;
     }
 
@@ -169,8 +177,8 @@
       outline: none;
       height: 24px;
       text-decoration: none;
-      font-size:14px;
-      margin-top:10px;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
     .tag-label,
@@ -283,16 +291,6 @@
       background-color: #1c8de0;
     }
 
-    .mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 80;
-    }
-
     .btn-box {
       height: 30px;
       margin-top: 20px;
@@ -316,6 +314,130 @@
     .confirm-btn {
       background: #E23737;
     }
+
+    .link-alert {
+      width: 400px;
+      position: fixed;
+      top: -410px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+      background: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      transition: all 0.5s linear;
+    }
+
+    .link-alert.show {
+      top: 50px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .link-alert input {
+      height: 40px;
+      line-height: 40px;
+      width: 100%;
+      padding: 0 10px;
+      border: 1px solid #d7d7d7;
+      border-radius: 2px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    .link-alert .link-btn {
+      height: 40px;
+      line-height: 40px;
+      background: #E23737;
+      text-align: center;
+      color: #fff;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .link-alert .title,
+    .image-alert .title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .link-alert .title .iconfont,
+    .image-alert .title .iconfont {
+      font-size: 24px;
+      position: absolute;
+      right: 0px;
+      cursor: pointer;
+      border: 10px solid transparent;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .image-alert {
+      width: 400px;
+      position: fixed;
+      top: -410px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+      background: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      transition: all 0.5s linear;
+    }
+
+    .image-alert.show {
+      top: 50px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-alert .content-box {
+      border: 2px dashed #d7d7d7;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .image-alert .content-box .tips {
+      position: absolute;
+      color: #bbb;
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 80;
+      transition: opacity 0.5s linear;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .mask.show {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
   <title>发表博客</title>
   <link rel="stylesheet" href="../stylesheets/markdown.css">
@@ -330,9 +452,8 @@
     <input type="text" class="title-input" placeholder="请输入标题">
     <div class="pulish-btn">发表博客</div>
   </div>
-  <textarea id="content"></textarea>
-  <div class="mask" style="display:none;"></div>
-  <div class="alert-box" style="display:none;">
+  <textarea id="content" style="display:none;"></textarea>
+  <div class="alert-box">
     <h4 class="title">博客信息</h4>
     <h3 class="category-label">分类：</h3>
     <div class="category">
@@ -361,6 +482,21 @@
       <div class="cancel-btn btn">取消</div>
     </div>
   </div>
+
+  <div class="link-alert">
+    <h3 class="title">新建链接 <span class="iconfont icon-close"></span></h3>
+    <input type="text" name="title" class="link-title" placeholder="请输入链接文字">
+    <input type="text" name="text" class="link-text" placeholder="请输入链接内容">
+    <div class="link-btn">确定</div>
+  </div>
+
+  <div class="image-alert">
+    <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
+    <div class="content-box" id="dropbox">
+      <p class="tips">将图片拖入框中上传</p>
+    </div>
+  </div>
+  <div class="mask"></div>
   <script src="../scripts/marked.js"></script>
   <script>
     var is_req_category = true; //判断是否请求类别接口
@@ -372,13 +508,12 @@
         delay: 1000,
       },
       blockStyles: {
-        bold: "__",
-        italic: "_"
+        bold: "**",
+        italic: "*"
       },
       element: document.getElementById("content"),
       forceSync: true,
       indentWithTabs: false,
-      initialValue: "",
       insertTexts: {
         horizontalRule: ["", "\n\n-----\n\n"],
         image: ["![](http://ezblog.oss-cn-beijing.aliyuncs.com/image/", ")"],
@@ -387,7 +522,7 @@
           "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"
         ],
       },
-      lineWrapping: false,
+      lineWrapping: true,
       parsingConfig: {
         allowAtxHeaderWithoutSpace: true,
         strikethrough: false,
@@ -405,14 +540,33 @@
       renderingConfig: {
         singleLineBreaks: false,
       },
-      shortcuts: {
-        drawTable: "Cmd-Alt-T"
-      },
       showIcons: ["code", "table"],
       spellChecker: false,
       status: false, // Another optional usage, with a custom status bar item that counts keystrokes
       styleSelectedText: false,
       tabSize: 2,
+      toolbar: ["bold", "italic", "heading", "code", "quote", "unordered-list", "ordered-list",
+        {
+          name: "link",
+          action: function (editor) {
+            $('.link-alert').addClass('show');
+            $('.mask').addClass('show');
+          },
+          className: "fa fa-link",
+          title: "Create Link",
+        },
+        {
+          name: "image",
+          action: function () {
+            $('.image-alert').addClass('show');
+            $('.mask').addClass('show');
+          },
+          className: "fa fa-image",
+          title: "Create Image",
+        },
+
+        "table", "preview", "side-by-side", "fullscreen"
+      ]
     });
     document.querySelector('.editor-preview-side').className += ' markdown-wd';
     simplemde.toggleSideBySide();
@@ -420,12 +574,13 @@
       if (e.which == '13') {
         if ($('.suggest-list').css('display') == 'none' || $('.suggest-list').find('.selected').length == 0) {
           if ($(this).val().trim() != '') {
-            let html = '<li class="tag-list-item">' + $(this).val().trim() + '<i class="iconfont icon-close"></i></li>'
+            let html = '<li class="tag-list-item">' + $(this).val().trim() +
+              '<i class="iconfont icon-close"></i></li>'
             $('.tag-list').append(html);
             $(this).val('');
           }
         }
-      $('.suggest-list').slideUp(200);
+        $('.suggest-list').slideUp(200);
       } else if (e.which == '8' && $(this).val() == '') {
         $('.tag-list-item').remove('.tag-list-item:last-child');
       } else if (e.which == '40' && $('.suggest-list').css('display') != 'none') {
@@ -485,7 +640,8 @@
                 is_req_category = false;
               } else {
                 is_req_category = true;
-                html = '<p style="font-size:14px;line-height:36px;text-align:center;color:#bbb;">数据出错,请刷新页面重试</p>';
+                html =
+                  '<p style="font-size:14px;line-height:36px;text-align:center;color:#bbb;">数据出错,请刷新页面重试</p>';
               }
               $('.option-list').html(html);
               $('.category-selected .iconfont').addClass('show');
@@ -514,13 +670,13 @@
     });
 
     $('.cancel-btn').click(function () {
-      $('.alert-box').fadeOut();
-      $('.mask').fadeOut();
+      $('.alert-box').removeClass('show');
+      $('.mask').removeClass('show');
     });
 
     $('.pulish-btn').click(function () {
-      $('.alert-box').fadeIn();
-      $('.mask').fadeIn();
+      $('.alert-box').addClass('show');
+      $('.mask').addClass('show');
     });
 
     $('body').click(function (e) {
@@ -544,12 +700,11 @@
         data: data,
         timeout: 15000,
         success: function (response) {
-          if(response.code == 0){
-            $('.alert-box').fadeOut();
-            $('.mask').fadeOut();
-            alert('文章保存成功');            
-          }
-          else{
+          if (response.code == 0) {
+            $('.alert-box').removeClass('show');
+            $('.mask').removeClass('show');
+            alert('文章保存成功');
+          } else {
             alert('文章保存失败');
           }
         },
@@ -588,7 +743,6 @@
         $(this).slideUp(200);
       }
     });
-
     // 标签输入框输入提示功能实现
     $('.tag-input').on('input', function (e) {
       var timer = '';
@@ -618,10 +772,10 @@
                       html += '<li class="suggest-list-item">' + response.data[i].content + '</li>';
                     }
                     if ($('.suggest-list').css('display') == 'none') {
-                      $('.suggest-list').css('top',$('.tag-box').outerHeight()-1);
+                      $('.suggest-list').css('top', $('.tag-box').outerHeight() - 1);
                       $('.suggest-list').html(html).slideDown(200);
                     } else {
-                      $('.suggest-list').css('top',$('.tag-box').outerHeight()-1);
+                      $('.suggest-list').css('top', $('.tag-box').outerHeight() - 1);
                       $('.suggest-list').html(html)
                     }
                   } else {
@@ -641,6 +795,106 @@
         }, 1000);
       }
     });
+
+    $(' .title .iconfont').click(function (e) {
+      $('.link-alert').removeClass('show');
+      $('.image-alert').removeClass('show');
+      $('.mask').removeClass('show');
+    });
+
+    $('.link-alert .link-btn').click(function () {
+      var str = ["[" + $('.link-alert .link-title').val() + "](" + $('.link-alert .link-text').val(), ')'];
+      // simplemde.value(simplemde.value()+str);
+      // simplemde.codemirror.focus();
+      replaceSelection(simplemde.codemirror, false, str);
+      $('.link-alert').removeClass('show');
+      $('.mask').removeClass('show');
+    });
+
+    function replaceSelection(cm, active, startEnd, url) {
+      if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+        return;
+      var text;
+      var start = startEnd[0];
+      var end = startEnd[1];
+      var startPoint = cm.getCursor("start");
+      var endPoint = cm.getCursor("end");
+      if (url) {
+        end = end.replace("#url#", url);
+      }
+
+      text = cm.getSelection();
+      cm.replaceSelection(start + text + end);
+      startPoint.ch += start.length;
+      if (startPoint !== endPoint) {
+        endPoint.ch += start.length;
+      }
+      endPoint.ch += 1;
+      cm.focus();
+    }
+
+    var dropbox = document.getElementById("dropbox");
+    dropbox.addEventListener("dragleave", function (e) {
+      dropbox.style.borderColor = '#d7d7d7';
+    }, false);
+    dropbox.addEventListener("dragenter", function (e) {
+      dropbox.style.borderColor = '#D3DCE6';
+      e.stopPropagation();
+      e.preventDefault();
+    }, false);
+    dropbox.addEventListener("dragover", function (e) {
+      dropbox.style.borderColor = '#D3DCE6';
+      e.stopPropagation();
+      e.preventDefault();
+    }, false);
+    dropbox.addEventListener("drop", function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      handleFiles(e.dataTransfer.files);
+    }, false);
+
+    handleFiles = function (files) {
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (!file.type.match(/image*/)) {
+          continue;
+        }
+        var img = document.createElement("img");
+        img.classList.add("obj");
+        document.getElementById('dropbox').innerHTML = '';
+        document.getElementById('dropbox').appendChild(img);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (function (aImg) {
+          return function (e) {
+            aImg.src = e.target.result;
+          };
+        })(img); 
+        var formData = new FormData();
+        formData.append('file',file);
+        $.ajax({        
+          url: '/comment/image',
+          type: 'POST',
+          xhr: function () {  // custom xhr           
+            myXhr = $.ajaxSettings.xhr();            
+            if (myXhr.upload) { // check if upload property exists            
+              myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload          
+            }            
+            return myXhr;        
+          },
+         // Form数据
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false    
+        });
+      }
+    }
+    function progressHandlingFunction(e) {
+      if (e.lengthComputable) {
+        console.log(e.loaded, e.total);
+      }
+    }
   </script>
 </body>
 
