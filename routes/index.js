@@ -3,6 +3,12 @@ const marked = require('marked');
 const Article = require('../app/controllers/article');
 const Tag = require('../app/controllers/tag');
 const Category = require('../app/controllers/category');
+const multiparty = require('multiparty');
+const util = require('util');
+const fs = require('fs');
+const path = require('path');
+const client = require('../config/index');
+
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -28,10 +34,10 @@ router.get('/', async(ctx, next) => {
 router.get('/article/:id', async(ctx, next) => {
   Article.update_read_amount(ctx, next);
   let data = {};
-  let article= await Article.find_article_id(ctx, next);
+  let article = await Article.find_article_id(ctx, next);
   let hot_article_list = await Article.find_hot_article_list(ctx, next);
   let tags = await Tag.get_tag_list(ctx, next);
-  let article_footer = await Article.find_article_prev_next(ctx,next);
+  let article_footer = await Article.find_article_prev_next(ctx, next);
   data = article.data;
   data.content = marked(data.content);
   data.hot_article_list = hot_article_list;
@@ -54,11 +60,56 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
   await ctx.render('list', data);
 });
 // 添加文章类别
-router.post('/admin/category',Category.save_category);
+router.post('/admin/category', Category.save_category);
 
 //获取类别列表
-router.get('/admin/category',Category.get_category_list);
+router.get('/admin/category', Category.get_category_list);
 
 //获取标签提示列表
-router.get('/admin/suggest_tag',Tag.get_tag_list_of_value);
+router.get('/admin/suggest_tag', Tag.get_tag_list_of_value);
+
+router.post('/comment/image', async(ctx, next) => {
+  try{
+    let files = await get_file(ctx)
+    let filename = files.file[0].originalFilename || path.basename(files.file[0].path);
+    let stream = fs.createReadStream(files.file[0].path);
+    let result = await client.putStream('article/image/' +
+      filename, stream, {
+        contentLength: files.file[0].size
+      });
+    let acl = client.putACL('article/image/' +
+      filename, 'public-read')
+    ctx.body = {
+      code:0,
+      message:'保存成功',
+      data:{
+        url:result.url,
+        filename:filename
+      }
+    }
+  }catch(err){
+    ctx.body = {
+      code:-1,
+      message:'保存失败',
+      data:{
+        url:''
+      }
+    }
+  }
+  
+});
+
+function get_file(ctx) {
+  return new Promise((resolve, reject) => {
+    var form = new multiparty.Form();
+    form.parse(ctx.req, function (err, fields, files) {
+      if(err){
+        reject(err);
+      }
+      else{
+        resolve(files);
+      }
+    });
+  });
+}
 module.exports = router

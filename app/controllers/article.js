@@ -5,7 +5,7 @@ const CategoryModel = require('../models/category');
 const Tag = require('../controllers/tag');
 const Category = require('../controllers/category');
 const fs = require('fs');
-const client = require('../../config/index.js');
+const client = require('../../config/index');
 const marked = require('marked');
 let res_model = (code, message, data) => {
   return {
@@ -122,7 +122,7 @@ exports.find_article_id = async (ctx,next)=>{
   let article_id = ctx.params.id;
   try{
     let result = await articleModel.findById(article_id,{__v:0,_id:0,meta:0}).populate('tag',{__v:0,_id:0,meta:0}).exec();
-    let article_content = await client.get('/article/'+article_id+'.md');
+    let article_content = await client.get('article/'+article_id+'.md');
     result.content = article_content.content.toString('utf8');
     return res_model(0, '获取文章列表成功', result)
   }catch(err){

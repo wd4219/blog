@@ -390,6 +390,7 @@
       border-radius: 4px;
       background: #fff;
       padding: 20px;
+      max-height: 600px;
       box-sizing: border-box;
       z-index: 1000;
       opacity: 0;
@@ -397,6 +398,7 @@
       -webkit-transition: all 0.5s linear;
       -moz-transition: all 0.5s linear;
       transition: all 0.5s linear;
+      overflow: hidden;
     }
 
     .image-alert.show {
@@ -411,6 +413,27 @@
       position: relative;
     }
 
+    .upload-btn {
+      height: 30px;
+      padding: 0 15px;
+      font-size: 14px;
+      line-height: 30px;
+      background: #E23737;
+      color: #fff;
+      display: inline-block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      cursor: pointer;
+    }
+
+    .image-alert .content-box img {
+      display: block;
+      font-size: 0;
+      max-width: 100%;
+    }
+
     .image-alert .content-box .tips {
       position: absolute;
       color: #bbb;
@@ -420,7 +443,18 @@
       top: 50%;
       transform: translateY(-50%);
     }
+    .progress-box svg{
+      width:100%;
+    }
 
+    .progress-box .percent{
+      position:absolute;
+      top:42%;
+      left: 50%;
+      color:#48576a;
+      font-size:14px;
+      transform: translate3d(-50%,-50%,0);
+    }
     .mask {
       position: fixed;
       top: 0;
@@ -493,11 +527,23 @@
   <div class="image-alert">
     <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
     <div class="content-box" id="dropbox">
-      <p class="tips">将图片拖入框中上传</p>
+      <div class="upload-box">
+        <label for="file-upload" class="upload-btn">点击上传</label>
+        <input type="file" multiple id="file-upload" hidden>
+      </div>
+      <div class="progress-box" style="display:none;">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <line x1="30" y1="110" x2="330" y2="110"style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;"/>          
+          <line x1="30" y1="110" x2="330" y2="110"style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300" stroke-dashoffset="300" class="progress"/>
+        </svg>
+        <div class="percent">0%</div>
+      </div>
+
     </div>
   </div>
   <div class="mask"></div>
   <script src="../scripts/marked.js"></script>
+  <script src="../scripts/Jquery.ajax.progress.js"></script>
   <script>
     var is_req_category = true; //判断是否请求类别接口
     var simplemde = new SimpleMDE({
@@ -516,8 +562,6 @@
       indentWithTabs: false,
       insertTexts: {
         horizontalRule: ["", "\n\n-----\n\n"],
-        image: ["![](http://ezblog.oss-cn-beijing.aliyuncs.com/image/", ")"],
-        link: ["[", "](http://)"],
         table: ["",
           "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"
         ],
@@ -843,7 +887,6 @@
       e.preventDefault();
     }, false);
     dropbox.addEventListener("dragover", function (e) {
-      dropbox.style.borderColor = '#D3DCE6';
       e.stopPropagation();
       e.preventDefault();
     }, false);
@@ -853,48 +896,64 @@
       handleFiles(e.dataTransfer.files);
     }, false);
 
-    handleFiles = function (files) {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        if (!file.type.match(/image*/)) {
-          continue;
+    var handleFiles = function (files) {
+      $('.upload-btn').hide();
+      $('.progress-box').show();
+      if (files.length > 1) {
+        alert('一次只能拖一个图片');
+      } else {
+        let file = files[0];
+        if (file.type.match(/image*/)) {
+          // document.getElementById('dropbox').innerHTML = '';
+          var formData = new FormData();
+          formData.append('file', file);
+          $.ajax({
+            type: "post",
+            url: "/comment/image",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false, //此处指定对上传数据不做默认的读取字符串的操作
+            success: function (response) {
+              if (response.code == 0) {
+                $('.progress').attr('stroke-dashoffset',300);
+                $('.percent').text(0+'%');
+                $('.progress-box').hide();
+                $('.upload-btn').show();
+                $('.image-alert').removeClass('show');
+                $('.mask').removeClass('show');
+                var str = ["![" + response.data.filename + "](" + response.data.url, ")"];
+                replaceSelection(simplemde.codemirror, false, str);
+              } else {
+                alert('上传失败，请重新上传');
+              }
+            },
+            error: function (r) {
+              alert("文件上传出错！");
+            },
+            progress: function (e) {
+              //make sure we can compute the length
+              if (e.lengthComputable) {
+                //calculate the percentage loaded
+                var pct = (e.loaded / e.total) * 300;
+                console.log(pct);
+                //log percentage loaded
+                $('.progress').attr('stroke-dashoffset',300-pct);
+                $('.percent').text(Math.round(e.loaded / e.total)*100+'%');
+              }
+              //this usually happens when Content-Length isn't set
+              else {
+                console.warn('Content Length not reported!');
+              }
+            }
+          });
         }
-        var img = document.createElement("img");
-        img.classList.add("obj");
-        document.getElementById('dropbox').innerHTML = '';
-        document.getElementById('dropbox').appendChild(img);
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (function (aImg) {
-          return function (e) {
-            aImg.src = e.target.result;
-          };
-        })(img); 
-        var formData = new FormData();
-        formData.append('file',file);
-        $.ajax({        
-          url: '/comment/image',
-          type: 'POST',
-          xhr: function () {  // custom xhr           
-            myXhr = $.ajaxSettings.xhr();            
-            if (myXhr.upload) { // check if upload property exists            
-              myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload          
-            }            
-            return myXhr;        
-          },
-         // Form数据
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false    
-        });
       }
     }
-    function progressHandlingFunction(e) {
-      if (e.lengthComputable) {
-        console.log(e.loaded, e.total);
-      }
-    }
+
+    $('#file-upload').change(function (e) {
+      handleFiles($(this)[0].files);
+    });
   </script>
 </body>
 
