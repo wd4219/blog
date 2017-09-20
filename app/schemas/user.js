@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let UserSchema = new Schema({
   avatar:{
     type:String,
-    default:'',
+    default:'//ezblog.oss-cn-beijing.aliyuncs.com/avatar/default-avatar.jpg',
   },
   username:{
     type:String,

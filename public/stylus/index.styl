@@ -238,10 +238,10 @@ ul
 .main-container
   width 1180px
   margin 20px auto 30px
-  display flex
   overflow: hidden
   .left-content
-    flex 1
+    width:850px
+    float: left
     overflow: hidden
     background-color #fff
     .article-page
@@ -284,6 +284,86 @@ ul
               text-overflow: ellipsis
               overflow: hidden
               white-space: nowrap;
+    .comment-box
+      margin-bottom:20px;
+      padding: 15px
+      border-top:1px solid #d7d7d7
+      .comment-text
+        width:100%
+        border: 1px solid #d7d7d7
+        border-radius: 4px
+        resize: none
+        outline: none
+        padding:8px 10px
+        box-sizing: border-box
+        font-size:14px
+        height:40px
+        margin-bottom: 10px
+        transition: height 0.5s linear
+        &:focus
+          height:88px
+      .bottom-bar
+        font-size:14px;
+        height:32px;
+        .submit-comment
+          float: right;
+          height: 32px;
+          line-height: 32px
+          padding: 0 15px
+          border-radius: 4px
+          border: 1px solid #20a0ff
+          color: #20a0ff
+          cursor: pointer
+          &:hover
+            background-color: #20a0ff
+            color: #fff
+    .comment-list
+      padding: 15px
+      .comment-list-item
+        display: flex
+        overflow: hidden
+        padding: 15px 0
+        .avatar
+          flex: 0 0 80px
+          overflow: hidden
+          text-align: center
+          font-size:0
+          img
+            width:40px
+            height:40px
+            border-radius: 50%
+            display: inline-block
+        .content
+          flex: 1
+          .content-status
+            font-size: 14px
+            margin: 0
+            line-height: 1
+            margin:8px 0
+            .username
+              font-weight: 600
+              margin-right:40px
+            .comment-time
+              color:#788087
+          .content-center
+            margin:5px 0
+            line-height: 1.5
+          .bottom-content
+            height:30px
+            font-size: 14px
+            line-height: 30px
+            .reply
+              float:left
+              cursor: pointer
+              &:hover
+                color: #20a0ff
+            .like
+              float: right
+              .iconfont
+                display: inline-block
+                font-size:20px
+                margin-right: 10px
+              
     .article-list
       padding:20px
       margin:0
@@ -332,6 +412,7 @@ ul
               text-decoration: none
               &:hover
                 color:#29B4F0
+          
           .read-total
             position absolute
             right 20px
@@ -343,7 +424,8 @@ ul
             color #fff
             cursor pointer
   .right-side
-    flex 0 0 300px
+    float: left
+    width:300px
     margin-left 30px
     .tag-box
       height 300px

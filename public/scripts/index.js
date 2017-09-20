@@ -146,7 +146,7 @@ function event_func() {
       scrollTop: 0
     }, 300)
   });
-  $('#username').change(function(e){
+  $('.signup-box .username input').change(function(e){
     $.ajax({
       type:'get',
       url:'/user/check_username',
@@ -160,27 +160,41 @@ function event_func() {
       }
     });
   });
+  $('.signup-box .email_phone input').change(function(e){
+    $.ajax({
+      type:'get',
+      url:'/user/check_email_phone',
+      data:{
+        email_phone:$(this).val().trim()
+      },
+      success:function(response){
+        if(response.code != 0){
+          show_message('fail',response.message);
+        }
+      }
+    });
+  });
   // 点击注册弹框的注册按钮
   $('.signup-btn').click(function () {
-    let username =  $('#username').val();
-    let email_phone = $('.signup-box #email-phone').val();
-    let password = $('.signup-box #password').val();
+    let username =  $('.signup-box .username input').val();
+    let email_phone = $('.signup-box .email-phone input').val();
+    let password = $('.signup-box .password input').val();
     if(username.trim() == ''){
       show_message('info','昵称不能为空');
     }
     else{
       if(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())){
-        if(password.trim() == ''){
-          show_message('info','密码不能为空');
+        if(password.trim() == '' || password.trim().length < 6){
+          show_message('info','密码不能为少于6位');
         }
         else{
           $.ajax({
             type: 'post',
             url: '/user/signup',
             data: {
-              username: $('#username').val(),
-              email_phone: $('.signup-box #email-phone').val(),
-              password: $('.signup-box #password').val()
+              username: username,
+              email_phone: email_phone,
+              password: password
             },
             success: function (response) {
               if (response.code == 0) {
@@ -205,26 +219,39 @@ function event_func() {
   });
   //点击登录弹框的登录按钮
   $('.signin-btn').click(function () {
-    $.ajax({
-      type: 'post',
-      url: '/user/signin',
-      data: {
-        email: $('.signin-box #email-phone').val(),
-        password: $('.signin-box #password').val()
-      },
-      success: function (response) {
-        if (response.code == 0) {
-          show_message('success',response.message);
-          hide_sign_box();
-        } else {
-          show_message('info',response.message);
-        }
-      },
-      error: function (err) {
-        show_message('fail','登录失败,请重试');
-        hide_sign_box();
+    let email_phone = $('.signin-box .email-phone input').val();
+    let password = $('.signin-box .password input').val();
+    if(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())){
+      if(password.trim() == '' || password.trim().length < 6){
+        show_message('info','密码不能为少于6位');
       }
-    });
+      else{
+        $.ajax({
+          type: 'post',
+          url: '/user/signin',
+          data: {
+            email_phone: email_phone,
+            password: password
+          },
+          success: function (response) {
+            if (response.code == 0) {
+              show_message('success',response.message);
+              hide_sign_box();
+            } else {
+              show_message('info',response.message);
+            }
+          },
+          error: function (err) {
+            show_message('fail','登录失败,请重试');
+            hide_sign_box();
+          }
+        });
+      }
+    }
+    else{
+      show_message('info','邮箱或手机号有误');
+    }
+    
   });
   //点击头部登录/注册按钮
   $('#header .right-box span').click(function (e) {
@@ -267,5 +294,5 @@ function show_message(type,content){
   $('.message-box .content').text(content);
   setTimeout(function(){
     $('.message-box').removeClass('show');
-  },2000);
+  },1000);
 }

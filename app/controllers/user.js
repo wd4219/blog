@@ -53,3 +53,18 @@ exports.check_username = async(ctx,next)=>{
     ctx.body = res_model(-2,'出错了',err);
   }
 }
+
+exports.check_email_phone = async(ctx,next)=>{
+  let email_phone = ctx.request.query.email_phone;
+  try{
+    let _user = await UserModel.findOne({email_phone:email_phone}).exec();
+    if(_user){
+      ctx.body = res_model(-1,'手机或邮箱已存在,请重新输入');
+    }
+    else{
+      ctx.body = res_model(0,'手机或邮箱可以使用');
+    }
+  }catch(err){
+    ctx.body = res_model(-2,'出错了',err);
+  }
+}
