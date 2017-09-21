@@ -67,6 +67,10 @@ ul {
   list-style: none;
   padding: 0;
 }
+.CodeMirror,
+.CodeMirror-scroll {
+  min-height: 100px;
+}
 .mask {
   position: fixed;
   top: 0;
@@ -412,25 +416,10 @@ ul {
   padding: 15px;
   border-top: 1px solid #d7d7d7;
 }
-.main-container .left-content .comment-box .comment-text {
-  width: 100%;
-  border: 1px solid #d7d7d7;
-  border-radius: 4px;
-  resize: none;
-  outline: none;
-  padding: 8px 10px;
-  box-sizing: border-box;
-  font-size: 14px;
-  height: 40px;
-  margin-bottom: 10px;
-  transition: height 0.5s linear;
-}
-.main-container .left-content .comment-box .comment-text:focus {
-  height: 88px;
-}
 .main-container .left-content .comment-box .bottom-bar {
   font-size: 14px;
   height: 32px;
+  margin-top: 20px;
 }
 .main-container .left-content .comment-box .bottom-bar .submit-comment {
   float: right;

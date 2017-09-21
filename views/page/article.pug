@@ -17,7 +17,7 @@ block content
               a(href=article_footer.next?"/article/"+article_footer.next._id:'javscript:;',class="next") #{article_footer.next?article_footer.next.title:'无'} 》
 
         .comment-box
-          textarea(class="comment-text",placeholder="输入你的评论")
+          textarea(id="comment-text",hidden)
           .bottom-bar
             .submit-comment 发表评论
         .comment-list
@@ -35,6 +35,7 @@ block content
                 .like
                   span.iconfont.icon-zan
                   |赞（100）
+              textarea(id="comment-item-text",hidden)
             
 
       .right-side
