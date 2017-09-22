@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const client = require('../config/index');
 
+const Comment = require('../app/controllers/comment');
+
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -112,4 +114,6 @@ function get_file(ctx) {
     });
   });
 }
+
+router.post('/comment/:id',Comment.save_comment)
 module.exports = router

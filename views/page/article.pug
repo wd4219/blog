@@ -7,7 +7,7 @@ block content
           .article-header
             h2.article-title #{title}
             p.article-status
-              span.pulish-time 日期：#{pulish_time}
+              span.publish-time 日期：#{publish_time}
               span.read-amount 浏览：#{read_amount}
               span.like-amount 赞：#{like_amount}
           .markdown-wd !{content}
@@ -15,11 +15,11 @@ block content
             .footer-page
               a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") 《 #{article_footer.prev?article_footer.prev.title:'无'}
               a(href=article_footer.next?"/article/"+article_footer.next._id:'javscript:;',class="next") #{article_footer.next?article_footer.next.title:'无'} 》
-
         .comment-box
-          textarea(id="comment-text",hidden)
-          .bottom-bar
-            .submit-comment 发表评论
+          form(action="/comment/"+_id, method="post")
+            textarea(id="comment-text",hidden,name="comment")
+            .bottom-bar
+              input(type="submit", value="发表评论",class="submit-comment") 
         .comment-list
           .comment-list-item
             .avatar 
@@ -33,11 +33,9 @@ block content
               .bottom-content
                 .reply 回复
                 .like
-                  span.iconfont.icon-zan
+                  span.iconfont.icon-dianzan
                   |赞（100）
               textarea(id="comment-item-text",hidden)
-            
-
       .right-side
         .tag-box
           .tagcloud

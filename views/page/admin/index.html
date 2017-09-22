@@ -932,16 +932,11 @@
               alert("文件上传出错！");
             },
             progress: function (e) {
-              //make sure we can compute the length
               if (e.lengthComputable) {
-                //calculate the percentage loaded
                 var pct = (e.loaded / e.total) * 300;
-                console.log(pct);
-                //log percentage loaded
                 $('.progress').attr('stroke-dashoffset',300-pct);
                 $('.percent').text(Math.round(e.loaded / e.total)*100+'%');
               }
-              //this usually happens when Content-Length isn't set
               else {
                 console.warn('Content Length not reported!');
               }

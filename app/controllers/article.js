@@ -121,7 +121,7 @@ exports.get_article_tag = async(ctx, next) => {
 exports.find_article_id = async (ctx,next)=>{
   let article_id = ctx.params.id;
   try{
-    let result = await articleModel.findById(article_id,{__v:0,_id:0,meta:0}).populate('tag',{__v:0,_id:0,meta:0}).exec();
+    let result = await articleModel.findById(article_id,{__v:0,meta:0}).populate('tag',{__v:0,_id:0,meta:0}).exec();
     let article_content = await client.get('article/'+article_id+'.md');
     result.content = article_content.content.toString('utf8');
     return res_model(0, '获取文章列表成功', result)
