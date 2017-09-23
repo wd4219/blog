@@ -40,11 +40,13 @@ router.get('/article/:id', async(ctx, next) => {
   let hot_article_list = await Article.find_hot_article_list(ctx, next);
   let tags = await Tag.get_tag_list(ctx, next);
   let article_footer = await Article.find_article_prev_next(ctx, next);
+  let comment = await Comment.find_comment_article(ctx,next);
   data = article.data;
   data.content = marked(data.content);
   data.hot_article_list = hot_article_list;
   data.tags = tags.data;
   data.article_footer = article_footer;
+  data.comment = comment; 
   await ctx.render('article', data);
 });
 router.get('/list', async(ctx, next) => {

@@ -22,83 +22,11 @@ $(function () {
 
   var simplemde = new SimpleMDE({
     autofocus: false,
-    autosave: {
-      enabled: true,
-      uniqueId: "blog",
-      delay: 1000,
-    },
     blockStyles: {
       bold: "**",
       italic: "*"
     },
     element: document.getElementById("comment-text"),
-    forceSync: true,
-    indentWithTabs: false,
-    insertTexts: {
-      horizontalRule: ["", "\n\n-----\n\n"],
-      table: ["",
-        "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"
-      ],
-    },
-    lineWrapping: true,
-    parsingConfig: {
-      allowAtxHeaderWithoutSpace: true,
-      strikethrough: false,
-      underscoresBreakWords: true,
-    },
-    placeholder: "请输入评论",
-    previewRender: function (plainText, preview) { // Async method
-      preview.innerHTML = marked(plainText);
-      $('pre code').each(function (i, block) {
-        hljs.highlightBlock(block);
-      });
-      return preview.innerHTML;
-    },
-    promptURLs: false,
-    renderingConfig: {
-      singleLineBreaks: false,
-    },
-    showIcons: ["code", "table"],
-    spellChecker: false,
-    status: false, // Another optional usage, with a custom status bar item that counts keystrokes
-    styleSelectedText: false,
-    tabSize: 2,
-    toolbar: ["bold", "italic", "heading", "code", "quote", "unordered-list", "ordered-list",
-      {
-        name: "link",
-        action: function (editor) {
-          $('.link-alert').addClass('show');
-          $('.mask').addClass('show');
-        },
-        className: "fa fa-link",
-        title: "Create Link",
-      },
-      {
-        name: "image",
-        action: function () {
-          $('.image-alert').addClass('show');
-          $('.mask').addClass('show');
-        },
-        className: "fa fa-image",
-        title: "Create Image",
-      },
-
-      "table", "preview", "side-by-side", "fullscreen"
-    ]
-  });
-
-  var simplemde2 = new SimpleMDE({
-    autofocus: false,
-    autosave: {
-      enabled: true,
-      uniqueId: "blog",
-      delay: 1000,
-    },
-    blockStyles: {
-      bold: "**",
-      italic: "*"
-    },
-    element: document.getElementById("comment-item-text"),
     forceSync: true,
     indentWithTabs: false,
     insertTexts: {

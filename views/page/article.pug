@@ -21,21 +21,21 @@ block content
             .bottom-bar
               input(type="submit", value="发表评论",class="submit-comment") 
         .comment-list
-          .comment-list-item
-            .avatar 
-              img(src="//ezblog.oss-cn-beijing.aliyuncs.com/avatar/default-avatar.jpg", alt="用户头像")
-            .content
-              p.content-status
-                span.username 德哈卡的
-                span.comment-time 2017-09-20
-              p.content-center
-                |总结：如果被转换的javascript中含有函数或者undefined，则在转换过程中删除，含有null会转换成相应键值对。现在JSON数据格式已经非常成熟，平时的数据交互格式大多为JSON,所以学习使用JSON非常必要。自己学习过程的记录，与君共勉。推荐一个JSON在线验证网站：传送门
-              .bottom-content
-                .reply 回复
-                .like
-                  span.iconfont.icon-dianzan
-                  |赞（100）
-              textarea(id="comment-item-text",hidden)
+          each item in comment
+            .comment-list-item
+              .avatar 
+                img(src=item.user.avatar, alt="用户头像")
+              .content
+                p.content-status
+                  span.username #{item.user.username}
+                  span.comment-time #{item.publish_time}
+                p.content-center
+                  |#{item.content}
+                .bottom-content
+                  .reply 回复
+                  .like
+                    span.iconfont.icon-dianzan
+                    |赞（#{item.like_amount}）
       .right-side
         .tag-box
           .tagcloud

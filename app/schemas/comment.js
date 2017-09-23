@@ -17,6 +17,10 @@ let CommentSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:'User'
   },
+  publish_time:{
+    type:Date,
+    default:Date.now()
+  },
   meta:{
     createAt:{
       type:Date,

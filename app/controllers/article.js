@@ -7,6 +7,7 @@ const Category = require('../controllers/category');
 const fs = require('fs');
 const client = require('../../config/index');
 const marked = require('marked');
+const Comment = require('../controllers/comment');
 let res_model = (code, message, data) => {
   return {
     code: code,
@@ -107,7 +108,6 @@ exports.get_article_tag = async(ctx, next) => {
       description: 0,
       tag:0
     }).exec();
-    console.log(list);
     let tag = await TagModel.findById(tag_id,{meta:0,__v:0,_id:0}).exec();
     result.list = list;
     result.tag_content = tag.content;

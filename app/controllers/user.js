@@ -68,3 +68,12 @@ exports.check_email_phone = async(ctx,next)=>{
     ctx.body = res_model(-2,'出错了',err);
   }
 }
+
+exports.allow_auth = async(ctx,next)=>{
+  if(ctx.session && ctx.session._id){
+    next()
+  }
+  else{
+    ctx.
+  }
+}
