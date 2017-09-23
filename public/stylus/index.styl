@@ -287,74 +287,6 @@ ul
               text-overflow: ellipsis
               overflow: hidden
               white-space: nowrap;
-    .comment-box
-      margin-bottom:20px;
-      padding: 15px
-      border-top:1px solid #d7d7d7
-      .bottom-bar
-        font-size:14px;
-        height:32px;
-        margin-top:20px;
-        .submit-comment
-          float: right;
-          height: 32px;
-          line-height: 32px
-          padding: 0 15px
-          border-radius: 4px
-          border: 1px solid #20a0ff
-          color: #20a0ff
-          cursor: pointer
-          &:hover
-            background-color: #20a0ff
-            color: #fff
-    .comment-list
-      padding: 15px
-      .comment-list-item
-        display: flex
-        overflow: hidden
-        padding: 15px 0
-        .avatar
-          flex: 0 0 80px
-          overflow: hidden
-          text-align: center
-          font-size:0
-          img
-            width:40px
-            height:40px
-            border-radius: 50%
-            display: inline-block
-        .content
-          flex: 1
-          .content-status
-            font-size: 14px
-            margin: 0
-            line-height: 1
-            margin:8px 0
-            .username
-              font-weight: 600
-              margin-right:40px
-            .comment-time
-              color:#788087
-          .content-center
-            margin:5px 0
-            line-height: 1.5
-          .bottom-content
-            height:30px
-            font-size: 14px
-            line-height: 30px
-            .reply
-              float:left
-              cursor: pointer
-              &:hover
-                color: #20a0ff
-            .like
-              float: right
-              .iconfont
-                display: inline-block
-                font-size:20px
-                margin-right: 10px
-                cursor: pointer
-                color: #d7d7d7
               
     .article-list
       padding:20px
@@ -551,5 +483,83 @@ ul
         display:inline-block
         margin-right:5px
 
-
-    
+.comment-container
+  background-color: #f4f5f5
+  padding-top:30px;
+  .comment-box
+    background-color: #fff;
+    margin-bottom:20px;
+    padding: 15px
+    border-top:1px solid #d7d7d7
+    .bottom-bar
+      font-size:14px;
+      height:32px;
+      margin-top:20px;
+      .submit-comment
+        float: right;
+        height: 32px;
+        line-height: 32px
+        padding: 0 15px
+        border-radius: 4px
+        border: 1px solid #20a0ff
+        color: #20a0ff
+        cursor: pointer
+        background-color: #fff;
+        &:hover
+          background-color: #20a0ff
+          color: #fff
+  .no-login
+    height:40px;
+    background: #fff;
+    text-align: center;
+    line-height: 40px
+    margin-top:20px;
+  .comment-list
+    padding: 15px
+    background-color: #fff;
+    .comment-list-item
+      display: flex
+      overflow: hidden
+      padding: 15px 0
+      .avatar
+        flex: 0 0 80px
+        overflow: hidden
+        text-align: center
+        font-size:0
+        img
+          width:40px
+          height:40px
+          border-radius: 50%
+          display: inline-block
+      .content
+        flex: 1
+        .content-status
+          font-size: 14px
+          margin: 0
+          line-height: 1
+          margin:8px 0
+          .username
+            font-weight: 600
+            margin-right:40px
+          .comment-time
+            color:#788087
+        .content-center
+          margin:5px 0
+          line-height: 1.5
+        .bottom-content
+          height:30px
+          font-size: 14px
+          line-height: 30px
+          .reply
+            float:left
+            cursor: pointer
+            &:hover
+              color: #20a0ff
+          .like
+            float: right
+            .iconfont
+              display: inline-block
+              font-size:20px
+              margin-right: 10px
+              cursor: pointer
+              color: #d7d7d7

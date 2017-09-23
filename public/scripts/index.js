@@ -299,6 +299,10 @@ function event_func() {
           },
           success: function (response) {
             if (response.code == 0) {
+              $('.right-box').html('<span class="top-username">'+response.data.username+'</span><span class="top-sign-out">退出</span>')
+              if($('.no-login').css('display') != 'none'){
+                
+              }
               show_message('success',response.message);
               hide_sign_box();
             } else {

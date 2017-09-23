@@ -15,27 +15,31 @@ block content
             .footer-page
               a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") 《 #{article_footer.prev?article_footer.prev.title:'无'}
               a(href=article_footer.next?"/article/"+article_footer.next._id:'javscript:;',class="next") #{article_footer.next?article_footer.next.title:'无'} 》
-        .comment-box
-          form(action="/comment/"+_id, method="post")
-            textarea(id="comment-text",hidden,name="comment")
-            .bottom-bar
-              input(type="submit", value="发表评论",class="submit-comment") 
-        .comment-list
-          each item in comment
-            .comment-list-item
-              .avatar 
-                img(src=item.user.avatar, alt="用户头像")
-              .content
-                p.content-status
-                  span.username #{item.user.username}
-                  span.comment-time #{item.publish_time}
-                p.content-center
-                  |#{item.content}
-                .bottom-content
-                  .reply 回复
-                  .like
-                    span.iconfont.icon-dianzan
-                    |赞（#{item.like_amount}）
+        .comment-container
+          .comment-list
+            each item in comment
+              .comment-list-item
+                .avatar 
+                  img(src=item.user.avatar, alt="用户头像")
+                .content
+                  p.content-status
+                    span.username #{item.user.username}
+                    span.comment-time #{item.publish_time}
+                  p.content-center
+                    |#{item.content}
+                  .bottom-content
+                    .reply 回复
+                    .like
+                      span.iconfont.icon-dianzan
+                      |赞（#{item.like_amount}）
+          if user && user.username
+            .comment-box
+              form(action="/comment/"+_id, method="post")
+                textarea(id="comment-text",hidden,name="comment")
+                .bottom-bar
+                  input(type="submit", value="发表评论",class="submit-comment") 
+          else
+            .no-login 请登录之后评论
       .right-side
         .tag-box
           .tagcloud

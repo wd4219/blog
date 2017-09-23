@@ -71,9 +71,9 @@ exports.check_email_phone = async(ctx,next)=>{
 
 exports.allow_auth = async(ctx,next)=>{
   if(ctx.session && ctx.session._id){
-    next()
+   return ctx.session;
   }
   else{
-    ctx.
+    return null;
   }
 }

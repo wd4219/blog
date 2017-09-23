@@ -8,7 +8,7 @@ const util = require('util');
 const fs = require('fs');
 const path = require('path');
 const client = require('../config/index');
-
+const User = require('../app/controllers/user');
 const Comment = require('../app/controllers/comment');
 
 marked.setOptions({
@@ -27,6 +27,8 @@ router.get('/', async(ctx, next) => {
   let article = await Article.find_article_all(ctx, next);
   let hot_article_list = await Article.find_hot_article_list(ctx, next);
   let tags = await Tag.get_tag_list(ctx, next);
+  let user = await User.allow_auth(ctx,next);
+  data.user = user;
   data.article_list = article.data;
   data.hot_article_list = hot_article_list;
   data.tags = tags.data;
@@ -41,7 +43,10 @@ router.get('/article/:id', async(ctx, next) => {
   let tags = await Tag.get_tag_list(ctx, next);
   let article_footer = await Article.find_article_prev_next(ctx, next);
   let comment = await Comment.find_comment_article(ctx,next);
+  
   data = article.data;
+  let user = await User.allow_auth(ctx,next);
+  data.user = user;
   data.content = marked(data.content);
   data.hot_article_list = hot_article_list;
   data.tags = tags.data;
@@ -52,6 +57,8 @@ router.get('/article/:id', async(ctx, next) => {
 router.get('/list', async(ctx, next) => {
   let list = await Article.find_article_list(ctx, next);
   let data = {};
+  let user = await User.allow_auth(ctx,next);
+  data.user = user;
   data.list = list.data;
   await ctx.render('list', data);
 });
@@ -60,6 +67,8 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
   let result = await Article.get_article_tag(ctx, next);
   let data = {};
   data.list = result.list;
+  let user = await User.allow_auth(ctx,next);
+  data.user = user;
   data.tag_content = result.tag_content;
   await ctx.render('list', data);
 });

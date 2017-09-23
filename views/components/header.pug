@@ -22,11 +22,12 @@ header.header#header
           input(type="text", placeholder="关键字搜索",class="search-input")
           span.iconfont.icon-search
       .right-box
-        .no-login
+        if user && user.username
+          span.top-username #{user.username}
+          span.top-sign-out 退出
+        else
           span.top-sign-in 登录
-          span.top-sign-up 注册
-        .login
-          span.top-username 
+          span.top-sign-up 注册 
 .sign-box
   .signin-box
     h2.title 登录
