@@ -17,6 +17,8 @@ router.get('/',async (ctx,next)=>{
     ctx.redirect('/admin/login');
   }
 });
+
+
 router.post('/create_article',Article.save_article);
 router.get('/get_tag',Tag.get_tag_list);  
 router.get('/get_article_all',Article.find_article_all);

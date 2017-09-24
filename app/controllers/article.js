@@ -111,7 +111,6 @@ exports.get_article_tag = async(ctx, next) => {
     let tag = await TagModel.findById(tag_id,{meta:0,__v:0,_id:0}).exec();
     result.list = list;
     result.tag_content = tag.content;
-    console.log(result);
     return  result;
   } catch (err) {
     console.log(err);

@@ -26,20 +26,24 @@ block content
                     span.username #{item.user.username}
                     span.comment-time #{item.publish_time}
                   p.content-center
-                    |#{item.content}
+                    |!{item.content}
                   .bottom-content
-                    .reply 回复
+                    div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
                     .like
                       span.iconfont.icon-dianzan
                       |赞（#{item.like_amount}）
           if user && user.username
             .comment-box
-              form(action="/comment/"+_id, method="post")
-                textarea(id="comment-text",hidden,name="comment")
+              form(action="/comment/"+_id, method="post",id="comment-form")
+                textarea(id="comment-text",hidden,name="comment[content]")
                 .bottom-bar
                   input(type="submit", value="发表评论",class="submit-comment") 
           else
-            .no-login 请登录之后评论
+            .no-login
+              span.signin 登录 
+              |/ 
+              span.signup 注册
+              |之后评论
       .right-side
         .tag-box
           .tagcloud

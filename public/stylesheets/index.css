@@ -654,7 +654,6 @@ ul {
   background-color: #fff;
   margin-bottom: 20px;
   padding: 15px;
-  border-top: 1px solid #d7d7d7;
 }
 .comment-container .comment-box .bottom-bar {
   font-size: 14px;
@@ -682,15 +681,21 @@ ul {
   text-align: center;
   line-height: 40px;
   margin-top: 20px;
+  font-size: 14px;
+}
+.comment-container .no-login span {
+  color: #20a0ff;
+  cursor: pointer;
+  text-decoration: underline;
 }
 .comment-container .comment-list {
-  padding: 15px;
   background-color: #fff;
 }
 .comment-container .comment-list .comment-list-item {
   display: flex;
   overflow: hidden;
-  padding: 15px 0;
+  padding: 15px;
+  border-bottom: 1px solid #d7d7d7;
 }
 .comment-container .comment-list .comment-list-item .avatar {
   flex: 0 0 80px;

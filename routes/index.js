@@ -42,8 +42,7 @@ router.get('/article/:id', async(ctx, next) => {
   let hot_article_list = await Article.find_hot_article_list(ctx, next);
   let tags = await Tag.get_tag_list(ctx, next);
   let article_footer = await Article.find_article_prev_next(ctx, next);
-  let comment = await Comment.find_comment_article(ctx,next);
-  
+  let comment = await Comment.find_comment_article(ctx,next); 
   data = article.data;
   let user = await User.allow_auth(ctx,next);
   data.user = user;
@@ -125,6 +124,10 @@ function get_file(ctx) {
     });
   });
 }
+
+router.get('/error',async(ctx,next)=>{
+  await ctx.render('/error',data);
+});
 
 router.post('/comment/:id',Comment.save_comment)
 module.exports = router

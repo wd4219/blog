@@ -77,3 +77,20 @@ exports.allow_auth = async(ctx,next)=>{
     return null;
   }
 }
+
+
+exports.sign_out = async(ctx,next)=>{
+  if(ctx.session && ctx.session.username){
+    ctx.session ={};
+    ctx.body = {
+      code:0,
+      message:'已退出登录',
+    }
+  }
+  else{
+    ctx.body = {
+      code:-1,
+      message:'您还未登录'
+    }
+  }
+}
