@@ -7,48 +7,48 @@
 }
 @-moz-keyframes draw-nav-item {
   0% {
-    stroke-dasharray: 140 540;
-    stroke-dashoffset: -474;
+    stroke-dasharray: 100, 600;
+    stroke-dashoffset: -215;
     stroke-width: 8px;
   }
   100% {
-    stroke-dasharray: 760;
+    stroke-dasharray: 400;
     stroke-dashoffset: 0;
     stroke-width: 2px;
   }
 }
 @-webkit-keyframes draw-nav-item {
   0% {
-    stroke-dasharray: 140 540;
-    stroke-dashoffset: -474;
+    stroke-dasharray: 100, 600;
+    stroke-dashoffset: -215;
     stroke-width: 8px;
   }
   100% {
-    stroke-dasharray: 760;
+    stroke-dasharray: 400;
     stroke-dashoffset: 0;
     stroke-width: 2px;
   }
 }
 @-o-keyframes draw-nav-item {
   0% {
-    stroke-dasharray: 140 540;
-    stroke-dashoffset: -474;
+    stroke-dasharray: 100, 600;
+    stroke-dashoffset: -215;
     stroke-width: 8px;
   }
   100% {
-    stroke-dasharray: 760;
+    stroke-dasharray: 400;
     stroke-dashoffset: 0;
     stroke-width: 2px;
   }
 }
 @keyframes draw-nav-item {
   0% {
-    stroke-dasharray: 140 540;
-    stroke-dashoffset: -474;
+    stroke-dasharray: 100, 600;
+    stroke-dashoffset: -215;
     stroke-width: 8px;
   }
   100% {
-    stroke-dasharray: 760;
+    stroke-dasharray: 400;
     stroke-dashoffset: 0;
     stroke-width: 2px;
   }

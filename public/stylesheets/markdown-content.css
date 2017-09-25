@@ -1,0 +1,139 @@
+.link-alert {
+  width: 400px;
+  position: fixed;
+  top: -410px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.link-alert.show {
+  top: 50px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.link-alert input {
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  border: 1px solid #d7d7d7;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.link-alert .link-btn {
+  height: 40px;
+  line-height: 40px;
+  background: #E23737;
+  text-align: center;
+  color: #fff;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.link-alert .title,
+.image-alert .title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.link-alert .title .iconfont,
+.image-alert .title .iconfont {
+  font-size: 24px;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+  border: 10px solid transparent;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image-alert {
+  width: 400px;
+  position: fixed;
+  top: -410px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: #fff;
+  padding: 20px;
+  max-height: 600px;
+  box-sizing: border-box;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  overflow: hidden;
+}
+
+.image-alert.show {
+  top: 50px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.image-alert .content-box {
+  border: 2px dashed #d7d7d7;
+  min-height: 200px;
+  position: relative;
+}
+
+.upload-btn {
+  height: 30px;
+  padding: 0 15px;
+  font-size: 14px;
+  line-height: 30px;
+  background: #E23737;
+  color: #fff;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  cursor: pointer;
+}
+
+.image-alert .content-box img {
+  display: block;
+  font-size: 0;
+  max-width: 100%;
+}
+
+.image-alert .content-box .tips {
+  position: absolute;
+  color: #bbb;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.progress-box svg{
+  width:100%;
+}
+.progress-box .percent{
+  position:absolute;
+  top:42%;
+  left: 50%;
+  color:#48576a;
+  font-size:14px;
+  transform: translate3d(-50%,-50%,0);
+}

@@ -59,6 +59,7 @@ exports.save_article = async(ctx, next) => {
 }
 // 获取文章摘要信息
 exports.find_article_all = async(ctx, next) => {
+  let page = ctx.params.page;
   try {
     let result = await articleModel.find({}, {
       meta: 0,
@@ -67,7 +68,7 @@ exports.find_article_all = async(ctx, next) => {
       meta: 0,
       __v: 0,
       count: 0
-    }).exec();
+    }).limit(10).skip(10*page).exec();
     return res_model(0, '获取文章列表成功', result);
   } catch (err) {
     return res_model(0, '获取文章列表失败');
@@ -167,3 +168,4 @@ exports.find_article_prev_next = async(ctx,next)=>{
     console.log(err);
   }
 }
+

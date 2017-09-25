@@ -37,7 +37,29 @@ block content
               form(action="/comment/"+_id, method="post",id="comment-form")
                 textarea(id="comment-text",hidden,name="comment[content]")
                 .bottom-bar
-                  input(type="submit", value="发表评论",class="submit-comment") 
+                  input(type="submit", value="发表评论",class="submit-comment")
+              <div class="link-alert">
+                <h3 class="title">新建链接 <span class="iconfont icon-close"></span></h3>
+                <input type="text" name="title" class="link-title" placeholder="请输入链接文字">
+                <input type="text" name="text" class="link-text" placeholder="请输入链接内容">
+                <div class="link-btn">确定</div>
+              </div>
+              <div class="image-alert">
+                <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
+                <div class="content-box" id="dropbox">
+                  <div class="upload-box">
+                    <label for="file-upload" class="upload-btn">点击上传</label>
+                    <input type="file" multiple id="file-upload" hidden>
+                  </div>
+                  <div class="progress-box" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg">
+                      <line x1="30" y1="110" x2="330" y2="110"style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;"/>          
+                      <line x1="30" y1="110" x2="330" y2="110"style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300" stroke-dashoffset="300" class="progress"/>
+                    </svg>
+                    <div class="percent">0%</div>
+                  </div>
+                </div>
+              </div>
           else
             .no-login
               span.signin 登录 

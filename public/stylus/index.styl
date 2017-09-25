@@ -181,14 +181,17 @@ ul
       cursor pointer
       .item-rect
         fill: transparent
-        stroke-dasharray: 140 540
-        stroke-dashoffset: -474
-        stroke-width: 8px
+        stroke-dasharray: 100,600
+        stroke-dashoffset: -215
+        stroke-width: 6px
         stroke: #19f6e8
+        transition: all 0.5s linear
       &:hover
         .item-rect
-          -webkit-animation: 0.5s draw-nav-item linear forwards;
-          animation: 0.5s draw-nav-item 0%  linear forwards;
+          // -webkit-animation: 0.5s draw-nav-item linear forwards;
+          stroke-dasharray: 400
+          stroke-dashoffset: 0
+          stroke-width: 2px
       .item-text
         width:100%
         position:absolute
@@ -238,6 +241,16 @@ ul
       cursor: pointer
       &:hover
         color: #fff
+  .logo
+    width:100px
+    height:60px
+    position:absolute
+    left:0
+    top:50%
+    transform:translateY(-50%)
+    svg
+      height:100%
+      width:100%
 .main-container
   width 1180px
   margin 20px auto 30px

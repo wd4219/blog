@@ -94,6 +94,114 @@ $(function () {
     simplemde.codemirror.setCursor(username.length+1);
     simplemde.codemirror.focus();
   });
+  $(' .title .iconfont').click(function (e) {
+    $('.link-alert').removeClass('show');
+    $('.image-alert').removeClass('show');
+    $('.mask').removeClass('show');
+  });
+  $('.link-alert .link-btn').click(function () {
+    var str = ["[" + $('.link-alert .link-title').val() + "](" + $('.link-alert .link-text').val(), ')'];
+    // simplemde.value(simplemde.value()+str);
+    // simplemde.codemirror.focus();
+    replaceSelection(simplemde.codemirror, false, str);
+    $('.link-alert').removeClass('show');
+    $('.mask').removeClass('show');
+  });
+
+  function replaceSelection(cm, active, startEnd, url) {
+    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+      return;
+    var text;
+    var start = startEnd[0];
+    var end = startEnd[1];
+    var startPoint = cm.getCursor("start");
+    var endPoint = cm.getCursor("end");
+    if (url) {
+      end = end.replace("#url#", url);
+    }
+
+    text = cm.getSelection();
+    cm.replaceSelection(start + text + end);
+    startPoint.ch += start.length;
+    if (startPoint !== endPoint) {
+      endPoint.ch += start.length;
+    }
+    endPoint.ch += 1;
+    cm.focus();
+  }
+
+  var dropbox = document.getElementById("dropbox");
+  dropbox.addEventListener("dragleave", function (e) {
+    dropbox.style.borderColor = '#d7d7d7';
+  }, false);
+  dropbox.addEventListener("dragenter", function (e) {
+    dropbox.style.borderColor = '#D3DCE6';
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+  dropbox.addEventListener("dragover", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }, false);
+  dropbox.addEventListener("drop", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    handleFiles(e.dataTransfer.files);
+  }, false);
+
+  var handleFiles = function (files) {
+    $('.upload-btn').hide();
+    $('.progress-box').show();
+    if (files.length > 1) {
+      alert('一次只能拖一个图片');
+    } else {
+      let file = files[0];
+      if (file.type.match(/image*/)) {
+        // document.getElementById('dropbox').innerHTML = '';
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+          type: "post",
+          url: "/comment/image",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false, //此处指定对上传数据不做默认的读取字符串的操作
+          success: function (response) {
+            if (response.code == 0) {
+              $('.progress').attr('stroke-dashoffset',300);
+              $('.percent').text(0+'%');
+              $('.progress-box').hide();
+              $('.upload-btn').show();
+              $('.image-alert').removeClass('show');
+              $('.mask').removeClass('show');
+              var str = ["![" + response.data.filename + "](" + response.data.url, ")"];
+              replaceSelection(simplemde.codemirror, false, str);
+            } else {
+              alert('上传失败，请重新上传');
+            }
+          },
+          error: function (r) {
+            alert("文件上传出错！");
+          },
+          progress: function (e) {
+            if (e.lengthComputable) {
+              var pct = (e.loaded / e.total) * 300;
+              $('.progress').attr('stroke-dashoffset',300-pct);
+              $('.percent').text(Math.round(e.loaded / e.total)*100+'%');
+            }
+            else {
+              console.warn('Content Length not reported!');
+            }
+          }
+        });
+      }
+    }
+  }
+
+  $('#file-upload').change(function (e) {
+    handleFiles($(this)[0].files);
+  });
 });
 
 function header_back_animate() {
