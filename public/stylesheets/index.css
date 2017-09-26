@@ -54,6 +54,26 @@
     stroke-width: 2px;
   }
 }
+@-moz-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@-webkit-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@-o-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
 body {
   background-color: #f4f5f5;
 }
@@ -323,11 +343,11 @@ ul {
 }
 .header .search-box {
   height: 40px;
-  width: 200px;
+  width: 150px;
   line-height: 40px;
   position: absolute;
-  left: 0px;
-  top: 30px;
+  right: 130px;
+  top: 40px;
   color: #8492a6;
   font-size: 14px;
 }
@@ -355,8 +375,8 @@ ul {
   color: #fff;
 }
 .header .logo {
-  width: 100px;
-  height: 60px;
+  width: 150px;
+  height: 90px;
   position: absolute;
   left: 0;
   top: 50%;
@@ -365,6 +385,13 @@ ul {
 .header .logo svg {
   height: 100%;
   width: 100%;
+}
+.header .logo svg path {
+  stroke: #0ff;
+  stroke-width: 3px;
+  animation: offset 5s linear forwards;
+  stroke-dasharray: 900px;
+  stroke-dashoffset: 900px;
 }
 .main-container {
   width: 1180px;

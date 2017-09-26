@@ -53,3 +53,23 @@
     stroke-width: 2px;
   }
 }
+@-moz-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@-webkit-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@-o-keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+@keyframes offset {
+  to {
+    stroke-dashoffset: 0px;
+  }
+}

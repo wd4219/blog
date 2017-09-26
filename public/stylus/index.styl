@@ -215,11 +215,11 @@ ul
       cursor: pointer
   .search-box
     height:40px
-    width: 200px
+    width: 150px
     line-height:40px
     position: absolute
-    left:0px
-    top:30px
+    right:130px
+    top:40px
     color:#8492a6
     font-size:14px
     input
@@ -242,8 +242,8 @@ ul
       &:hover
         color: #fff
   .logo
-    width:100px
-    height:60px
+    width:150px
+    height:90px
     position:absolute
     left:0
     top:50%
@@ -251,6 +251,12 @@ ul
     svg
       height:100%
       width:100%
+      path 
+        stroke: #00ffff;
+        stroke-width: 3px;
+        animation: offset 5s linear forwards;
+        stroke-dasharray: 900px;
+        stroke-dashoffset: 900px;
 .main-container
   width 1180px
   margin 20px auto 30px
