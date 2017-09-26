@@ -9,6 +9,10 @@ let CommentSchema = new Schema({
     type:Number,
     default:0
   },
+  like_user:{
+    type:String,
+    default:''
+  },
   article:{
     type:Schema.Types.ObjectId,
     ref:'Article'

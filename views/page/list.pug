@@ -20,32 +20,11 @@ block content
                   span.read-amount
                     i.iconfont.icon-read
                     |#{item.read_amount}
-                  span.like-amount
-                    i.iconfont.icon-zan
-                    |#{item.like_amount}
     .right-side
       .tag-box
         .tagcloud
-          a(href="#") css
-          a(href="#") Vue
-          a(href="#") React
-          a(href="#") Javascript
-          a(href="#") nodejs
-          a(href="#") css
-          a(href="#") Vue
-          a(href="#") React
-          a(href="#") Javascript
-          a(href="#") nodejs
-          a(href="#") css
-          a(href="#") Vue
-          a(href="#") React
-          a(href="#") Javascript
-          a(href="#") nodejs
-          a(href="#") css
-          a(href="#") Vue
-          a(href="#") React
-          a(href="#") Javascript
-          a(href="#") nodejs
+          each tag in tags
+            a(href="/list/tag/"+tag._id) #{tag.content}
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
   script(src="./scripts/tagcloud.js")
-  script(src="./scripts/index.js")
+  script(src="./scripts/common.js")

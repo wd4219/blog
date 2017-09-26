@@ -11,17 +11,22 @@ exports.save_comment = async (ctx,next)=>{
   if(username){
     username = comment.content.match(/^@.*?(?= )/)[0].slice(1);
   }
-  let html = marked(xss(comment.content))
-  try{
-    let _user = await UserModel.findOne({username:username}).exec();
-    if(comment.cid && _user){
-      await CommentModel.findOneAndUpdate({_id:comment.cid},{$push:{'reply':_user._id}});
-    }
-    let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
-    let result = await _comment.save();
-    ctx.redirect('/article/'+id);
-  }catch(err){
+  if(comment.content.replace(/^@.*?(?= )/,' ').trim() == ''){
     ctx.redirect('/error');
+  }
+  else{
+    let html = marked(xss(comment.content))
+    try{
+      let _user = await UserModel.findOne({username:username}).exec();
+      if(comment.cid && _user){
+        await CommentModel.findOneAndUpdate({_id:comment.cid},{$push:{'reply':_user._id}});
+      }
+      let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
+      let result = await _comment.save();
+      ctx.redirect('/article/'+id);
+    }catch(err){
+      ctx.redirect('/error');
+    }
   }
 }
 exports.find_comment_article = async(ctx,next)=>{
@@ -31,5 +36,61 @@ exports.find_comment_article = async(ctx,next)=>{
     return result;
   }catch(err){
     return [];
+  }
+}
+
+exports.delete_comment = async(ctx,next)=>{
+  let cid = ctx.request.body.cid;
+  try{
+    let result = await CommentModel.remove({_id:cid}).exec();
+    if(result.result.ok == 1){
+      ctx.body = {
+        code:0,
+        message:'删除成功',
+        data:{}
+      }
+    }
+    else{
+      ctx.body = {
+        code:-1,
+        message:'删除失败',
+        data:{}
+      }
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
+exports.like_comment = async(ctx,next)=>{
+  let cid = ctx.request.body.cid;
+  try{
+    let _comment = await CommentModel.findById(cid).exec();
+    if(_comment.like_user.indexOf(ctx.session._id)>-1){
+      _comment.like_user = _comment.like_user.replace(ctx.session._id+',','');
+      _comment.like_amount -= 1;
+      await _comment.save();
+      ctx.body = {
+        code:1,
+        message:'取消赞',
+        data:{
+          like_amount: _comment.like_amount,
+        }
+      }
+    }
+    else{
+      _comment.like_user += ctx.session._id+',';
+      _comment.like_amount += 1;
+      await _comment.save();
+      ctx.body = {
+        code:2,
+        message:'点赞',
+        data:{
+          like_amount: _comment.like_amount,
+        }
+      }
+    }
+  }catch(err){
+    console.log(err);
   }
 }

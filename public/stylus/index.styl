@@ -171,6 +171,8 @@ ul
     font-size 0
     text-align center
     padding-top 30px
+    position: absolute
+    right: 180px
     .nav-bar-item
       font-size 16px
       color #fff
@@ -188,7 +190,6 @@ ul
         transition: all 0.5s linear
       &:hover
         .item-rect
-          // -webkit-animation: 0.5s draw-nav-item linear forwards;
           stroke-dasharray: 400
           stroke-dashoffset: 0
           stroke-width: 2px
@@ -246,8 +247,6 @@ ul
     height:90px
     position:absolute
     left:0
-    top:50%
-    transform:translateY(-50%)
     svg
       height:100%
       width:100%
@@ -267,16 +266,17 @@ ul
     overflow: hidden
     background-color #fff
     .article-page
-      padding:15px 20px 40px
+      padding:15px 20px 15px
       .article-header
         .article-title
-          font-size:24px
+          font-size:20px
           margin-top:10px
           font-weight:600
+          margin-bottom:10px
         .article-status
           font-size 12px
           padding-bottom:10px
-          margin 10px 0
+          margin: 0
           border-bottom:1px dashed #8492A6
           color #99A9BF
           span
@@ -315,12 +315,12 @@ ul
         position relative
         margin-bottom 20px
         .article-title
-          font-size 24px
+          font-size 20px
           font-weight 600
           border-left 5px solid header-color
-          height 40px
-          line-height 40px 
-          padding-left 30px
+          height 30px
+          line-height 30px 
+          padding-left 20px
           margin:0
         .top-status
           font-size 12px
@@ -491,7 +491,6 @@ ul
         &:first-child
           border-top-left-radius: 2px
           border-bottom-left-radius: 2px
-          border-right:none
         &:last-child
           border-left: none
           border-top-right-radius: 2px
@@ -507,6 +506,7 @@ ul
   padding-top:30px;
   .comment-box
     background-color: #fff;
+    border-top: 1px solid #d7d7d7
     margin-bottom:20px;
     padding: 15px
     .bottom-bar
@@ -523,6 +523,7 @@ ul
         color: #20a0ff
         cursor: pointer
         background-color: #fff;
+        outline: none;
         &:hover
           background-color: #20a0ff
           color: #fff
@@ -542,39 +543,45 @@ ul
     .comment-list-item
       display: flex
       overflow: hidden
-      padding: 15px
+      padding: 10px 15px 10px 0
       border-bottom: 1px solid #d7d7d7
+      &:last-child
+        border-bottom: none
       .avatar
-        flex: 0 0 80px
+        flex: 0 0 60px
         overflow: hidden
         text-align: center
         font-size:0
         img
-          width:40px
-          height:40px
-          border-radius: 50%
+          width:30px
+          height:30px
+          border-radius: 4px
           display: inline-block
       .content
         flex: 1
         .content-status
-          font-size: 14px
+          font-size: 12px
           margin: 0
           line-height: 1
-          margin:8px 0
+          margin:5px 0 2px
           .username
             font-weight: 600
-            margin-right:40px
+            margin-right:10px
+            color:#666
           .comment-time
-            color:#788087
+            color:#20a0ff
         .content-center
           margin:5px 0
           line-height: 1.5
+          p
+            margin:0
         .bottom-content
           height:30px
           font-size: 14px
           line-height: 30px
-          .reply
+          .reply,.delete
             float:left
+            margin-right:20px
             cursor: pointer
             &:hover
               color: #20a0ff

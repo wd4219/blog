@@ -294,6 +294,8 @@ ul {
   font-size: 0;
   text-align: center;
   padding-top: 30px;
+  position: absolute;
+  right: 180px;
 }
 .header .nav-bar .nav-bar-item {
   font-size: 16px;
@@ -379,8 +381,6 @@ ul {
   height: 90px;
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 .header .logo svg {
   height: 100%;
@@ -405,17 +405,18 @@ ul {
   background-color: #fff;
 }
 .main-container .left-content .article-page {
-  padding: 15px 20px 40px;
+  padding: 15px 20px 15px;
 }
 .main-container .left-content .article-page .article-header .article-title {
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 10px;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 .main-container .left-content .article-page .article-header .article-status {
   font-size: 12px;
   padding-bottom: 10px;
-  margin: 10px 0;
+  margin: 0;
   border-bottom: 1px dashed #8492a6;
   color: #99a9bf;
 }
@@ -462,12 +463,12 @@ ul {
   margin-bottom: 20px;
 }
 .main-container .left-content .article-list .article-item .article-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   border-left: 5px solid #20a0ff;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
   margin: 0;
 }
 .main-container .left-content .article-list .article-item .top-status {
@@ -674,7 +675,6 @@ ul {
 .list-container .article-list-content-item .item-info span:first-child {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
-  border-right: none;
 }
 .list-container .article-list-content-item .item-info span:last-child {
   border-left: none;
@@ -693,6 +693,7 @@ ul {
 }
 .comment-container .comment-box {
   background-color: #fff;
+  border-top: 1px solid #d7d7d7;
   margin-bottom: 20px;
   padding: 15px;
 }
@@ -711,6 +712,7 @@ ul {
   color: #20a0ff;
   cursor: pointer;
   background-color: #fff;
+  outline: none;
 }
 .comment-container .comment-box .bottom-bar .submit-comment:hover {
   background-color: #20a0ff;
@@ -735,51 +737,61 @@ ul {
 .comment-container .comment-list .comment-list-item {
   display: flex;
   overflow: hidden;
-  padding: 15px;
+  padding: 10px 15px 10px 0;
   border-bottom: 1px solid #d7d7d7;
 }
+.comment-container .comment-list .comment-list-item:last-child {
+  border-bottom: none;
+}
 .comment-container .comment-list .comment-list-item .avatar {
-  flex: 0 0 80px;
+  flex: 0 0 60px;
   overflow: hidden;
   text-align: center;
   font-size: 0;
 }
 .comment-container .comment-list .comment-list-item .avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
   display: inline-block;
 }
 .comment-container .comment-list .comment-list-item .content {
   flex: 1;
 }
 .comment-container .comment-list .comment-list-item .content .content-status {
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
   line-height: 1;
-  margin: 8px 0;
+  margin: 5px 0 2px;
 }
 .comment-container .comment-list .comment-list-item .content .content-status .username {
   font-weight: 600;
-  margin-right: 40px;
+  margin-right: 10px;
+  color: #666;
 }
 .comment-container .comment-list .comment-list-item .content .content-status .comment-time {
-  color: #788087;
+  color: #20a0ff;
 }
 .comment-container .comment-list .comment-list-item .content .content-center {
   margin: 5px 0;
   line-height: 1.5;
+}
+.comment-container .comment-list .comment-list-item .content .content-center p {
+  margin: 0;
 }
 .comment-container .comment-list .comment-list-item .content .bottom-content {
   height: 30px;
   font-size: 14px;
   line-height: 30px;
 }
-.comment-container .comment-list .comment-list-item .content .bottom-content .reply {
+.comment-container .comment-list .comment-list-item .content .bottom-content .reply,
+.comment-container .comment-list .comment-list-item .content .bottom-content .delete {
   float: left;
+  margin-right: 20px;
   cursor: pointer;
 }
-.comment-container .comment-list .comment-list-item .content .bottom-content .reply:hover {
+.comment-container .comment-list .comment-list-item .content .bottom-content .reply:hover,
+.comment-container .comment-list .comment-list-item .content .bottom-content .delete:hover {
   color: #20a0ff;
 }
 .comment-container .comment-list .comment-list-item .content .bottom-content .like {

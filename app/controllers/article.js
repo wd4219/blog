@@ -150,7 +150,7 @@ exports.update_like_amount = async(ctx,next)=>{
 exports.find_hot_article_list = async(ctx,next)=>{
   let result;
   try{
-    result = await articleModel.find({},{tag:0,like_amount:0,meta:0,description:0,__v:0,pulish_time:0}).sort({"read_amount":-1}).limit(5).exec();
+    result = await articleModel.find({},{tag:0,like_amount:0,meta:0,description:0,__v:0,publish_time:0}).sort({"read_amount":-1}).limit(5).exec();
   }catch(err){
     console.log(err);
   }

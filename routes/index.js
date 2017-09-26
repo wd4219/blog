@@ -57,8 +57,10 @@ router.get('/list', async(ctx, next) => {
   let list = await Article.find_article_list(ctx, next);
   let data = {};
   let user = await User.allow_auth(ctx,next);
+  let tags = await Tag.get_tag_list(ctx, next);
   data.user = user;
   data.list = list.data;
+  data.tags = tags.data;
   await ctx.render('list', data);
 });
 
@@ -126,8 +128,12 @@ function get_file(ctx) {
 }
 
 router.get('/error',async(ctx,next)=>{
-  await ctx.render('/error',data);
+  await ctx.render('error',{});
 });
 
 router.post('/comment/:id',Comment.save_comment)
+
+router.post('/delete_comment',Comment.delete_comment);
+
+router.post('/like',Comment.like_comment);
 module.exports = router
