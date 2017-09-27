@@ -25,6 +25,15 @@ block content
         .tagcloud
           each tag in tags
             a(href="/list/tag/"+tag._id) #{tag.content}
+      .hot-article
+        h2.title  热门文章
+        ul.hot-article-list
+          each item in hot_article_list
+            li.hot-article-list.clearfix 
+              a(href="/article/"+item._id,class="list-link") #{item.title}
+              span.read-amount 
+                span.iconfont.icon-read
+                |#{item.read_amount}
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
-  script(src="./scripts/tagcloud.js")
-  script(src="./scripts/common.js")
+  script(src="scripts/tagcloud.js")
+  script(src="scripts/common.js")

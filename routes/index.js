@@ -58,9 +58,12 @@ router.get('/list', async(ctx, next) => {
   let data = {};
   let user = await User.allow_auth(ctx,next);
   let tags = await Tag.get_tag_list(ctx, next);
+  let hot_article_list = await Article.find_hot_article_list(ctx, next);
+  data.hot_article_list = hot_article_list;
   data.user = user;
   data.list = list.data;
   data.tags = tags.data;
+
   await ctx.render('list', data);
 });
 
@@ -69,6 +72,10 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
   let data = {};
   data.list = result.list;
   let user = await User.allow_auth(ctx,next);
+  let hot_article_list = await Article.find_hot_article_list(ctx, next);
+  let tags = await Tag.get_tag_list(ctx, next);
+  data.hot_article_list = hot_article_list;
+  data.tags = tags.data;
   data.user = user;
   data.tag_content = result.tag_content;
   await ctx.render('list', data);

@@ -15,7 +15,7 @@ exports.save_comment = async (ctx,next)=>{
     ctx.redirect('/error');
   }
   else{
-    let html = marked(xss(comment.content))
+    let html = xss(marked(comment.content))
     try{
       let _user = await UserModel.findOne({username:username}).exec();
       if(comment.cid && _user){
