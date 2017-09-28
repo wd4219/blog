@@ -27,7 +27,7 @@ let CommentSchema = new Schema({
   }],
   publish_time:{
     type:Date,
-    default:Date.now()
+    default:new Date()
   },
   meta:{
     createAt:{
@@ -42,7 +42,7 @@ let CommentSchema = new Schema({
 });
 CommentSchema.pre('save', function (next) {
   if (this.isNew) {
-    this.meta.createAt = this.meta.updateAt = Date.now();
+    this.publish_time=this.meta.createAt = this.meta.updateAt = Date.now();
   } else {
     this.meta.updateAt = Date.now();
   }

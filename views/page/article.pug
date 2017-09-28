@@ -10,7 +10,6 @@ block content
               span.publish-time 日期：#{publish_time}
               span.read-amount 浏览：#{read_amount}
           .markdown-wd !{content}
-          
           .article-footer
             .footer-page
               a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") &laquo; #{article_footer.prev?article_footer.prev.title:'已经到头了'}
