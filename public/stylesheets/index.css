@@ -336,12 +336,20 @@ ul {
   height: 40px;
   color: #fff;
   line-height: 40px;
-  width: 100px;
+  width: 150px;
 }
 .header .right-box span {
-  flex: 1;
   text-align: center;
   cursor: pointer;
+}
+.header .right-box span:first-child {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.header .right-box span:last-child {
+  flex: 0 0 50px;
 }
 .header .search-box {
   height: 40px;
@@ -522,6 +530,26 @@ ul {
   padding: 8px 15px;
   color: #fff;
   cursor: pointer;
+}
+.main-container .left-content .pagination {
+  height: 50px;
+  border-top: 1px solid #d7d7d7;
+  border-bottom: 1px solid #d7d7d7;
+  line-height: 50px;
+  margin: 0 20px 40px;
+}
+.main-container .left-content .pagination a {
+  color: #20a0ff;
+  text-decoration: none;
+}
+.main-container .left-content .pagination a.prev-page {
+  float: left;
+}
+.main-container .left-content .pagination a.next-page {
+  float: right;
+}
+.main-container .left-content .pagination a:hover {
+  text-decoration: underline;
 }
 .main-container .right-side {
   float: left;

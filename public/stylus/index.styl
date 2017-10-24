@@ -209,11 +209,17 @@ ul
     height:40px
     color:#fff
     line-height:40px
-    width:100px
+    width:150px
     span
-      flex: 1
       text-align: center
       cursor: pointer
+      &:first-child
+        flex: 1
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      &:last-child
+        flex: 0 0 50px
   .search-box
     height:40px
     width: 150px
@@ -366,6 +372,21 @@ ul
             padding 8px 15px
             color #fff
             cursor pointer
+    .pagination
+      height:50px
+      border-top: 1px solid #d7d7d7
+      border-bottom: 1px solid #d7d7d7
+      line-height:50px
+      margin: 0 20px 40px
+      a
+        color: #20A0FF
+        text-decoration: none
+        &.prev-page
+          float: left
+        &.next-page
+          float: right
+        &:hover
+          text-decoration: underline
   .right-side
     float: left
     width:300px

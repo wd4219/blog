@@ -59,7 +59,7 @@ exports.save_article = async(ctx, next) => {
 }
 // 获取文章摘要信息
 exports.find_article_all = async(ctx, next) => {
-  let page = ctx.params.page;
+  let page = ctx.request.query.page||1;
   try {
     let result = await articleModel.find({}, {
       meta: 0,
@@ -68,10 +68,22 @@ exports.find_article_all = async(ctx, next) => {
       meta: 0,
       __v: 0,
       count: 0
-    }).limit(10).skip(10*page).exec();
-    return res_model(0, '获取文章列表成功', result);
+    }).limit(10).skip(10*(page-1)).exec();
+    let count = await articleModel.count().exec();
+    if(Math.ceil(count/10)>page && page >1){
+      return {prev:page-1,next:parseInt(page)+1,list:result}
+    }
+    else if(Math.ceil(count/10)==page && page >1){
+      return {prev:page-1,next:-1,list:result}
+    }
+    else if(Math.ceil(count/10)>page && page ==1){
+      return {prev:-1,next:parseInt(page)+1,list:result}
+    }
+    else{
+      return {prev:-1,next:-1,list:result}
+    }
   } catch (err) {
-    return res_model(0, '获取文章列表失败');
+    return null;
   }
 };
 // 获取文章列表信息

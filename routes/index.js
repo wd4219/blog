@@ -29,7 +29,10 @@ router.get('/', async(ctx, next) => {
   let tags = await Tag.get_tag_list(ctx, next);
   let user = await User.allow_auth(ctx,next);
   data.user = user;
-  data.article_list = article.data;
+  data.article_list = article.list;
+  data.prev = article.prev;
+  data.next = article.next;
+  console.log(article)
   data.hot_article_list = hot_article_list;
   data.tags = tags.data;
   await ctx.render('index', data);

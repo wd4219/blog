@@ -20,7 +20,12 @@ block content
                   each item in list_item.tag
                     a(href="/list/tag/"+item._id,class="label-item") #{item.content}
                 a(href="/article/"+list_item._id).read-total 阅读全文
-            //- .read-all-box
+      if next != -1 || prev != -1
+        .pagination
+          if prev != -1
+            a(href="/?page="+prev,class="prev-page") &laquo; 上一页
+          if next != -1
+            a(href="/?page="+next,class="next-page") 下一页 &raquo;
     .right-side
       .tag-box
         .tagcloud
@@ -35,6 +40,7 @@ block content
               span.read-amount 
                 span.iconfont.icon-read
                 |#{item.read_amount}
+    
   .tool-bar
     span.iconfont.icon-top
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
