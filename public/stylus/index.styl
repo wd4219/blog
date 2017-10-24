@@ -1,7 +1,7 @@
 @import '../static/font/iconfont.css'
 @import 'mixin.styl'
 body
-  background-color: #f4f5f5
+  background: #eee;  
 html,body
   font-family:-apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
   text-rendering: optimizeLegibility
@@ -415,12 +415,23 @@ ul
             margin-right:4px
             color: #888
 .footer
-  height 80px
-  background #475669
+  height 200px
+  background #fff
   font-size 16px
-  color #fff
-  text-align center
-  line-height 80px
+  .content
+    width: 1180px
+    height: 100%
+    margin: 0 auto
+    padding: 20px 0
+    box-sizing: border-box
+  .left
+    img
+      display: inline-block
+      width: 120px
+      margin-right: 20px
+    .motto
+      font-size: 20px
+  
 .tool-bar
   position: fixed
   right: 20px
@@ -507,7 +518,6 @@ ul
   .comment-box
     background-color: #fff;
     border-top: 1px solid #d7d7d7
-    margin-bottom:20px;
     padding: 15px
     .bottom-bar
       font-size:14px;

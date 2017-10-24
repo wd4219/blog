@@ -10,7 +10,6 @@ block content
               span.publish-time 日期：#{publish_time}
               span.read-amount 浏览：#{read_amount}
           .markdown-wd !{content}
-          
           .article-footer
             .footer-page
               a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") &laquo; #{article_footer.prev?article_footer.prev.title:'已经到头了'}
@@ -86,12 +85,12 @@ block content
         .hot-article
           h2.title  热门文章
           ul.hot-article-list
-            each list_item in hot_article_list
-              li.hot-article-list-item.clearfix 
-                a(href="/article/"+list_item._id,class="list-link") #{list_item.title}
+            each item in hot_article_list
+              li.hot-article-list.clearfix 
+                a(href="/article/"+item._id,class="list-link") #{item.title}
                 span.read-amount 
                   span.iconfont.icon-read
-                  |#{list_item.read_amount}
+                  |#{item.read_amount}
            
     .tool-bar
       span.iconfont.icon-top

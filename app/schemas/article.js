@@ -47,7 +47,7 @@ let ArticleSchema = new Schema({
 ArticleSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now();
-    this.pulish_time = moment(new Date()).format('YYYY-MM-DD');
+    this.publish_time = moment(new Date()).format('YYYY-MM-DD');
   } else {
     this.meta.updateAt = Date.now();
   }

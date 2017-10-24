@@ -546,11 +546,6 @@
     var is_req_category = true; //判断是否请求类别接口
     var simplemde = new SimpleMDE({
       autofocus: true,
-      autosave: {
-        enabled: true,
-        uniqueId: "blog",
-        delay: 1000,
-      },
       blockStyles: {
         bold: "**",
         italic: "*"
@@ -745,7 +740,7 @@
           if (response.code == 0) {
             $('.alert-box').removeClass('show');
             $('.mask').removeClass('show');
-            alert('文章保存成功');
+            window.location.href = './'
           } else {
             alert('文章保存失败');
           }

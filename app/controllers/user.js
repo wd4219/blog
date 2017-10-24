@@ -94,3 +94,12 @@ exports.sign_out = async(ctx,next)=>{
     }
   }
 }
+
+exports.admin = async(ctx,next)=>{
+  if(ctx.session && ctx.session.rule == 10){
+   await next();
+  }
+  else{
+    ctx.redirect('/error');
+  }
+}

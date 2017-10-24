@@ -75,7 +75,7 @@
   }
 }
 body {
-  background-color: #f4f5f5;
+  background: #eee;
 }
 html,
 body {
@@ -582,12 +582,24 @@ ul {
   color: #888;
 }
 .footer {
-  height: 80px;
-  background: #475669;
+  height: 200px;
+  background: #fff;
   font-size: 16px;
-  color: #fff;
-  text-align: center;
-  line-height: 80px;
+}
+.footer .content {
+  width: 1180px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+.footer .left img {
+  display: inline-block;
+  width: 120px;
+  margin-right: 20px;
+}
+.footer .left .motto {
+  font-size: 20px;
 }
 .tool-bar {
   position: fixed;
@@ -694,7 +706,6 @@ ul {
 .comment-container .comment-box {
   background-color: #fff;
   border-top: 1px solid #d7d7d7;
-  margin-bottom: 20px;
   padding: 15px;
 }
 .comment-container .comment-box .bottom-bar {

@@ -17,6 +17,10 @@ let UserSchema = new Schema({
   password:{
     type:String,
   },
+  rule:{
+    type:Number,
+    default:0,
+  },
   meta:{
     createAt:{
       type:Date,
