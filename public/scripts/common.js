@@ -124,6 +124,8 @@ $(function(){
   $('pre code').each(function (i, block) {
     hljs.highlightBlock(block);
   });
+  $('.left-content').addClass('show');
+  $('.right-side').addClass('show');
 });
 
 

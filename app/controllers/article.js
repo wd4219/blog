@@ -54,12 +54,13 @@ exports.save_article = async(ctx, next) => {
       ctx.body = res_model(-1,'保存失败',{});
     }
   }catch(err){
-    ctx.body = res_model(-1,'保存失败',{});
+    ctx.body = res_model(-1,'保存出错',{});
   }
 }
 // 获取文章摘要信息
 exports.find_article_all = async(ctx, next) => {
   let page = ctx.request.query.page||1;
+  let num = 7;
   try {
     let result = await articleModel.find({}, {
       meta: 0,
@@ -68,15 +69,15 @@ exports.find_article_all = async(ctx, next) => {
       meta: 0,
       __v: 0,
       count: 0
-    }).limit(10).skip(10*(page-1)).exec();
+    }).limit(num).skip(num*(page-1)).exec();
     let count = await articleModel.count().exec();
-    if(Math.ceil(count/10)>page && page >1){
+    if(Math.ceil(count/num)>page && page >1){
       return {prev:page-1,next:parseInt(page)+1,list:result}
     }
-    else if(Math.ceil(count/10)==page && page >1){
+    else if(Math.ceil(count/num)==page && page >1){
       return {prev:page-1,next:-1,list:result}
     }
-    else if(Math.ceil(count/10)>page && page ==1){
+    else if(Math.ceil(count/num)>page && page ==1){
       return {prev:-1,next:parseInt(page)+1,list:result}
     }
     else{
@@ -116,7 +117,6 @@ exports.get_article_tag = async(ctx, next) => {
       tag: tag_id
     }, {
       meta: 0,
-      _id: 0,
       __v: 0,
       description: 0,
       tag:0
@@ -138,7 +138,7 @@ exports.find_article_id = async (ctx,next)=>{
     result.content = article_content.content.toString('utf8');
     return res_model(0, '获取文章列表成功', result)
   }catch(err){
-    return res_model(0, '获取文章列表失败',{});
+    await ctx.render('error',{message:"文章不存在，或已被删除"})
   }
 }
 

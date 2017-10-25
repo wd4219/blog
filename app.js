@@ -46,4 +46,9 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(admin.routes(), users.allowedMethods())
 
+app.use(async (ctx,next)=>{
+  if(ctx.response.status == 404){
+    await ctx.render('404');
+  }
+})
 module.exports = app

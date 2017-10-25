@@ -75,13 +75,20 @@
   }
 }
 body {
-  background: #eee;
+  background: #f4f5f5;
 }
 html,
 body {
-  font-family: -apple-system, PingFang SC, Hiragino Sans GB, Arial, Microsoft YaHei, Helvetica Neue, sans-serif;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: optimizeLegibility;
   word-break: break-word;
+  color: #363636;
+  position: relative;
+  overflow-y: auto;
+  min-height: 100%;
+}
+html {
+  height: 100%;
 }
 ul {
   list-style: none;
@@ -286,7 +293,16 @@ ul {
 .header .nav-box {
   width: 1180px;
   margin: 0 auto;
+  height: 100px;
   position: relative;
+}
+.header .nav-box .motto {
+  position: absolute;
+  color: #fff;
+  left: 170px;
+  bottom: 15px;
+  font-size: 20px;
+  z-index: 1000;
 }
 .header .nav-bar {
   height: 40px;
@@ -403,7 +419,7 @@ ul {
 }
 .main-container {
   width: 1180px;
-  margin: 20px auto 30px;
+  margin: 20px auto 250px;
   overflow: hidden;
 }
 .main-container .left-content {
@@ -411,6 +427,14 @@ ul {
   float: left;
   overflow: hidden;
   background-color: #fff;
+  opacity: 0;
+  transition: all 0.5s;
+  transform: scale(0.8);
+  transform-origin: center;
+}
+.main-container .left-content.show {
+  opacity: 1;
+  transform: scale(1);
 }
 .main-container .left-content .article-page {
   padding: 15px 20px 15px;
@@ -518,18 +542,23 @@ ul {
   text-decoration: none;
 }
 .main-container .left-content .article-list .article-item .article-footer .label-box .label-item:hover {
-  color: #29b4f0;
+  color: #20a0ff;
 }
 .main-container .left-content .article-list .article-item .article-footer .read-total {
   position: absolute;
   right: 20px;
   bottom: 15px;
-  background-color: #20a0ff;
+  border: 1px solid #20a0ff;
+  color: #20a0ff;
   border-radius: 4px;
   text-decoration: none;
   padding: 8px 15px;
-  color: #fff;
   cursor: pointer;
+  transition: all 0.5s;
+}
+.main-container .left-content .article-list .article-item .article-footer .read-total:hover {
+  background: #20a0ff;
+  color: #fff;
 }
 .main-container .left-content .pagination {
   height: 50px;
@@ -555,6 +584,13 @@ ul {
   float: left;
   width: 300px;
   margin-left: 30px;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.5s;
+}
+.main-container .right-side.show {
+  opacity: 1;
+  transform: translateX(0);
 }
 .main-container .right-side .tag-box {
   height: 300px;
@@ -590,9 +626,11 @@ ul {
   font-size: 14px;
   float: left;
   text-decoration: none;
+  transition: all 0.5s;
 }
 .main-container .right-side .hot-article .hot-article-list .list-link:hover {
   color: #20a0ff;
+  transform: translateX(10px);
 }
 .main-container .right-side .hot-article .hot-article-list .read-amount {
   float: right;
@@ -613,6 +651,9 @@ ul {
   height: 200px;
   background: #fff;
   font-size: 16px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 .footer .content {
   width: 1180px;
@@ -621,13 +662,51 @@ ul {
   padding: 20px 0;
   box-sizing: border-box;
 }
-.footer .left img {
+.footer .left {
+  width: 50%;
+  display: inline-block;
+}
+.footer .left a {
   display: inline-block;
   width: 120px;
   margin-right: 20px;
+  background-color: #eee;
+  padding: 10px 15px;
+  border-radius: 4px;
+  float: left;
+}
+.footer .left a img {
+  display: block;
+  width: 100%;
+}
+.footer .left .logo-text {
+  font-size: 30px;
+  line-height: 1;
+  margin: 0px 0 30px;
+  padding-top: 10px;
 }
 .footer .left .motto {
-  font-size: 20px;
+  font-size: 16px;
+}
+.footer .right {
+  display: inline-block;
+  width: 50%;
+}
+.footer .right .contact {
+  text-align: right;
+}
+.footer .right .contact .iconfont {
+  font-size: 40px;
+  color: #bbb;
+  margin: 0 20px;
+  transition: all 0.5s;
+  display: inline-block;
+}
+.footer .right .contact .iconfont:hover {
+  color: #20a0ff;
+  transform: scale(1.2);
+  transform-origin: center center;
+  cursor: pointer;
 }
 .tool-bar {
   position: fixed;
@@ -635,6 +714,7 @@ ul {
   width: 40px;
   bottom: 100px;
   text-align: center;
+  z-index: 2000;
 }
 .tool-bar.top {
   bottom: 200px;

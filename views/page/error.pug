@@ -1,5 +1,49 @@
-extends layout
-
+extends  layout
 block content
-  h1 出错了
+  include ../components/header
+    style.
+      .error-content img{
+        width :140px;
+        display:block;
+        margin:20px auto 0;
+      }
+      .error-content p{
+        text-align:center;
+      }
+      .error-content .btn-box{
+        text-align:center;
+      }
+      .error-content .btn-box a{
+        color:#20a0ff;
+        padding:5px 0;
+        width:100px;
+        display:inline-block;
+        text-align:center;
+        border:1px solid #20a0ff;
+        border-radius:4px;
+        margin:0 20px;
+        text-decoration:none;
+      }
+      .error-content .btn-box a:hover{
+        background:#20a0ff;
+        color:#fff;
+      }
+      .error-content{
+        width:500px;
+        margin:30px auto;
+        box-shadow:0 4px 15px rgba(0,0,0,0.2);
+        padding:20px;
+        border-radius:4px;
+        background-color:#fff;
+      }
 
+  .error-content
+    img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png")
+    p.message #{message}
+    p.message #{time} 秒后返回，未返回请点击下方按钮！
+    .btn-box
+      a(href="javascript:;",class="back") 返回
+  script.
+      document.querySelector('.back').addEventListener('click',function(){
+        window.history.back();
+      },false);

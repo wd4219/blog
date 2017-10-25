@@ -3,10 +3,6 @@ const UserModel = require('../app/controllers/user');
 
 router.prefix('/user')
 
-// router.get('/signin',async (ctx,next)=>{
-//  await ctx.render('signin',{});
-// });
-
 router.post('/signup', UserModel.sign_up);
 
 router.post('/signin',UserModel.sign_in);

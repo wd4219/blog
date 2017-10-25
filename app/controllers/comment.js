@@ -12,7 +12,7 @@ exports.save_comment = async (ctx,next)=>{
     username = comment.content.match(/^@.*?(?= )/)[0].slice(1);
   }
   if(comment.content.replace(/^@.*?(?= )/,' ').trim() == ''){
-    ctx.redirect('/error');
+   await ctx.render('error',{message:'评论内容不能为空'});
   }
   else{
     let html = xss(marked(comment.content))
@@ -25,7 +25,7 @@ exports.save_comment = async (ctx,next)=>{
       let result = await _comment.save();
       ctx.redirect('/article/'+id);
     }catch(err){
-      ctx.redirect('/error');
+      console.log(err);
     }
   }
 }
@@ -35,6 +35,7 @@ exports.find_comment_article = async(ctx,next)=>{
     let result  = await CommentModel.find({article:id},{meta:0,__v:0,reply:0}).populate('user',{__v:0,meta:0,password:0}).exec();
     return result;
   }catch(err){
+    console.log(err);
     return [];
   }
 }

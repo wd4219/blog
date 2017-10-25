@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+html(lang="zh-cn")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title 页面找不到了
+    style.
+      img{
+        width :140px;
+        display:block;
+        margin:60px auto 0;
+      }
+      h1{
+        font-size:120px;
+        font-weight:normal;
+        text-align:center;
+        margin:30px;
+      }
+      p{
+        text-align:center;
+      }
+      .btn-box{
+        text-align:center;
+      }
+      .btn-box a{
+        color:#20a0ff;
+        padding:5px 0;
+        width:100px;
+        display:inline-block;
+        text-align:center;
+        border:1px solid #20a0ff;
+        border-radius:4px;
+        margin:0 20px;
+        text-decoration:none;
+      }
+      .btn-box a:hover{
+        background:#20a0ff;
+        color:#fff;
+      }
+  body
+    img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png")
+    h1 404
+    p 是页面的放手，还是你的不挽留...
+    .btn-box
+      a(href="/") 返回首页
+      a(href='javascript:;',class="back") 上一页
+    script.
+      document.querySelector('.back').addEventListener('click',function(){
+        window.history.back();
+      },false);
+    
+
+
