@@ -585,12 +585,12 @@ ul {
   width: 300px;
   margin-left: 30px;
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateY(-100px);
   transition: all 0.5s;
 }
 .main-container .right-side.show {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 .main-container .right-side .tag-box {
   height: 300px;

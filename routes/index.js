@@ -23,64 +23,83 @@ marked.setOptions({
 });
 
 router.get('/', async(ctx, next) => {
-  let data = {};
-  let article = await Article.find_article_all(ctx, next);
-  let hot_article_list = await Article.find_hot_article_list(ctx, next);
-  let tags = await Tag.get_tag_list(ctx, next);
-  let user = await User.allow_auth(ctx,next);
-  data.user = user;
-  data.article_list = article.list;
-  data.prev = article.prev;
-  data.next = article.next;
-  data.hot_article_list = hot_article_list;
-  data.tags = tags.data;
-  await ctx.render('index', data);
+  try{
+    let data = {};
+    let article = await Article.find_article_all(ctx, next);
+    let hot_article_list = await Article.find_hot_article_list(ctx, next);
+    let tags = await Tag.get_tag_list(ctx, next);
+    let user = await User.allow_auth(ctx,next);
+    data.user = user;
+    data.article_list = article.list;
+    data.prev = article.prev;
+    data.next = article.next;
+    data.hot_article_list = hot_article_list;
+    data.tags = tags;
+    await ctx.render('index', data);
+  }
+  catch(err){
+    await ctx.render('error',err);
+  }
 })
 
 router.get('/article/:id', async(ctx, next) => {
   Article.update_read_amount(ctx, next);
-  let data = {};
-  let article = await Article.find_article_id(ctx, next);
-  // let hot_article_list = await Article.find_hot_article_list(ctx, next);
-  // let tags = await Tag.get_tag_list(ctx, next);
-  // let article_footer = await Article.find_article_prev_next(ctx, next);
-  // let comment = await Comment.find_comment_article(ctx,next); 
-  // data = article.data;
-  // let user = await User.allow_auth(ctx,next);
-  // data.user = user;
-  // data.content = marked(data.content);
-  // data.hot_article_list = hot_article_list;
-  // data.tags = tags.data;
-  // data.article_footer = article_footer;
-  // data.comment = comment; 
-  // await ctx.render('article', data);
+  try{
+    let data = {};
+    let article = await Article.find_article_id(ctx, next);
+    let hot_article_list = await Article.find_hot_article_list(ctx, next);
+    let tags = await Tag.get_tag_list(ctx, next);
+    let article_footer = await Article.find_article_prev_next(ctx, next);
+    let comment = await Comment.find_comment_article(ctx,next);
+    data = article.data;
+    let user = await User.allow_auth(ctx,next);
+    data.user = user;
+    data.content = marked(data.content);
+    data.hot_article_list = hot_article_list;
+    data.tags = tags;
+    data.article_footer = article_footer;
+    data.comment = comment; 
+    await ctx.render('article', data);
+  }
+  catch(err){
+    ctx.render('error',err)
+  }
 });
 router.get('/list', async(ctx, next) => {
-  let list = await Article.find_article_list(ctx, next);
-  let data = {};
-  let user = await User.allow_auth(ctx,next);
-  let tags = await Tag.get_tag_list(ctx, next);
-  let hot_article_list = await Article.find_hot_article_list(ctx, next);
-  data.hot_article_list = hot_article_list;
-  data.user = user;
-  data.list = list.data;
-  data.tags = tags.data;
-
-  await ctx.render('list', data);
+  try{
+    let list = await Article.find_article_list(ctx, next);
+    let data = {};
+    let user = await User.allow_auth(ctx,next);
+    let tags = await Tag.get_tag_list(ctx, next);
+    let hot_article_list = await Article.find_hot_article_list(ctx, next);
+    data.hot_article_list = hot_article_list;
+    data.user = user;
+    data.list = list.data;
+    data.tags = tags;
+    await ctx.render('list', data);
+  }
+  catch(err){
+    await ctx.render('error',err);
+  }
 });
 
 router.get('/list/tag/:tag_id', async(ctx, next) => {
-  let result = await Article.get_article_tag(ctx, next);
-  let data = {};
-  data.list = result.list;
-  let user = await User.allow_auth(ctx,next);
-  let hot_article_list = await Article.find_hot_article_list(ctx, next);
-  let tags = await Tag.get_tag_list(ctx, next);
-  data.hot_article_list = hot_article_list;
-  data.tags = tags.data;
-  data.user = user;
-  data.tag_content = result.tag_content;
-  await ctx.render('list', data);
+  try{
+    let result = await Article.get_article_tag(ctx, next);
+    let data = {};
+    data.list = result.list;
+    let user = await User.allow_auth(ctx,next);
+    let hot_article_list = await Article.find_hot_article_list(ctx, next);
+    let tags = await Tag.get_tag_list(ctx, next);
+    data.hot_article_list = hot_article_list;
+    data.tags = tags;
+    data.user = user;
+    data.tag_content = result.tag_content;
+    await ctx.render('list', data);
+  }
+  catch(err){
+    await ctx.render('error',err);
+  }
 });
 
 
@@ -112,7 +131,6 @@ router.post('/comment/image', async(ctx, next) => {
       }
     }
   }
-  
 });
 
 function get_file(ctx) {

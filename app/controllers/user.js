@@ -100,6 +100,7 @@ exports.admin = async(ctx,next)=>{
    await next();
   }
   else{
+    ctx.response.status = 404;
     await ctx.render('404');
   }
 }

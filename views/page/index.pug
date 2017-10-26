@@ -27,19 +27,21 @@ block content
           if next != -1
             a(href="/?page="+next,class="next-page") 下一页 &raquo;
     .right-side
-      .tag-box
-        .tagcloud
-          each tag in tags
-            a(href="/list/tag/"+tag._id) #{tag.content}
-      .hot-article
-        h2.title  热门文章
-        ul.hot-article-list
-          each item in hot_article_list
-            li.hot-article-list.clearfix 
-              a(href="/article/"+item._id,class="list-link") #{item.title}
-              span.read-amount 
-                span.iconfont.icon-read
-                |#{item.read_amount}
+      if tags
+        .tag-box
+          .tagcloud
+            each tag in tags
+              a(href="/list/tag/"+tag._id) #{tag.content}
+      if hot_article_list
+        .hot-article
+          h2.title  热门文章
+          ul.hot-article-list
+            each item in hot_article_list
+              li.hot-article-list.clearfix 
+                a(href="/article/"+item._id,class="list-link") #{item.title}
+                span.read-amount 
+                  span.iconfont.icon-read
+                  |#{item.read_amount}
     
   .tool-bar
     span.iconfont.icon-top

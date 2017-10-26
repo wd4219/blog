@@ -25,7 +25,7 @@ exports.save_comment = async (ctx,next)=>{
       let result = await _comment.save();
       ctx.redirect('/article/'+id);
     }catch(err){
-      console.log(err);
+      throw({message:'评论提交失败'})
     }
   }
 }

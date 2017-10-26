@@ -36,14 +36,31 @@ block content
         border-radius:4px;
         background-color:#fff;
       }
-
+      #time{
+        color:red;
+        font-size:16px;
+      }
   .error-content
     img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png")
     p.message #{message}
-    p.message #{time} 秒后返回，未返回请点击下方按钮！
+    p.message 
+      span#time 5
+      | 秒后返回，未返回请点击下方按钮！
     .btn-box
       a(href="javascript:;",class="back") 返回
   script.
+      var time = 5;
       document.querySelector('.back').addEventListener('click',function(){
+        clearInterval(timer);
         window.history.back();
       },false);
+      var timer = setInterval(function(){
+        if(time>0){
+          time--;
+        }
+        else{
+          clearInterval(timer);
+            window.history.back();
+        }
+        document.getElementById('time').innerHTML= time;
+      },1000);

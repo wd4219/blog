@@ -37,9 +37,9 @@ exports.save_tag = async(ctx, next) => {
 exports.get_tag_list = async(ctx,next)=>{
   try{
     let tag_list =  await TagModel.find({},{meta:0,__v:0}).exec();
-    return res_model(0,'获取标签列表成功',tag_list);
+    return tag_list;
   }catch(err){
-     return res_model('-1','获取标签列表失败',{});
+     console.log(err);
   }
 };
 // 根据传进来的值模糊查询tag表，返回符合条件的列表

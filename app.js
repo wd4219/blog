@@ -47,7 +47,8 @@ app.use(users.routes(), users.allowedMethods())
 app.use(admin.routes(), users.allowedMethods())
 
 app.use(async (ctx,next)=>{
-  if(ctx.response.status == 404){
+  if(!ctx.response.headerSent){
+    ctx.response.status = 404;
     await ctx.render('404');
   }
 })

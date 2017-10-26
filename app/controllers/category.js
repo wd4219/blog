@@ -8,7 +8,7 @@ let  res_model = (code,message,data) => {
       data: data?data:{}
   }
 };
-// 保存标签
+// 保存类别
 exports.save_category = async(ctx, next) => {
   let category_content = ctx.request.body.category;
   try{
@@ -37,7 +37,7 @@ exports.save_category = async(ctx, next) => {
   }
   
 };
-//获取标签列表
+//获取类别列表
 exports.get_category_list = async(ctx,next)=>{
   try{
     let category_list =  await CategoryModel.find({},{meta:0,__v:0,_id:0}).exec();
