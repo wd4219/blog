@@ -38,6 +38,7 @@ router.get('/', async(ctx, next) => {
     await ctx.render('index', data);
   }
   catch(err){
+    ctx.response.status = 500;
     await ctx.render('error',err);
   }
 })
@@ -62,7 +63,8 @@ router.get('/article/:id', async(ctx, next) => {
     await ctx.render('article', data);
   }
   catch(err){
-    ctx.render('error',err)
+    ctx.status = 500;
+    await ctx.render('error',err)
   }
 });
 router.get('/list', async(ctx, next) => {

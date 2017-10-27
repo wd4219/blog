@@ -169,9 +169,11 @@ exports.find_article_id = async(ctx, next) => {
     result.content = article_content.content.toString('utf8');
     return res_model(0, '获取文章列表成功', result)
   } catch (err) {
-    await ctx.render('error', {
+    ctx.err = err;
+    throw({
       message: "文章不存在，或已被删除"
-    })
+    });
+    console.log(err);
   }
 }
 
