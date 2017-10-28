@@ -30,6 +30,7 @@
     "pug": "^2.0.0-rc.1",
     "stylus": "0.42.3",
     "winston": "^2.4.0",
+    "winston-daily-rotate-file": "^1.7.2",
     "xss": "^0.3.4"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@ const multiparty = require('multiparty');
 const util = require('util');
 const fs = require('fs');
 const path = require('path');
-const client = require('../config/index');
+const client = require('../config/oss');
 const User = require('../app/controllers/user');
 const Comment = require('../app/controllers/comment');
 
@@ -39,7 +39,6 @@ router.get('/', async(ctx, next) => {
   }
   catch(err){
     ctx.response.status = 500;
-    await ctx.render('error',err);
   }
 })
 
@@ -64,7 +63,6 @@ router.get('/article/:id', async(ctx, next) => {
   }
   catch(err){
     ctx.status = 500;
-    await ctx.render('error',err)
   }
 });
 router.get('/list', async(ctx, next) => {
@@ -81,7 +79,7 @@ router.get('/list', async(ctx, next) => {
     await ctx.render('list', data);
   }
   catch(err){
-    await ctx.render('error',err);
+    ctx.status = 500;
   }
 });
 
@@ -100,7 +98,7 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
     await ctx.render('list', data);
   }
   catch(err){
-    await ctx.render('error',err);
+    ctx.status = 500;
   }
 });
 

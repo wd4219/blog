@@ -1,39 +1,19 @@
 extends layout
 block content
-  include ../components/header
-  .main-container
-    .left-content
-      .list-container
-        h2.title 文章列表
-          if tag_content
-            .tag 标签：
-              span.tag_inner #{tag_content}
-        ul.article-list-content
-          each item in list
-            li.article-list-content-item
-              a(href="/article/"+item._id,class="title-text")
-                h3.article-list-content-item-title #{item.title}
-                .item-info
-                  span.publish-time 
-                    i.iconfont.icon-riqi
-                    |#{item.publish_time}
-                  span.read-amount
-                    i.iconfont.icon-read
-                    |#{item.read_amount}
-    .right-side
-      .tag-box
-        .tagcloud
-          each tag in tags
-            a(href="/list/tag/"+tag._id) #{tag.content}
-      .hot-article
-        h2.title  热门文章
-        ul.hot-article-list
-          each item in hot_article_list
-            li.hot-article-list.clearfix 
-              a(href="/article/"+item._id,class="list-link") #{item.title}
-              span.read-amount 
-                span.iconfont.icon-read
+  .list-container
+    h2.title 文章列表
+      if tag_content
+        .tag 标签：
+          span.tag_inner #{tag_content}
+    ul.article-list-content
+      each item in list
+        li.article-list-content-item
+          a(href="/article/"+item._id,class="title-text")
+            h3.article-list-content-item-title #{item.title}
+            .item-info
+              span.publish-time 
+                i.iconfont.icon-riqi
+                |#{item.publish_time}
+              span.read-amount
+                i.iconfont.icon-read
                 |#{item.read_amount}
-  script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
-  script(src="scripts/tagcloud.js")
-  script(src="scripts/common.js")

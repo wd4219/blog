@@ -4,6 +4,7 @@ const UserModel = require('../models/user');
 const marked = require('marked');
 const xss = require('xss');
 
+// 保存评论
 exports.save_comment = async (ctx,next)=>{
   let id = ctx.params.id;
   let comment = ctx.request.body.comment;
@@ -25,21 +26,24 @@ exports.save_comment = async (ctx,next)=>{
       let result = await _comment.save();
       ctx.redirect('/article/'+id);
     }catch(err){
-      throw({message:'评论提交失败'})
+      ctx.err = err;
+      await ctx.render('error',{message:'评论提交失败'});
     }
   }
 }
+
+//根据文章查找评论
 exports.find_comment_article = async(ctx,next)=>{
   let id = ctx.params.id;
   try{
     let result  = await CommentModel.find({article:id},{meta:0,__v:0,reply:0}).populate('user',{__v:0,meta:0,password:0}).exec();
     return result;
   }catch(err){
-    console.log(err);
+    ctx.err = err;
     return [];
   }
 }
-
+// 删除评论
 exports.delete_comment = async(ctx,next)=>{
   let cid = ctx.request.body.cid;
   try{
@@ -59,10 +63,10 @@ exports.delete_comment = async(ctx,next)=>{
       }
     }
   }catch(err){
-    console.log(err);
+    ctx.err = err;
   }
 }
-
+// 点赞或者取消赞
 exports.like_comment = async(ctx,next)=>{
   let cid = ctx.request.body.cid;
   try{
@@ -92,6 +96,7 @@ exports.like_comment = async(ctx,next)=>{
       }
     }
   }catch(err){
-    console.log(err);
+    ctx.err = err;
+    await ctx.render('error',{message:'赞功能出错了，请联系管理员修复!'});
   }
 }

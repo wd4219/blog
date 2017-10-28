@@ -1,98 +1,81 @@
 extends layout
 block content
-    include ../components/header
-    .main-container
-      .left-content
-        .article-page
-          .article-header
-            h2.article-title #{title}
-            p.article-status
-              span.publish-time 日期：#{publish_time}
-              span.read-amount 浏览：#{read_amount}
-          .markdown-wd !{content}
-          .article-footer
-            .footer-page
-              a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") &laquo; #{article_footer.prev?article_footer.prev.title:'已经到头了'}
-              a(href=article_footer.next?"/article/"+article_footer.next._id:'javscript:;',class="next") #{article_footer.next?article_footer.next.title:'去前面看看吧'} &raquo;
-            .share-box
-              
-        .comment-container
-          .comment-list
-            each item in comment
-              .comment-list-item
-                .avatar 
-                  img(src=item.user.avatar, alt="用户头像")
-                .content
-                  p.content-status
-                    span.username #{item.user.username}
-                    span.comment-time 
-                      time(class="timeago", datetime=item.publish_time)
-                  div.content-center.markdown-wd !{item.content}
-                  if user  
-                    .bottom-content
-                      div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
-                      if user._id == item.user._id
-                        div(class="delete",data-cid=item._id) 删除
-                      .like
-                        if item.like_user.indexOf(user._id)>-1
-                          span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")
-                        else
-                          span(class="iconfont icon-dianzan",data-cid=item._id)
-                        |赞 
-                        span.like_count #{item.like_amount}
-          if user && user.username
-            .comment-box
-              form(action="/comment/"+_id, method="post",id="comment-form")
-                textarea(id="comment-text",hidden,name="comment[content]")
-                .bottom-bar
-                  input(type="submit", value="发表评论",class="submit-comment")
-              <div class="link-alert">
-                <h3 class="title">新建链接 <span class="iconfont icon-close"></span></h3>
-                <input type="text" name="title" class="link-title" placeholder="请输入链接文字">
-                <input type="text" name="text" class="link-text" placeholder="请输入链接内容">
-                <div class="link-btn">确定</div>
-              </div>
-              <div class="image-alert">
-                <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
-                <div class="content-box" id="dropbox">
-                  <div class="upload-box">
-                    <label for="file-upload" class="upload-btn">点击上传</label>
-                    <input type="file" multiple id="file-upload" hidden>
-                  </div>
-                  <div class="progress-box" style="display:none;">
-                    <svg xmlns="http://www.w3.org/2000/svg">
-                      <line x1="30" y1="110" x2="330" y2="110"style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;"/>          
-                      <line x1="30" y1="110" x2="330" y2="110"style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300" stroke-dashoffset="300" class="progress"/>
-                    </svg>
-                    <div class="percent">0%</div>
-                  </div>
-                </div>
-              </div>
-          else
-            .no-login
-              span.signin 登录 
-              |/ 
-              span.signup 注册
-              |之后评论
-      .right-side
-        .tag-box
-          .tagcloud
-            each tag in tags
-              a(href="/list/tag/"+tag._id) #{tag.content}
-        .hot-article
-          h2.title  热门文章
-          ul.hot-article-list
-            each item in hot_article_list
-              li.hot-article-list.clearfix 
-                a(href="/article/"+item._id,class="list-link") #{item.title}
-                span.read-amount 
-                  span.iconfont.icon-read
-                  |#{item.read_amount}
-           
-    .tool-bar
-      span.iconfont.icon-top
-    script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
-    script(src="../scripts/jquery.timeago.js",type="text/javascript")
-    script(src="../scripts/tagcloud.js")
-    script(src="../scripts/common.js")
-    script(src="../scripts/article.js")
+  .article-page
+    .article-header
+      h2.article-title #{title}
+      p.article-status
+        span.publish-time 日期：#{publish_time}
+        span.read-amount 浏览：#{read_amount}
+    .markdown-wd !{content}
+    .article-footer
+      .footer-page
+        a(href=article_footer.prev?"/article/"+article_footer.prev._id:'javscript:;',class="prev") &laquo; #{article_footer.prev?article_footer.prev.title:'已经到头了'}
+        a(href=article_footer.next?"/article/"+article_footer.next._id:'javscript:;',class="next") #{article_footer.next?article_footer.next.title:'去前面看看吧'} &raquo;
+      .share-box
+  .comment-container
+    .comment-list
+      each item in comment
+        .comment-list-item
+          .avatar 
+            img(src=item.user.avatar, alt="用户头像")
+          .content
+            p.content-status
+              span.username #{item.user.username}
+              span.comment-time 
+                time(class="timeago", datetime=item.publish_time)
+            div.content-center.markdown-wd !{item.content}
+            if user  
+              .bottom-content
+                div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
+                if user._id == item.user._id
+                  div(class="delete",data-cid=item._id) 删除
+                .like
+                  if item.like_user.indexOf(user._id)>-1
+                    span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")
+                  else
+                    span(class="iconfont icon-dianzan",data-cid=item._id)
+                  |赞 
+                  span.like_count #{item.like_amount}
+    if user && user.username
+      .comment-box
+        form(action="/comment/"+_id, method="post",id="comment-form")
+          textarea(id="comment-text",hidden,name="comment[content]")
+          .bottom-bar
+            input(type="submit", value="发表评论",class="submit-comment")
+        <div class="link-alert">
+          <h3 class="title">新建链接 <span class="iconfont icon-close"></span></h3>
+          <input type="text" name="title" class="link-title" placeholder="请输入链接文字">
+          <input type="text" name="text" class="link-text" placeholder="请输入链接内容">
+          <div class="link-btn">确定</div>
+        </div>
+        <div class="image-alert">
+          <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
+          <div class="content-box" id="dropbox">
+            <div class="upload-box">
+              <label for="file-upload" class="upload-btn">点击上传</label>
+              <input type="file" multiple id="file-upload" hidden>
+            </div>
+            <div class="progress-box" style="display:none;">
+              <svg xmlns="http://www.w3.org/2000/svg">
+                <line x1="30" y1="110" x2="330" y2="110"style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;"/>          
+                <line x1="30" y1="110" x2="330" y2="110"style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300" stroke-dashoffset="300" class="progress"/>
+              </svg>
+              <div class="percent">0%</div>
+            </div>
+          </div>
+        </div>
+    else
+      .no-login
+        span.signin 登录 
+        |/ 
+        span.signup 注册
+        |之后评论
+block dynamic_css
+  link(rel="stylesheet", href="/stylesheets/atom-one-light.css")
+  link(rel="stylesheet", href="/stylesheets/markdown.css")
+  link(rel="stylesheet", href="/stylesheets/markdown-content.css")
+block dynamic_script
+  script(src="/scripts/jquery.timeago.js",type="text/javascript")
+  script(src="/scripts/article.js")
+  script(src="//apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js")
+  script(src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")

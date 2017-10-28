@@ -28,7 +28,7 @@ exports.save_category = async(ctx, next) => {
       return result.content;
     }
   }catch(err){
-    console.log(err);
+    ctx.err = err;
     ctx.body = {
       code:-1,
       message:'保存失败',

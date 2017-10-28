@@ -29,7 +29,7 @@ exports.save_tag = async(ctx, next) => {
     }
     return tags_id;
   }catch(err){
-    console.log(err);
+    ctx.err = err;
     return [];
   }
 };
@@ -39,7 +39,7 @@ exports.get_tag_list = async(ctx,next)=>{
     let tag_list =  await TagModel.find({},{meta:0,__v:0}).exec();
     return tag_list;
   }catch(err){
-     console.log(err);
+     ctx.err = err;
   }
 };
 // 根据传进来的值模糊查询tag表，返回符合条件的列表
@@ -53,7 +53,6 @@ exports.get_tag_list_of_value = async(ctx,next)=>{
       data:tag_list
     };
   }catch(err){
-    console.log(err);
     ctx.body ={
       code:-1,
       message:"获取数据失败",

@@ -5,7 +5,7 @@ const CategoryModel = require('../models/category');
 const Tag = require('../controllers/tag');
 const Category = require('../controllers/category');
 const fs = require('fs');
-const client = require('../../config/index');
+const client = require('../../config/oss');
 const marked = require('marked');
 const Comment = require('../controllers/comment');
 let res_model = (code, message, data) => {
@@ -97,10 +97,10 @@ exports.find_article_all = async(ctx, next) => {
       }
     }
   } catch (err) {
-    console.log(err);
-    throw {
+    ctx.err = err;
+    await ctx.render('error',{
       message: '喔噢，难道数据库被洗劫了'
-    };
+    });
   }
 };
 // 获取文章列表信息
@@ -153,7 +153,7 @@ exports.get_article_tag = async(ctx, next) => {
     console.log(err);
   }
 }
-
+// 通过id查找博客
 exports.find_article_id = async(ctx, next) => {
   let article_id = ctx.params.id;
   try {
@@ -170,13 +170,12 @@ exports.find_article_id = async(ctx, next) => {
     return res_model(0, '获取文章列表成功', result)
   } catch (err) {
     ctx.err = err;
-    throw({
+    await ctx.render('error',{
       message: "文章不存在，或已被删除"
     });
-    console.log(err);
   }
 }
-
+// 更新阅读量
 exports.update_read_amount = async(ctx, next) => {
   let _id = ctx.params.id;
   try {
@@ -188,9 +187,10 @@ exports.update_read_amount = async(ctx, next) => {
       }
     }).exec();
   } catch (err) {
-    console.log(err);
+    ctx.err = err;
   }
 }
+
 exports.update_like_amount = async(ctx, next) => {
   let _id = ctx.params.id;
   try {
@@ -202,10 +202,10 @@ exports.update_like_amount = async(ctx, next) => {
       }
     }).exec();
   } catch (err) {
-    console.log(err);
+   ctx.err = err;
   }
 }
-
+// 获取热门文章的列表
 exports.find_hot_article_list = async(ctx, next) => {
   try {
     let result = await articleModel.find({}, {
@@ -220,11 +220,11 @@ exports.find_hot_article_list = async(ctx, next) => {
     }).limit(5).exec();
     return result;
   } catch (err) {
-    console.log(err);
+    ctx.err = err;
   }
 
 }
-
+// 获取分页
 exports.find_article_prev_next = async(ctx, next) => {
   let id = ctx.params.id;
   let article_footer = {};
@@ -261,6 +261,6 @@ exports.find_article_prev_next = async(ctx, next) => {
     }).limit(1))[0]
     return article_footer;
   } catch (err) {
-    console.log(err);
+   ctx.err = err;
   }
 }
