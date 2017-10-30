@@ -157,18 +157,10 @@ ul {
 }
 .sign-box {
   position: fixed;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   z-index: 400;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s linear;
-}
-.sign-box.show {
-  visibility: visible;
-  top: 50%;
-  opacity: 1;
 }
 .signin-box,
 .signup-box {
@@ -852,6 +844,15 @@ ul {
 }
 .comment-container .comment-list {
   background-color: #fff;
+}
+.comment-container .comment-list a {
+  color: #20a0ff;
+  text-decoration: none;
+}
+.comment-container .comment-list a:hover {
+  color: #20a0ff;
+  text-decoration: underline;
+  background: none;
 }
 .comment-container .comment-list .comment-list-item {
   display: flex;

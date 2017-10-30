@@ -68,17 +68,10 @@ ul
     padding-left:10px
 .sign-box
   position: fixed
-  top:40%;
+  top:50%;
   left:50%;
   transform:translate3d(-50%,-50%,0);
   z-index:400
-  opacity: 0
-  visibility: hidden
-  transition: all  0.3s linear
-  &.show
-    visibility: visible
-    top:50%
-    opacity: 1
 .signin-box,.signup-box
   display: none
   background-color #fff
@@ -637,6 +630,13 @@ ul
       text-decoration: underline
   .comment-list
     background-color: #fff;
+    a
+      color:#20a0ff;
+      text-decoration: none
+      &:hover
+        color:#20a0ff;
+        text-decoration: underline
+        background: none;
     .comment-list-item
       display: flex
       overflow: hidden

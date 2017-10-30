@@ -27,16 +27,16 @@ let CommentSchema = new Schema({
   }],
   publish_time:{
     type:Date,
-    default:new Date()
+    default:Date.now()
   },
   meta:{
     createAt:{
       type:Date,
-      default:new Date()
+      default:Date.now()
     },
     updateAt:{
       type:Date,
-      default:new Date()
+      default:Date.now()
     }
   }
 });

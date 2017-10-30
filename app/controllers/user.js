@@ -22,7 +22,7 @@ exports.sign_up = async(ctx,next)=>{
     ctx.body = res_model(-1,'注册失败');
   }
 }
-
+// 登录
 exports.sign_in = async(ctx,next)=>{
   let user = ctx.request.body;
   try{
@@ -77,8 +77,6 @@ exports.allow_auth = async(ctx,next)=>{
     return null;
   }
 }
-
-
 exports.sign_out = async(ctx,next)=>{
   if(ctx.session && ctx.session.username){
     ctx.session ={};
@@ -102,5 +100,17 @@ exports.admin = async(ctx,next)=>{
   else{
     ctx.response.status = 404;
     await ctx.render('404');
+  }
+}
+
+exports.findUserById = async(ctx,next)=>{
+  let user_id = ctx.params.id;
+  try{
+    let user = await UserModel.findById(user_id,{__v:0}).exec();
+    await ctx.render('user',user);
+  }
+  catch(err){
+    ctx.err = err;
+    await ctx.render('error',{message:'用户不存在'});
   }
 }

@@ -1,4 +1,5 @@
 extends layout
+
 block content
   .article-page
     .article-header
@@ -29,6 +30,7 @@ block content
                 div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
                 if user._id == item.user._id
                   div(class="delete",data-cid=item._id) 删除
+                  input(type="hidden", name="_csrf" value=csrf,class="csrf")
                 .like
                   if item.like_user.indexOf(user._id)>-1
                     span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")
@@ -39,37 +41,36 @@ block content
     if user && user.username
       .comment-box
         form(action="/comment/"+_id, method="post",id="comment-form")
+          input(type="hidden", name="_csrf" value=csrf)
           textarea(id="comment-text",hidden,name="comment[content]")
           .bottom-bar
             input(type="submit", value="发表评论",class="submit-comment")
-        <div class="link-alert">
-          <h3 class="title">新建链接 <span class="iconfont icon-close"></span></h3>
-          <input type="text" name="title" class="link-title" placeholder="请输入链接文字">
-          <input type="text" name="text" class="link-text" placeholder="请输入链接内容">
-          <div class="link-btn">确定</div>
-        </div>
-        <div class="image-alert">
-          <h3 class="title">图片上传 <span class="iconfont icon-close"></span></h3>
-          <div class="content-box" id="dropbox">
-            <div class="upload-box">
-              <label for="file-upload" class="upload-btn">点击上传</label>
-              <input type="file" multiple id="file-upload" hidden>
-            </div>
-            <div class="progress-box" style="display:none;">
-              <svg xmlns="http://www.w3.org/2000/svg">
-                <line x1="30" y1="110" x2="330" y2="110"style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;"/>          
-                <line x1="30" y1="110" x2="330" y2="110"style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300" stroke-dashoffset="300" class="progress"/>
-              </svg>
-              <div class="percent">0%</div>
-            </div>
-          </div>
-        </div>
     else
       .no-login
         span.signin 登录 
         |/ 
         span.signup 注册
         |之后评论
+  block top_block
+    if user && user.username
+      .link-alert
+        h3.title 新建链接
+          span.iconfont.icon-close
+        input(type="text",name="title",class="link-title",placeholder="请输入链接文字")
+        input(type="text",name="text",class="link-text",placeholder="请输入链接内容")
+        .link-btn 确定
+      .image-alert
+        h3.title 图片上传
+          span.iconfont.icon-close
+        .content-box#dropbox
+          .upload-box
+            label(for="file-upload",class="upload-btn") 点击上传
+            input(type="file",multiple,id="file-upload", hidden)
+          div(class="progress-box",style="display:none;")
+            svg(xmlns="http://www.w3.org/2000/svg")
+              line(x1="30", y1="110" ,x2="330", y2="110",style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;")          
+              line(x1="30" ,y1="110" ,x2="330", y2="110",style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300",stroke-dashoffset="300",class="progress")
+            .percent 0%
 block dynamic_css
   link(rel="stylesheet", href="/stylesheets/atom-one-light.css")
   link(rel="stylesheet", href="/stylesheets/markdown.css")

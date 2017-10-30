@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const session = require('koa-session2');
 const DB_URL = 'mongodb://localhost/myblog';
 const logger = require('./config/log');
+const CSRF = require('koa-csrf');
 mongoose.connect(DB_URL,{ useMongoClient: true});
 
 const index = require('./routes/index')
@@ -28,6 +29,16 @@ app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views/page/', {
   extension: 'pug'
 }))
+
+// csrf
+app.use(new CSRF({
+  invalidSessionSecretMessage: 'Invalid session secret',
+  invalidSessionSecretStatusCode: 403,
+  invalidTokenMessage: 'Invalid CSRF token',
+  invalidTokenStatusCode: 403,
+  excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
+  disableQuery: false
+}));
 
 // routes
 app.use(index.routes(), index.allowedMethods())

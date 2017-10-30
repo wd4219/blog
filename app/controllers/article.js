@@ -120,8 +120,10 @@ exports.find_article_list = async(ctx, next) => {
     }).exec();
     return res_model(0, '获取文章列表成功', result);
   } catch (err) {
-    console.log(err);
-    return res_model(0, '获取文章列表失败', {});
+    ctx.err = err;
+    await ctx.render('error',{
+      message: '喔噢，文章列表不见了'
+    });
   }
 };
 
@@ -147,9 +149,7 @@ exports.get_article_tag = async(ctx, next) => {
     result.tag_content = tag.content;
     return result;
   } catch (err) {
-    throw ({
-      message: '标签不存在'
-    })
+    ctx.err = err;
     console.log(err);
   }
 }

@@ -3,31 +3,50 @@ const CommentModel = require('../models/comment');
 const UserModel = require('../models/user');
 const marked = require('marked');
 const xss = require('xss');
+const _ = require('lodash');
 
 // 保存评论
 exports.save_comment = async (ctx,next)=>{
   let id = ctx.params.id;
   let comment = ctx.request.body.comment;
-  let username = comment.content.match(/^@.*?(?= )/);
-  if(username){
-    username = comment.content.match(/^@.*?(?= )/)[0].slice(1);
-  }
-  if(comment.content.replace(/^@.*?(?= )/,' ').trim() == ''){
-   await ctx.render('error',{message:'评论内容不能为空'});
+  let reply_username_list = comment.content.match(/@.*?(?= )/g);
+  reply_username_list = _.uniq(reply_username_list);
+  if(reply_username_list.length > 10){
+    await ctx.render('error',{message:'最多只能@10个人哦'})
   }
   else{
+    if(reply_username_list.length > 0){
+      reply_username_list = _.map(reply_username_list,function(val){
+        return val.slice(1);
+      });
+    }
     let html = xss(marked(comment.content))
-    try{
-      let _user = await UserModel.findOne({username:username}).exec();
-      if(comment.cid && _user){
-        await CommentModel.findOneAndUpdate({_id:comment.cid},{$push:{'reply':_user._id}});
+    if(comment.content.replace(/@.*?(?= )/g,' ').trim() == ''){
+     await ctx.render('error',{message:'评论内容不能为空'});
+    }
+    else{
+      try{
+        
+        for(let i = 0;i < reply_username_list.length;i++){
+          let username = reply_username_list[i];
+          let _user = await UserModel.findOne({username:username}).exec();
+          if(comment.cid && _user){
+            await CommentModel.findOneAndUpdate({_id:comment.cid},{$push:{'reply':_user._id}});
+            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user/${_user.id}">@${username}</a>`)
+          }
+          else if(_user){
+            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user/${_user.id}">@${username}</a>`)
+          }
+        };
+        
+        let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
+        await _comment.save();
+        ctx.redirect('/article/'+id);
+      }catch(err){
+        console.log(err);
+        ctx.err = err;
+        await ctx.render('error',{message:'评论提交失败'});
       }
-      let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
-      let result = await _comment.save();
-      ctx.redirect('/article/'+id);
-    }catch(err){
-      ctx.err = err;
-      await ctx.render('error',{message:'评论提交失败'});
     }
   }
 }

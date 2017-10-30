@@ -16,6 +16,7 @@
     "koa": "^2.2.0",
     "koa-bodyparser": "^3.2.0",
     "koa-convert": "^1.2.0",
+    "koa-csrf": "^3.0.6",
     "koa-json": "^2.0.2",
     "koa-onerror": "^3.1.0",
     "koa-router": "^7.1.1",
@@ -34,6 +35,7 @@
     "xss": "^0.3.4"
   },
   "devDependencies": {
+    "lodash": "^4.17.4",
     "nodemon": "^1.8.1"
   }
 }

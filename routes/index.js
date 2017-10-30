@@ -35,6 +35,7 @@ router.get('/', async(ctx, next) => {
     data.next = article.next;
     data.hot_article_list = hot_article_list;
     data.tags = tags;
+    data.csrf = ctx.csrf;
     await ctx.render('index', data);
   }
   catch(err){
@@ -59,9 +60,11 @@ router.get('/article/:id', async(ctx, next) => {
     data.tags = tags;
     data.article_footer = article_footer;
     data.comment = comment; 
+    data.csrf = ctx.csrf;
     await ctx.render('article', data);
   }
   catch(err){
+    console.log(err);
     ctx.status = 500;
   }
 });
@@ -76,6 +79,7 @@ router.get('/list', async(ctx, next) => {
     data.user = user;
     data.list = list.data;
     data.tags = tags;
+    data.csrf = ctx.csrf;
     await ctx.render('list', data);
   }
   catch(err){
@@ -95,6 +99,7 @@ router.get('/list/tag/:tag_id', async(ctx, next) => {
     data.tags = tags;
     data.user = user;
     data.tag_content = result.tag_content;
+    data.csrf = ctx.csrf;
     await ctx.render('list', data);
   }
   catch(err){

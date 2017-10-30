@@ -9,6 +9,8 @@ router.post('/signin',UserModel.sign_in);
 
 router.post('/signout',UserModel.sign_out);
 
+router.get('/:id',UserModel.findUserById);
+
 router.get('/check_username', UserModel.check_username);
 
 router.get('/check_email_phone',UserModel.check_email_phone);

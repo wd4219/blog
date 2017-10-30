@@ -84,7 +84,11 @@ function editor() {
     $('.link-alert').removeClass('show');
     $('.mask').fadeOut();
   });
-
+  $('.mask').on('click',function(){
+    $('.link-alert').removeClass('show');
+    $('.image-alert').removeClass('show');
+    $('.mask').fadeOut();
+  });
   function replaceSelection(cm, active, startEnd, url) {
     if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
       return;
@@ -217,6 +221,7 @@ function event_func() {
         type: 'post',
         url: '/delete_comment',
         data: {
+          _csrf:$('.csrf').val(),
           cid: $(e.target).data('cid')
         },
         success: function (response) {
@@ -234,6 +239,7 @@ function event_func() {
       type: 'post',
       url: '/like',
       data: {
+        _csrf:$('.csrf').val(),
         cid: $(e.target).data('cid')
       },
       success: function (response) {

@@ -8,7 +8,7 @@ router.prefix('/admin')
 
 
 router.get('/',User.admin,async (ctx,next)=>{
-  await ctx.render('./admin/index.html',{});
+  await ctx.render('./admin/index',{csrf:ctx.csrf});
 });
 
 // 添加文章类别
