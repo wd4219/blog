@@ -1,0 +1,81 @@
+.user-container {
+  padding: 20px;
+  font-size: 14px;
+}
+.user-container h3 {
+  margin: 10px 0;
+}
+.user-container .user-info,
+.user-container .change-password {
+  margin-left: 15px;
+}
+.user-container .user-info label,
+.user-container .change-password label {
+  width: 100px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 20px;
+}
+.user-container .user-info div,
+.user-container .change-password div {
+  margin: 20px 0;
+}
+.user-container .user-info input,
+.user-container .change-password input {
+  outline: none;
+  width: 300px;
+  height: 28px;
+  border-radius: 2px;
+  padding: 0;
+  border: 1px solid #d7d7d7;
+  padding: 0 4px;
+}
+.user-container .user-info input:focus,
+.user-container .change-password input:focus {
+  border: 1px solid #20a0ff;
+}
+.user-container .user-info .motto-box label,
+.user-container .change-password .motto-box label {
+  line-height: 100px;
+  vertical-align: middle;
+}
+.user-container .user-info .motto-box textarea,
+.user-container .change-password .motto-box textarea {
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  resize: none;
+  width: 300px;
+  border-radius: 2px;
+  border: 1px solid #d7d7d7;
+  height: 100px;
+  outline: none;
+  padding: 4px;
+}
+.user-container .user-info .motto-box textarea:focus,
+.user-container .change-password .motto-box textarea:focus {
+  border: 1px solid #20a0ff;
+}
+.user-container .user-info .submit-setting,
+.user-container .change-password .submit-setting,
+.user-container .user-info .update-password,
+.user-container .change-password .update-password {
+  display: inline-block;
+  height: 28px;
+  padding: 0 20px;
+  color: #20a0ff;
+  background-color: #fff;
+  border: 1px solid #20a0ff;
+  line-height: 28px;
+  margin-left: 200px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.user-container .user-info .submit-setting:hover,
+.user-container .change-password .submit-setting:hover,
+.user-container .user-info .update-password:hover,
+.user-container .change-password .update-password:hover {
+  color: #fff;
+  background-color: #20a0ff;
+}

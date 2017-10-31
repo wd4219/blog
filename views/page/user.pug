@@ -1,8 +1,32 @@
 extends layout
 block content
   .user-container
-    label(for="avatar")
-    input(type="file",hidden="hidden")
-    span.avatar 头像
-    label(for="username")
+    h3 个人信息
+    .user-info
+      .avatar-box
+        label(for="avatar") 头像
+        input(type="file",hidden="hidden")
+        .avatar
+      .username-box 
+        label(for="username") 昵称
+        input(type="text", name="username")
+      .email-phone-box
+        label(for="email-phone") 邮箱/手机号
+        input(type="text", name="email-phone")
+      .motto-box
+        label(for="motto") 个性签名
+        textarea(name="motto")
+      .submit-setting 保存设置
+    h3 更改密码
+    .change-password
+      .old-password-box
+        label(for="old-password") 旧密码
+        input(type="password", name="old-password")
+      .new-password-box
+        label(for="new-password") 新密码
+        input(type="password", name="new-password")
+      .update-password 更新密码
+block dynamic_css
+  link(rel="stylesheet", href="/stylesheets/user.css")
+     
 
