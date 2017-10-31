@@ -35,6 +35,7 @@
     "xss": "^0.3.4"
   },
   "devDependencies": {
+    "koa-flash-simple": "^0.0.3",
     "lodash": "^4.17.4",
     "nodemon": "^1.8.1"
   }

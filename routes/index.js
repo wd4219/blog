@@ -128,6 +128,7 @@ router.post('/comment/image', async(ctx, next) => {
       }
     }
   }catch(err){
+    console.log(err);
     ctx.body = {
       code:-1,
       message:'保存失败',

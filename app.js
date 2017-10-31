@@ -8,6 +8,7 @@ const session = require('koa-session2');
 const DB_URL = 'mongodb://localhost/myblog';
 const logger = require('./config/log');
 const CSRF = require('koa-csrf');
+const flash = require('koa-flash-simple');
 mongoose.connect(DB_URL,{ useMongoClient: true});
 
 const index = require('./routes/index')
@@ -23,6 +24,7 @@ app.use(session({
   key:'ezblog_id',
   maxAge:1000*60*60
 }))
+app.use(flash());
 app.use(json())
 app.use(require('koa-static')(__dirname + '/public'))
 
@@ -31,14 +33,14 @@ app.use(views(__dirname + '/views/page/', {
 }))
 
 // csrf
-app.use(new CSRF({
-  invalidSessionSecretMessage: 'Invalid session secret',
-  invalidSessionSecretStatusCode: 403,
-  invalidTokenMessage: 'Invalid CSRF token',
-  invalidTokenStatusCode: 403,
-  excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
-  disableQuery: false
-}));
+// app.use(new CSRF({
+//   invalidSessionSecretMessage: 'Invalid session secret',
+//   invalidSessionSecretStatusCode: 403,
+//   invalidTokenMessage: 'Invalid CSRF token',
+//   invalidTokenStatusCode: 403,
+//   excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
+//   disableQuery: false
+// }));
 
 // routes
 app.use(index.routes(), index.allowedMethods())

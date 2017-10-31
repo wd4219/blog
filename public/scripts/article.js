@@ -204,12 +204,14 @@ function event_func() {
       $('.mask').fadeIn();
       $('.sign-box').addClass('show');
       $('.signin-box').show();
+      $('.email-phone input').focus();
       $('.signup-box').hide();
     }
     if ($(e.target).hasClass('signup')) {
       $('.mask').fadeIn();
       $('.sign-box').addClass('show');
       $('.signup-box').show();
+      $('.username input').focus();
       $('.signin-box').hide();
     }
   });
@@ -225,7 +227,6 @@ function event_func() {
           cid: $(e.target).data('cid')
         },
         success: function (response) {
-          console.log(response);
           if (response.code == 0) {
             $(e.target).parents('.comment-list-item').remove();
           }

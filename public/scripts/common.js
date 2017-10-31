@@ -131,8 +131,10 @@ $(function(){
 
 function click_event(){
   //点击遮罩层
-  $('.mask').click(function (e) {
-    hide_sign_box();
+  $('.title .iconfont').click(function (e) {
+    $('.signin-box').hide();
+    $('.signup-box').hide();
+    $('.mask').hide();
   });
   // 点击弹框中的注册文字
   $('.prompt-box .sign-up').click(function (e) {
@@ -149,38 +151,21 @@ function click_event(){
   //点击头部登录/注册按钮
   $('#header .right-box span').click(function (e) {
     if ($(e.target).hasClass('top-sign-in')) {
-      $('.mask').fadeIn();
+      $('.mask').show();
       $('.sign-box').show();
       $('.signin-box').show();
       $('.signup-box').hide();
       $('.email-phone input').focus();
     }
     if ($(e.target).hasClass('top-sign-up')) {
-      $('.mask').fadeIn();
+      $('.mask').show();
       $('.sign-box').show();
       $('.signup-box').show();
       $('.signin-box').hide();
       $('.username input').focus();
     }
-    if($(e.target).hasClass('top-sign-out')){
-      $.ajax({
-        type:'post',
-        url:'/user/signout',
-        data:{
-          _csrf:$('.csrf').val(),
-        },
-        success:function(response){
-          if(response.code == 0){
-            window.location.reload();
-          }
-          else{
-            show_message('info',response.message);
-          }
-        }
-      })
-    }
   });
-  function signup() {
+  $('.signup-btn').click(function(){
     let username = $('.signup-box .username input').val();
     let email_phone = $('.signup-box .email-phone input').val();
     let password = $('.signup-box .password input').val();
@@ -192,28 +177,7 @@ function click_event(){
           if (password.trim() == '' || password.trim().length < 6) {
             show_message('info', '密码不能为少于6位');
           } else {
-            $.ajax({
-              type: 'post',
-              url: '/user/signup',
-              data: {
-                _csrf:$('.csrf').val(),
-                username: username,
-                email_phone: email_phone,
-                password: password
-              },
-              success: function (response) {
-                if (response.code == 0) {
-                  window.location.reload();
-                } else {
-                  show_message('info', response.message);
-                  hide_sign_box();
-                }
-              },
-              error: function (err) {
-                show_message('fail', '注册失败，请重试');
-                hide_sign_box();
-              }
-            });
+            $('.signup-box form').submit();
           }
         } else {
           show_message('info', '邮箱或手机号有误');
@@ -223,51 +187,60 @@ function click_event(){
         show_message('info','用户名只能由中英文或下划线组成，且不能以下划线开头和结尾')
       }
     }
-  }
-  // 点击注册弹框的注册按钮
-  $('.signup-btn').click(signup);
+  });
   $('.signup-box input').keydown(function (e) {
     if (e.which == '13') {
-      signup();
+      let username = $('.signup-box .username input').val();
+      let email_phone = $('.signup-box .email-phone input').val();
+      let password = $('.signup-box .password input').val();
+      if (username.trim() == '') {
+        show_message('info', '昵称不能为空');
+      } else {
+        if(/^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/.test(username)){
+          if (/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())) {
+            if (password.trim() == '' || password.trim().length < 6) {
+              show_message('info', '密码不能为少于6位');
+            } else {
+              $('.signup-box form').submit();
+            }
+          } else {
+            show_message('info', '邮箱或手机号有误');
+          }
+        }
+        else{
+          show_message('info','用户名只能由中英文或下划线组成，且不能以下划线开头和结尾')
+        }
+      }
     }
   });
-  function signin () {
+
+  $('.signin-box input').keydown(function (e) {
+    if (e.which == '13') {
+      let email_phone = $('.signin-box .email-phone input').val();
+      let password = $('.signin-box .password input').val();
+      if (/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())) {
+        if (password.trim() == '' || password.trim().length < 6) {
+          show_message('info', '密码不能为少于6位');
+        } else {
+          $('.signin-box form').submit();
+        }
+      } else {
+        show_message('info', '邮箱或手机号有误');
+      }
+    }
+  });
+
+  $('.signin-btn').click(function(){
     let email_phone = $('.signin-box .email-phone input').val();
     let password = $('.signin-box .password input').val();
     if (/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())) {
       if (password.trim() == '' || password.trim().length < 6) {
         show_message('info', '密码不能为少于6位');
       } else {
-        $.ajax({
-          type: 'post',
-          url: '/user/signin',
-          data: {
-            _csrf:$('.csrf').val(),
-            email_phone: email_phone,
-            password: password
-          },
-          success: function (response) {
-            if (response.code == 0) {
-              window.location.reload();
-            } else {
-              show_message('info', response.message);
-            }
-          },
-          error: function (err) {
-            show_message('fail', '登录失败,请重试');
-            hide_sign_box();
-          }
-        });
+        $('.signin-box form').submit();
       }
     } else {
       show_message('info', '邮箱或手机号有误');
-    }
-  }
-  //点击登录弹框的登录按钮
-  $('.signin-btn').click(signin);
-  $('.signin-box input').keydown(function (e) {
-    if (e.which == '13') {
-      signin();
     }
   });
   $(window).scroll(function () {
@@ -309,29 +282,27 @@ function click_event(){
     
   });
   $('.signup-box .email-phone input').blur(function (e) {
-    let email_phone = $('.signup-box .email-phone input').val();
-    if (/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())) {
-      $.ajax({
-        type: 'get',
-        url: '/user/check_email_phone',
-        data: {
-          email_phone: $(this).val().trim()
-        },
-        success: function (response) {
-          if (response.code != 0) {
-            show_message('fail', response.message);
+    if($('.signup-box').css('display') !='none'){
+      let email_phone = $('.signup-box .email-phone input').val();
+      if (/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email_phone.trim()) || /^1[3|4|5|7|8][0-9]{9}$/.test(email_phone.trim())) {
+        $.ajax({
+          type: 'get',
+          url: '/user/check_email_phone',
+          data: {
+            email_phone: $(this).val().trim()
+          },
+          success: function (response) {
+            if (response.code != 0) {
+              show_message('fail', response.message);
+            }
           }
-        }
-      });
-    }
-    else{
-      show_message('info','邮箱或手机号有误');
+        });
+      }
+      else{
+        show_message('info','邮箱或手机号有误');
+      }
     }
   });
-}
-function hide_sign_box() {
-  $('.mask').fadeOut();
-  $('.sign-box').hide();
 }
 
 function show_message(type, content) {

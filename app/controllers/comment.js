@@ -26,16 +26,15 @@ exports.save_comment = async (ctx,next)=>{
     }
     else{
       try{
-        
         for(let i = 0;i < reply_username_list.length;i++){
           let username = reply_username_list[i];
           let _user = await UserModel.findOne({username:username}).exec();
           if(comment.cid && _user){
             await CommentModel.findOneAndUpdate({_id:comment.cid},{$push:{'reply':_user._id}});
-            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user/${_user.id}">@${username}</a>`)
+            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user?id=${_user.id}">@${username}</a>`)
           }
           else if(_user){
-            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user/${_user.id}">@${username}</a>`)
+            html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user?id=${_user.id}">@${username}</a>`)
           }
         };
         

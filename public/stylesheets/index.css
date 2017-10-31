@@ -84,11 +84,8 @@ body {
   word-break: break-word;
   color: #363636;
   position: relative;
-  overflow-y: auto;
-  min-height: 100%;
-}
-html {
   height: 100%;
+  overflow: hidden;
 }
 ul {
   list-style: none;
@@ -174,9 +171,15 @@ ul {
 .signin-box .title,
 .signup-box .title {
   text-align: center;
-  margin: 10px 0 10px;
+  margin: 0px 0 10px;
   font-size: 20px;
   font-weight: 600;
+}
+.signin-box .title .iconfont,
+.signup-box .title .iconfont {
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
 }
 .signin-box input,
 .signup-box input {
@@ -350,6 +353,11 @@ ul {
   text-align: center;
   cursor: pointer;
 }
+.header .right-box span a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
 .header .right-box span:first-child {
   flex: 1;
   overflow: hidden;
@@ -358,39 +366,6 @@ ul {
 }
 .header .right-box span:last-child {
   flex: 0 0 50px;
-}
-.header .search-box {
-  height: 40px;
-  width: 150px;
-  line-height: 40px;
-  position: absolute;
-  right: 130px;
-  top: 40px;
-  color: #8492a6;
-  font-size: 14px;
-}
-.header .search-box input {
-  width: 100%;
-  border: none;
-  height: 20px;
-  background: none;
-  outline: none;
-  border-bottom: 1px solid #8492a6;
-  padding: 0 12px 0 2px;
-  color: #8492a6;
-  box-sizing: border-box;
-}
-.header .search-box input:focus {
-  color: #fff;
-  text-decoration: none;
-}
-.header .search-box .icon-search {
-  position: absolute;
-  right: 0px;
-  cursor: pointer;
-}
-.header .search-box .icon-search:hover {
-  color: #fff;
 }
 .header .logo {
   width: 150px;
@@ -409,9 +384,15 @@ ul {
   stroke-dasharray: 900px;
   stroke-dashoffset: 900px;
 }
+.wrap {
+  width: 100%;
+  overflow-y: auto;
+  min-height: 100%;
+  position: relative;
+}
 .main-container {
   width: 1180px;
-  margin: 20px auto 250px;
+  margin: 20px auto;
   overflow: hidden;
 }
 .main-container .left-content {
@@ -643,8 +624,8 @@ ul {
   height: 200px;
   background: #fff;
   font-size: 16px;
-  position: absolute;
   width: 100%;
+  position: absolute;
   bottom: 0;
 }
 .footer .content {

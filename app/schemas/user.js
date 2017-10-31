@@ -21,6 +21,10 @@ let UserSchema = new Schema({
     type:Number,
     default:0,
   },
+  motto:{
+    type:String,
+    default:'该用户很懒，没有留下任何签名'
+  },
   meta:{
     createAt:{
       type:Date,

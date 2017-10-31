@@ -15,11 +15,15 @@ exports.sign_up = async(ctx,next)=>{
   try{
     let _user = new UserModel(user);
     let result = await _user.save();
-    ctx.session = result;
-    ctx.body = res_model(0,'注册成功',result);
+    if(result){
+      ctx.session = result;
+      ctx.redirect('/');
+    }
+    else{
+      ctx.redirect('/user/signup');
+    }
   }catch(err){
     console.log(err);
-    ctx.body = res_model(-1,'注册失败');
   }
 }
 // 登录
@@ -29,10 +33,10 @@ exports.sign_in = async(ctx,next)=>{
     let _user = await UserModel.findOne({email_phone:user.email_phone}).exec();
     if(bcrypt.compareSync(user.password,_user.password)){
       ctx.session = _user;
-      ctx.body = res_model(0,'登录成功',_user);
+      ctx.redirect('/');
     }
     else{
-      ctx.body = res_model(0,'登录失败');
+      ctx.redirect('/user/signin');
     }
   }catch(err){
     console.log(err);
@@ -80,17 +84,10 @@ exports.allow_auth = async(ctx,next)=>{
 exports.sign_out = async(ctx,next)=>{
   if(ctx.session && ctx.session.username){
     ctx.session ={};
-    ctx.body = {
-      code:0,
-      message:'已退出登录',
-    }
   }
   else{
-    ctx.body = {
-      code:-1,
-      message:'您还未登录'
-    }
   }
+  ctx.redirect('/');
 }
 
 exports.admin = async(ctx,next)=>{
@@ -103,14 +100,70 @@ exports.admin = async(ctx,next)=>{
   }
 }
 
-exports.findUserById = async(ctx,next)=>{
-  let user_id = ctx.params.id;
-  try{
-    let user = await UserModel.findById(user_id,{__v:0}).exec();
-    await ctx.render('user',user);
+exports.info = async(ctx,next)=>{
+  if(ctx.session && ctx.session.username){
+    try{
+      let user = await UserModel.findById(ctx.session._id,{__v:0,password:0,rule:0}).exec();
+      let data  = {user,csrf:ctx.csrf,flash:ctx.flash.get()};
+      await ctx.render('user',data);
+    }
+    catch(err){
+      ctx.err = err;
+      await ctx.render('error',{message:'用户不存在'});
+    }
   }
-  catch(err){
+  else{
+    await ctx.render('error',{message:'你还未登录，请登录后查看'});
+  }
+}
+
+exports.findUserById = async(ctx,next)=>{
+  try{
+    let user_info = await UserModel.findById(ctx.query.id,{__v:0,password:0,email_phone:0,rule:0}).exec();
+    if(!user_info){
+      await ctx.render('error',{message:'用户不存在'});
+    }
+    else{
+      let data = {};
+      if(ctx.session && ctx.session.username){
+        data  = {user:ctx.session,user_info:user_info,csrf:ctx.csrf};
+      } 
+      else{
+        data = {user_info:user_info,csrf:ctx.csrf}
+      }
+      console.log(data);
+      await ctx.render('user',data);
+    }
+  }catch(err){
     ctx.err = err;
-    await ctx.render('error',{message:'用户不存在'});
+    console.log(err);
+    await ctx.render('error',{message:'哇哦，出错了！'});
+  }
+}
+
+exports.info_update = async(ctx,next)=>{
+  try{
+    let info = ctx.request.body;
+    await UserModel.findByIdAndUpdate(ctx.session._id,{username:info.username,motto:info.motto}).exec();
+    ctx.redirect('/user/setting?'+ctx.session._id);
+  }catch(err){
+    console.log(err);
+  }
+}
+
+exports.password_update = async(ctx,next)=>{
+  try{
+    let password = ctx.request.body;
+    let _user = await UserModel.findById(ctx.session._id).exec();
+    if(bcrypt.compareSync(password.old,_user.password)){
+      await UserModel.findByIdAndUpdate(ctx.session._id,{password:bcrypt.hashSync(password.new)}).exec();
+      ctx.flash.set('密码修改成功');
+      ctx.redirect('/user/setting?'+ctx.session._id);
+    }
+    else{
+      await ctx.render('error',{message:'旧密码错误'});
+    }
+  }catch(err){
+    console.log(err);
   }
 }

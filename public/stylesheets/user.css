@@ -9,12 +9,50 @@
 .user-container .change-password {
   margin-left: 15px;
 }
+.user-container .user-info .avatar,
+.user-container .change-password .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+.user-container .user-info .avatar img.user-avatar,
+.user-container .change-password .avatar img.user-avatar {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.user-container .user-info .avatar .update,
+.user-container .change-password .avatar .update {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  color: #f4f4f4;
+  text-align: center;
+  line-height: 100px;
+  display: block;
+  margin: 0;
+  top: 0;
+  background-color: rgba(22,22,22,0.3);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.user-container .user-info .avatar:hover .update,
+.user-container .change-password .avatar:hover .update {
+  opacity: 1;
+}
 .user-container .user-info label,
 .user-container .change-password label {
   width: 100px;
   display: inline-block;
   text-align: right;
   margin-right: 20px;
+  vertical-align: middle;
 }
 .user-container .user-info div,
 .user-container .change-password div {
@@ -62,7 +100,7 @@
 .user-container .change-password .update-password {
   display: inline-block;
   height: 28px;
-  padding: 0 20px;
+  width: 120px;
   color: #20a0ff;
   background-color: #fff;
   border: 1px solid #20a0ff;
@@ -78,4 +116,20 @@
 .user-container .change-password .update-password:hover {
   color: #fff;
   background-color: #20a0ff;
+}
+.user-container .simple-info .avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.user-container .simple-info .avatar .username {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+.user-container .simple-info .motto {
+  margin: 20px 0;
+  color: #666;
 }

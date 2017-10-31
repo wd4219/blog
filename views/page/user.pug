@@ -1,32 +1,60 @@
 extends layout
 block content
   .user-container
-    h3 个人信息
-    .user-info
-      .avatar-box
-        label(for="avatar") 头像
-        input(type="file",hidden="hidden")
+    input(type="text", name="_csrf",class="csrf",hidden,value=csrf)
+    if user_info
+      .simple-info
         .avatar
-      .username-box 
-        label(for="username") 昵称
-        input(type="text", name="username")
-      .email-phone-box
-        label(for="email-phone") 邮箱/手机号
-        input(type="text", name="email-phone")
-      .motto-box
-        label(for="motto") 个性签名
-        textarea(name="motto")
-      .submit-setting 保存设置
-    h3 更改密码
-    .change-password
-      .old-password-box
-        label(for="old-password") 旧密码
-        input(type="password", name="old-password")
-      .new-password-box
-        label(for="new-password") 新密码
-        input(type="password", name="new-password")
-      .update-password 更新密码
+          img(src=user_info.avatar, alt="用户头像")
+          span.username #{user_info.username}
+        .motto “#{user_info.motto}”
+    else
+      h3 个人信息 #{flash}
+      .user-info
+        .avatar-box
+          label(for="avatar") 头像
+          .avatar
+            img(src=user.avatar, alt="用户头像",class="user-avatar")
+            div.update 修改
+        form(action="/user/info_update", method="post")
+          .username-box 
+            label(for="username") 昵称
+            input(type="text", name="username" value=user.username)
+          .email-phone-box
+            label(for="email-phone") 邮箱/手机号
+            input(type="text", name="email_phone",value=user.email_phone,disabled)
+          .motto-box
+            label(for="motto") 个性签名
+            textarea(name="motto") #{user.motto}
+          input(type="submit", value="保存设置",class="submit-setting")
+      h3 更改密码
+      .change-password
+        form(action="/user/password_update", method="post")
+          .old-password-box
+            label(for="old") 旧密码
+            input(type="password", name="old")
+          .new-password-box
+            label(for="new") 新密码
+            input(type="password", name="new")
+          input(type="submit", value="更新密码",class="update-password")
+block top_block
+  .user-mask
+  .image-alert
+    h3.title 图片上传
+      span.iconfont.icon-close
+    .content-box#dropbox
+      .upload-box
+        label(for="file-upload",class="upload-btn") 点击上传
+        input(type="file",multiple,id="file-upload", hidden)
+      div(class="progress-box",style="display:none;")
+        svg(xmlns="http://www.w3.org/2000/svg")
+          line(x1="30", y1="110" ,x2="330", y2="110",style="stroke:#e4e8f1;stroke-width:4;stroke-linecap:round;")          
+          line(x1="30" ,y1="110" ,x2="330", y2="110",style="stroke:#20a0ff;stroke-width:4;stroke-linecap:round;stroke-dasharray:300",stroke-dashoffset="300",class="progress")
+        .percent 0%
 block dynamic_css
   link(rel="stylesheet", href="/stylesheets/user.css")
+  link(rel="stylesheet", href="/stylesheets/markdown-content.css")
+block dynamic_script
+  script(src="/scripts/user.js")
      
 
