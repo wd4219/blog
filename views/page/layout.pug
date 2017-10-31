@@ -15,8 +15,8 @@ html(lang="ch")
     block dynamic_css    
     script(src="/scripts/pace.js")
   body 
+    include ../components/header.pug
     .wrap
-      include ../components/header.pug
       .main-container
         .left-content
           block content
@@ -36,10 +36,11 @@ html(lang="ch")
                     span.read-amount 
                       span.iconfont.icon-read
                       |#{item.read_amount}
-      block top_block
-      include ../components/footer.pug
-    .tool-bar
-      span.iconfont.icon-top
+    .mask
+    block top_block
+    include ../components/footer.pug
+  .tool-bar
+    span.iconfont.icon-top
   script(src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js")
   block dynamic_script
   script(src="/scripts/tagcloud.js")

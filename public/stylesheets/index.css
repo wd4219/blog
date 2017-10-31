@@ -75,7 +75,8 @@
   }
 }
 body {
-  background: #f4f5f5;
+  background: #fff;
+  overflow-y: scroll;
 }
 html,
 body {
@@ -83,9 +84,6 @@ body {
   text-rendering: optimizeLegibility;
   word-break: break-word;
   color: #363636;
-  position: relative;
-  height: 100%;
-  overflow: hidden;
 }
 ul {
   list-style: none;
@@ -386,14 +384,13 @@ ul {
 }
 .wrap {
   width: 100%;
-  overflow-y: auto;
-  min-height: 100%;
-  position: relative;
+  background: #f4f5f5;
+  padding: 20px 0;
 }
 .main-container {
   width: 1180px;
-  margin: 20px auto;
   overflow: hidden;
+  margin: 0 auto;
 }
 .main-container .left-content {
   width: 850px;
@@ -625,8 +622,6 @@ ul {
   background: #fff;
   font-size: 16px;
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 .footer .content {
   width: 1180px;

@@ -136,7 +136,6 @@ exports.findUserById = async(ctx,next)=>{
     }
   }catch(err){
     ctx.err = err;
-    console.log(err);
     await ctx.render('error',{message:'哇哦，出错了！'});
   }
 }

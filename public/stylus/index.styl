@@ -1,15 +1,13 @@
 @import '../static/font/iconfont.css'
 @import 'mixin.styl'
 body
-  background: #f4f5f5;  
+  background: #ffffff
+  overflow-y: scroll
 html,body
   font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   text-rendering: optimizeLegibility
   word-break: break-word;
   color: #363636;
-  position: relative;
-  height: 100%
-  overflow: hidden
 ul
   list-style: none
   padding:0
@@ -248,14 +246,13 @@ ul
         stroke-dasharray: 900px;
         stroke-dashoffset: 900px;
 .wrap
-  width:100%
-  overflow-y:auto
-  min-height: 100%
-  position: relative 
+  width: 100%
+  background: #f4f5f5;
+  padding: 20px 0
 .main-container
   width 1180px
-  margin 20px auto
   overflow: hidden
+  margin: 0 auto
   .left-content
     width:850px
     float: left
@@ -449,8 +446,6 @@ ul
   background #fff
   font-size 16px
   width: 100%
-  position: absolute
-  bottom:0
   .content
     width: 1180px
     height: 100%

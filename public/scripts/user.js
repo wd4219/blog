@@ -2,11 +2,11 @@
 function event_func() {
   $('.avatar .update').click(function (e) {
     $('.image-alert').addClass('show');
-    $('.user-mask').fadeIn();
+    $('.mask').fadeIn();
   });
   $(' .title .iconfont').click(function (e) {
     $('.image-alert').removeClass('show');
-    $('.user-mask').fadeOut();
+    $('.mask').fadeOut();
   });
   var dropbox = document.getElementById("dropbox");
   dropbox.addEventListener("dragleave", function (e) {
