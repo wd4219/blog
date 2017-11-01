@@ -9,13 +9,11 @@ const DB_URL = 'mongodb://localhost/myblog';
 const logger = require('./config/log');
 const CSRF = require('koa-csrf');
 const flash = require('koa-flash-simple');
+const middleware = require('./middleware/index');
 mongoose.connect(DB_URL,{ useMongoClient: true});
-
 const index = require('./routes/index')
-const users = require('./routes/users')
-const admin = require('./routes/admin')
 
-app.use(logger());
+
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
@@ -30,22 +28,25 @@ app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views/page/', {
   extension: 'pug'
-}))
+}));
 
-// csrf
-// app.use(new CSRF({
-//   invalidSessionSecretMessage: 'Invalid session secret',
-//   invalidSessionSecretStatusCode: 403,
-//   invalidTokenMessage: 'Invalid CSRF token',
-//   invalidTokenStatusCode: 403,
-//   excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
-//   disableQuery: false
-// }));
+app.use(middleware.error);
+
+app.use(logger());
+//csrf
+app.use(new CSRF({
+  invalidSessionSecretMessage: 'Invalid session secret',
+  invalidSessionSecretStatusCode: 403,
+  invalidTokenMessage: 'Invalid CSRF token',
+  invalidTokenStatusCode: 403,
+  excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
+  disableQuery: false
+}));
+
+app.use(middleware.help);
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-app.use(admin.routes(), users.allowedMethods())
+app.use(index.routes()).use(index.allowedMethods());
 
 app.use(async (ctx,next)=>{
   if(!ctx.response.headerSent){

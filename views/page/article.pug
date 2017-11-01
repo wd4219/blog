@@ -28,9 +28,8 @@ block content
             if user  
               .bottom-content
                 div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
-                if user._id == item.user._id
-                  div(class="delete",data-cid=item._id) 删除
-                  input(type="hidden", name="_csrf" value=csrf,class="csrf")
+                if user._id.toString() == item.user._id.toString()
+                  div(class="delete",data-cid=item._id) 删除 
                 .like
                   if item.like_user.indexOf(user._id)>-1
                     span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")

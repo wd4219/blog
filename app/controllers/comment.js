@@ -37,7 +37,6 @@ exports.save_comment = async (ctx,next)=>{
             html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user?id=${_user.id}">@${username}</a>`)
           }
         };
-        
         let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
         await _comment.save();
         ctx.redirect('/article/'+id);

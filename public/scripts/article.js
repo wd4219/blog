@@ -143,7 +143,7 @@ function editor() {
         formData.append('file', file);
         $.ajax({
           type: "post",
-          url: "/comment/image",
+          url: "/comment/image?_csrf="+ $('meta[name="csrf-token"]').attr('content'),
           data: formData,
           cache: false,
           contentType: false,
@@ -223,7 +223,7 @@ function event_func() {
         type: 'post',
         url: '/delete_comment',
         data: {
-          _csrf:$('.csrf').val(),
+          _csrf: $('meta[name="csrf-token"]').attr('content'),
           cid: $(e.target).data('cid')
         },
         success: function (response) {

@@ -46,16 +46,20 @@ html(lang="en")
         color:red;
         font-size:16px;
       }
+      .wrap{
+        background:#f4f5f5;
+      }
   body
   include ../components/header.pug
-  .error-content
-    img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png")
-    p.message #{message}
-    p.message 
-      span#time 5
-      | 秒后返回，未返回请点击下方按钮！
-    .btn-box
-      a(href="javascript:;",class="back") 返回
+  .wrap
+    .error-content
+      img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png")
+      p.message #{message}
+      p.message 
+        span#time 5
+        | 秒后返回，未返回请点击下方按钮！
+      .btn-box
+        a(href="javascript:;",class="back") 返回
   include ../components/footer.pug
   script.
       var time = 5;

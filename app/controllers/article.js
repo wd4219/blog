@@ -15,6 +15,16 @@ let res_model = (code, message, data) => {
     data: data ? data : {}
   }
 }
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 //保存文章
 exports.save_article = async(ctx, next) => {
   let req = ctx.request.body;
@@ -59,6 +69,7 @@ exports.save_article = async(ctx, next) => {
 }
 // 获取文章摘要信息
 exports.find_article_all = async(ctx, next) => {
+  console.log(1);
   let page = ctx.request.query.page || 1;
   let num = 7;
   try {
@@ -72,33 +83,33 @@ exports.find_article_all = async(ctx, next) => {
     }).limit(num).skip(num * (page - 1)).exec();
     let count = await articleModel.count().exec();
     if (Math.ceil(count / num) > page && page > 1) {
-      return {
+      await ctx.render('index', {
         prev: page - 1,
         next: parseInt(page) + 1,
-        list: result
-      }
+        article_list: result
+      })
     } else if (Math.ceil(count / num) == page && page > 1) {
-      return {
+      await ctx.render('index', {
         prev: page - 1,
         next: -1,
-        list: result
-      }
+        article_list: result
+      });
     } else if (Math.ceil(count / num) > page && page == 1) {
-      return {
+      await ctx.render('index', {
         prev: -1,
         next: parseInt(page) + 1,
-        list: result
-      }
+        article_list: result
+      });
     } else {
-      return {
+      await ctx.render('index', {
         prev: -1,
         next: -1,
-        list: result
-      }
+        article_list: result
+      });
     }
   } catch (err) {
     ctx.err = err;
-    await ctx.render('error',{
+    await ctx.render('error', {
       message: '喔噢，难道数据库被洗劫了'
     });
   }
@@ -106,7 +117,8 @@ exports.find_article_all = async(ctx, next) => {
 // 获取文章列表信息
 exports.find_article_list = async(ctx, next) => {
   try {
-    let result = await articleModel.find({}, {
+    let result = {};
+    let list = await articleModel.find({}, {
       meta: 0,
       __v: 0,
       tag: 0,
@@ -118,12 +130,16 @@ exports.find_article_list = async(ctx, next) => {
       _id: 0,
       count: 0
     }).exec();
-    return res_model(0, '获取文章列表成功', result);
+    if (!result) {
+      await ctx.render('error', {
+        message: '喔噢，文章列表不见了'
+      });
+    }
+    result.list = list;
+    await ctx.render('list', result);
   } catch (err) {
     ctx.err = err;
-    await ctx.render('error',{
-      message: '喔噢，文章列表不见了'
-    });
+    console.log(err);
   }
 };
 
@@ -147,7 +163,7 @@ exports.get_article_tag = async(ctx, next) => {
     }).exec();
     result.list = list;
     result.tag_content = tag.content;
-    return result;
+    await ctx.render('list', result);
   } catch (err) {
     ctx.err = err;
     console.log(err);
@@ -156,24 +172,26 @@ exports.get_article_tag = async(ctx, next) => {
 // 通过id查找博客
 exports.find_article_id = async(ctx, next) => {
   let article_id = ctx.params.id;
-  try {
-    let result = await articleModel.findById(article_id, {
-      __v: 0,
-      meta: 0
-    }).populate('tag', {
-      __v: 0,
-      _id: 0,
-      meta: 0
-    }).exec();
-    let article_content = await client.get('article/' + article_id + '.md');
-    result.content = article_content.content.toString('utf8');
-    return res_model(0, '获取文章列表成功', result)
-  } catch (err) {
-    ctx.err = err;
-    await ctx.render('error',{
+  let result = await articleModel.findById(article_id, {
+    __v: 0,
+    meta: 0
+  }).populate('tag', {
+    __v: 0,
+    _id: 0,
+    meta: 0
+  }).exec();
+  console.log(result);
+  if (!result) {
+    await ctx.render('error', {
       message: "文章不存在，或已被删除"
     });
   }
+  this.update_read_amount(ctx, next)
+  let article_content = await client.get('article/' + article_id + '.md');
+  result.content = marked(article_content.content.toString('utf8'));
+  result.comment = await Comment.find_comment_article(ctx, next);
+  result.article_footer = await this.find_article_prev_next(ctx, next);
+  await ctx.render('article', result);
 }
 // 更新阅读量
 exports.update_read_amount = async(ctx, next) => {
@@ -202,7 +220,7 @@ exports.update_like_amount = async(ctx, next) => {
       }
     }).exec();
   } catch (err) {
-   ctx.err = err;
+    ctx.err = err;
   }
 }
 // 获取热门文章的列表
@@ -261,6 +279,6 @@ exports.find_article_prev_next = async(ctx, next) => {
     }).limit(1))[0]
     return article_footer;
   } catch (err) {
-   ctx.err = err;
+    ctx.err = err;
   }
 }

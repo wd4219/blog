@@ -1,7 +1,6 @@
 extends layout
 block content
   .user-container
-    input(type="text", name="_csrf",class="csrf",hidden,value=csrf)
     if user_info
       .simple-info
         .avatar
@@ -26,6 +25,7 @@ block content
           .motto-box
             label(for="motto") 个性签名
             textarea(name="motto") #{user.motto}
+          input(type="text", name="_csrf",class="csrf",hidden,value=csrf)
           input(type="submit", value="保存设置",class="submit-setting")
       h3 更改密码
       .change-password
@@ -36,6 +36,7 @@ block content
           .new-password-box
             label(for="new") 新密码
             input(type="password", name="new")
+          input(type="text", name="_csrf",class="csrf",hidden,value=csrf)
           input(type="submit", value="更新密码",class="update-password")
 block top_block
   .image-alert

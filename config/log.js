@@ -39,7 +39,7 @@ const info_logger =  new (winston.transports.DailyRotateFile)({
   datePattern:'yyyy-MM-dd.',
   prepend:true,
   level:'info',
-  maxDays:30,
+  maxDays:3,
 })
 const error_logger = new (winston.transports.DailyRotateFile)({
   name:'error_log',
@@ -47,7 +47,7 @@ const error_logger = new (winston.transports.DailyRotateFile)({
   datePattern:'yyyy-MM-dd.',
   prepend:true,
   level: 'error',
-  maxDays:30
+  maxDays:3
 })
 
 module.exports = logger;

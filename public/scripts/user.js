@@ -39,7 +39,7 @@ function event_func() {
         formData.append('file', file);
         $.ajax({
           type: "post",
-          url: "/user/avatar",
+          url: "/user/avatar?_csrf="+$('meta[name="csrf-token"]').attr('content'),
           data: formData,
           cache: false,
           contentType: false,

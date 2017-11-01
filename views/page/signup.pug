@@ -1,0 +1,15 @@
+extends layout
+block content
+  div.signin-container
+    a(href="/",class="logo")
+      img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png", alt="网站logo")
+    h3.title 请注册
+    form(action="/user/signin", method="post")
+      input(type="text", name="username",autofocus,placeholder="昵称")
+      input(type="text", name="email_phone",autofocus="autofoucs",placeholder="邮箱")
+      input(type="password", name="password",autocomplete="new-password",placeholder="密码")
+      input(type="password",class="comfirm_password",placeholder="确认密码")
+      input(type="text", name="_csrf",value=csrf,hidden)
+      button(type="submit") 注册
+block dynamic_css
+  link(rel="stylesheet", href="/stylesheets/signin.css")
