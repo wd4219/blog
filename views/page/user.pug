@@ -8,7 +8,7 @@ block content
           span.username #{user_info.username}
         .motto “#{user_info.motto}”
     else
-      h3 个人信息 #{flash}
+      h3 个人信息
       .user-info
         .avatar-box
           label(for="avatar") 头像
@@ -20,8 +20,8 @@ block content
             label(for="username") 昵称
             input(type="text", name="username" value=user.username)
           .email-phone-box
-            label(for="email-phone") 邮箱/手机号
-            input(type="text", name="email_phone",value=user.email_phone,disabled)
+            label(for="email") 邮箱
+            input(type="text", name="email",value=user.email,disabled)
           .motto-box
             label(for="motto") 个性签名
             textarea(name="motto") #{user.motto}
@@ -55,6 +55,7 @@ block dynamic_css
   link(rel="stylesheet", href="/stylesheets/user.css")
   link(rel="stylesheet", href="/stylesheets/markdown-content.css")
 block dynamic_script
+  script(src="/scripts/Jquery.ajax.progress.js")
   script(src="/scripts/user.js")
      
 

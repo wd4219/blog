@@ -51,7 +51,8 @@ function event_func() {
               $('.progress-box').hide();
               $('.upload-btn').show();
               $('.image-alert').removeClass('show');
-              $('.mask').removeClass('show');
+              $('.mask').fadeOut('show');
+              window.location.reload();
             } else {
               alert('上传失败，请重新上传');
             }

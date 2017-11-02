@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const UserModel = require('../models/user');
 const bcrypt = require('bcrypt-nodejs');
+const tools = require('../../tools');
+
+
 let res_model = (code, message, data) => {
   return {
     code: code,
@@ -12,39 +15,34 @@ let res_model = (code, message, data) => {
 exports.sign_up = async(ctx, next) => {
   let user = ctx.request.body;
   user.password = bcrypt.hashSync(ctx.request.body.password);
-  try {
-    let _user = new UserModel(user);
-    let result = await _user.save();
-    if (result) {
-      ctx.session.user = result;
-      ctx.redirect('/');
-    } else {
-      ctx.redirect('signup');
-    }
-  } catch (err) {
-    console.log(err);
+  let _user = new UserModel(user);
+  let result = await _user.save();
+  if (result) {
+    ctx.session.user = result;
+    ctx.flashMessage.success = '注册成功'
+    ctx.redirect('/');
+  } else {
+    ctx.redirect('signup');
   }
 }
 // 登录
 exports.sign_in = async(ctx, next) => {
   let user = ctx.request.body;
-  try {
-    let _user = await UserModel.findOne({
-      email: user.email
-    }).exec();
-    if(_user){
-      if (bcrypt.compareSync(user.password, _user.password)) {
-        ctx.session.user = _user;
-        ctx.redirect('/');
-      } else {
-        ctx.redirect('signin');
-      }
-    }
-    else{
+  let _user = await UserModel.findOne({
+    email: user.email
+  }).exec();
+  if (_user) {
+    if (bcrypt.compareSync(user.password, _user.password)) {
+      ctx.session.user = _user;
+      ctx.flashMessage.success = '登录成功';
+      ctx.redirect('/');
+    } else {
+      ctx.flashMessage.danger = '登录失败，密码错误';
       ctx.redirect('signin');
     }
-  } catch (err) {
-    console.log(err);
+  } else {
+    ctx.flashMessage.danger = '登录失败，用户不存在';
+    ctx.redirect('signin');
   }
 }
 
@@ -84,13 +82,14 @@ exports.check_signin = async(ctx, next) => {
   if (ctx.session && ctx.session.user) {
     await next();
   } else {
+    ctx.flashMessage.danger = '请先登录';
     await ctx.render('signin');
   }
 }
 exports.sign_out = async(ctx, next) => {
   if (ctx.session && ctx.session.user) {
     ctx.session.user = null;
-    ctx.flashMessage.notice = '退出成功';
+    ctx.flashMessage.success = '退出成功';
   }
   ctx.redirect('/');
 }
@@ -111,13 +110,17 @@ exports.info = async(ctx, next) => {
       password: 0,
       rule: 0
     }).exec();
-    let data = {user};
-    await ctx.render('user', user);
+    if (user) {
+      let data = {
+        user
+      };
+      await ctx.render('user', user);
+    } else {
+      ctx.flashMessage.danger = '用户不存在'
+      ctx.redirect('back');
+    }
   } catch (err) {
-    ctx.err = err;
-    await ctx.render('error', {
-      message: '用户不存在'
-    });
+    console.log(err);
   }
 }
 
@@ -130,29 +133,16 @@ exports.findUserById = async(ctx, next) => {
       rule: 0
     }).exec();
     if (!user_info) {
-      await ctx.render('error', {
-        message: '用户不存在'
-      });
+      ctx.flashMessage.danger = '用户不存在'
+      ctx.redirect('back');
     } else {
-      let data = {};
-      if (ctx.session && ctx.session.user) {
-        data = {
-          user: ctx.session.user,
-          user_info: user_info,
-        };
-      } else {
-        data = {
-          user_info: user_info
-        }
-      }
-      console.log(data);
+      let data = {
+        user_info: user_info
+      };
       await ctx.render('user', data);
     }
   } catch (err) {
-    ctx.err = err;
-    await ctx.render('error', {
-      message: '哇哦，出错了！'
-    });
+    console.log(err);
   }
 }
 
@@ -163,6 +153,7 @@ exports.info_update = async(ctx, next) => {
       username: info.username,
       motto: info.motto
     }).exec();
+    ctx.flashMessage.success = '用户信息修改成功';
     ctx.redirect('/user/setting?' + ctx.session.user._id);
   } catch (err) {
     console.log(err);
@@ -177,13 +168,19 @@ exports.password_update = async(ctx, next) => {
       await UserModel.findByIdAndUpdate(ctx.session.user._id, {
         password: bcrypt.hashSync(password.new)
       }).exec();
+      ctx.flashMessage.success = '密码修改成功'
       ctx.redirect('/user/setting?' + ctx.session.user._id);
     } else {
-      await ctx.render('error', {
-        message: '旧密码错误'
-      });
+      ctx.flashMessage.error = '旧密码错误';
+      ctx.redirect('back');
     }
   } catch (err) {
     console.log(err);
   }
+}
+
+exports.upload_avatar = async(ctx,next)=>{
+  let result = await tools.upload_file(ctx,'avatar/');
+  let user = await UserModel.findByIdAndUpdate(ctx.session.user._id,{avatar:result.data.url}).exec();
+  ctx.body = result;
 }

@@ -405,7 +405,7 @@ ul
         margin-right:5px
 .notification
   position: fixed
-  top: 10px
+  top: 20px
   left: 50%
   transform: translateX(-50%)
   width: 350px
@@ -417,6 +417,7 @@ ul
   border:1px solid  rgba(101,159,19,.3)
   border-radius: 4px
   cursor: pointer
+  animation: fadeInDown 1s forwards ease-in-out,fadeInUp 0.5s forwards linear 4s
   &:hover
     .content
       .iconfont
@@ -431,7 +432,7 @@ ul
     background: #f2fae3
     color: #659f13
     border: 1px solid rgba(101,159,19,.3)
-  &.error
+  &.danger
     background: #fff1f0
     color: #d85030
     border:1px solid rgba(216,80,48,.3);

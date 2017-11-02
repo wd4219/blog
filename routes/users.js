@@ -1,11 +1,6 @@
 const router = require('koa-router')()
 const User = require('../app/controllers/user'); 
 const UserModel = require('../app/models/user');
-const multiparty = require('multiparty');
-const util = require('util');
-const fs = require('fs');
-const client = require('../config/oss');
-const path = require('path');
 
 router.post('/signup', User.sign_up);
 
@@ -32,8 +27,6 @@ router.get('/signup',async(ctx,next)=>{
   await ctx.render('signup');
 });
 
-router.post('/avatar', User.check_signin,async(ctx,next)=>{
-  ctx.body = await tools.upload_file(ctx,'avatar/');
-});
+router.post('/avatar', User.check_signin,User.upload_avatar);
 
 module.exports = router

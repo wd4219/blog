@@ -73,6 +73,86 @@
     stroke-dashoffset: 0px;
   }
 }
+@-moz-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@-o-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@-moz-keyframes fadeInUp {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+}
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+}
+@-o-keyframes fadeInUp {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, -150%, 0);
+  }
+}
 body {
   background: #fff;
   overflow-y: scroll;
@@ -563,7 +643,7 @@ ul {
 }
 .notification {
   position: fixed;
-  top: 10px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: 350px;
@@ -575,6 +655,7 @@ ul {
   border: 1px solid rgba(101,159,19,0.3);
   border-radius: 4px;
   cursor: pointer;
+  animation: fadeInDown 1s forwards ease-in-out, fadeInUp 0.5s forwards linear 4s;
 }
 .notification:hover .content .iconfont {
   visibility: visible;
@@ -591,7 +672,7 @@ ul {
   color: #659f13;
   border: 1px solid rgba(101,159,19,0.3);
 }
-.notification.error {
+.notification.danger {
   background: #fff1f0;
   color: #d85030;
   border: 1px solid rgba(216,80,48,0.3);

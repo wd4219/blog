@@ -23,7 +23,6 @@ exports.upload_file = async(ctx,img_path)=>{
       }
     }
   }catch(err){
-    console.log(err);
     return  {
       code:-1,
       message:'保存失败',

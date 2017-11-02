@@ -1,4 +1,4 @@
-.notification
-  span(class="iconfont icon-error")
-  p(class='content') 出错了
+div(class=`notification ${messageKey}`)
+  span(class=`iconfont icon-${messageKey}`)
+  p(class='content') #{messages[messageKey]}
     i.iconfont.icon-close
