@@ -16,7 +16,7 @@ exports.sign_up = async(ctx, next) => {
     let _user = new UserModel(user);
     let result = await _user.save();
     if (result) {
-      ctx.session = result;
+      ctx.session.user = result;
       ctx.redirect('/');
     } else {
       ctx.redirect('signup');
@@ -30,12 +30,17 @@ exports.sign_in = async(ctx, next) => {
   let user = ctx.request.body;
   try {
     let _user = await UserModel.findOne({
-      email_phone: user.email_phone
+      email: user.email
     }).exec();
-    if (bcrypt.compareSync(user.password, _user.password)) {
-      ctx.session = _user;
-      ctx.redirect('/');
-    } else {
+    if(_user){
+      if (bcrypt.compareSync(user.password, _user.password)) {
+        ctx.session.user = _user;
+        ctx.redirect('/');
+      } else {
+        ctx.redirect('signin');
+      }
+    }
+    else{
       ctx.redirect('signin');
     }
   } catch (err) {
@@ -59,11 +64,11 @@ exports.check_username = async(ctx, next) => {
   }
 }
 
-exports.check_email_phone = async(ctx, next) => {
-  let email_phone = ctx.request.query.email_phone;
+exports.check_email = async(ctx, next) => {
+  let email = ctx.request.query.email;
   try {
     let _user = await UserModel.findOne({
-      email_phone: email_phone
+      email: email
     }).exec();
     if (_user) {
       ctx.body = res_model(-1, '手机或邮箱已存在,请重新输入');
@@ -76,21 +81,22 @@ exports.check_email_phone = async(ctx, next) => {
 }
 
 exports.check_signin = async(ctx, next) => {
-  if (ctx.session && ctx.session._id) {
+  if (ctx.session && ctx.session.user) {
     await next();
   } else {
     await ctx.render('signin');
   }
 }
 exports.sign_out = async(ctx, next) => {
-  if (ctx.session && ctx.session.username) {
-    ctx.session = {};
-  } else {}
+  if (ctx.session && ctx.session.user) {
+    ctx.session.user = null;
+    ctx.flashMessage.notice = '退出成功';
+  }
   ctx.redirect('/');
 }
 
 exports.admin = async(ctx, next) => {
-  if (ctx.session && ctx.session.rule == 10) {
+  if (ctx.session && ctx.session.user && ctx.session.user.rule == 10) {
     await next();
   } else {
     ctx.response.status = 404;
@@ -100,16 +106,13 @@ exports.admin = async(ctx, next) => {
 
 exports.info = async(ctx, next) => {
   try {
-    let user = await UserModel.findById(ctx.session._id, {
+    let user = await UserModel.findById(ctx.session.user._id, {
       __v: 0,
       password: 0,
       rule: 0
     }).exec();
-    let data = {
-      user,
-      flash: ctx.flash.get()
-    };
-    await ctx.render('user', data);
+    let data = {user};
+    await ctx.render('user', user);
   } catch (err) {
     ctx.err = err;
     await ctx.render('error', {
@@ -123,7 +126,7 @@ exports.findUserById = async(ctx, next) => {
     let user_info = await UserModel.findById(ctx.query.id, {
       __v: 0,
       password: 0,
-      email_phone: 0,
+      email: 0,
       rule: 0
     }).exec();
     if (!user_info) {
@@ -132,11 +135,10 @@ exports.findUserById = async(ctx, next) => {
       });
     } else {
       let data = {};
-      if (ctx.session && ctx.session.username) {
+      if (ctx.session && ctx.session.user) {
         data = {
-          user: ctx.session,
+          user: ctx.session.user,
           user_info: user_info,
-          csrf: ctx.csrf
         };
       } else {
         data = {
@@ -157,11 +159,11 @@ exports.findUserById = async(ctx, next) => {
 exports.info_update = async(ctx, next) => {
   try {
     let info = ctx.request.body;
-    await UserModel.findByIdAndUpdate(ctx.session._id, {
+    await UserModel.findByIdAndUpdate(ctx.session.user._id, {
       username: info.username,
       motto: info.motto
     }).exec();
-    ctx.redirect('/user/setting?' + ctx.session._id);
+    ctx.redirect('/user/setting?' + ctx.session.user._id);
   } catch (err) {
     console.log(err);
   }
@@ -170,13 +172,12 @@ exports.info_update = async(ctx, next) => {
 exports.password_update = async(ctx, next) => {
   try {
     let password = ctx.request.body;
-    let _user = await UserModel.findById(ctx.session._id).exec();
+    let _user = await UserModel.findById(ctx.session.user._id).exec();
     if (bcrypt.compareSync(password.old, _user.password)) {
-      await UserModel.findByIdAndUpdate(ctx.session._id, {
+      await UserModel.findByIdAndUpdate(ctx.session.user._id, {
         password: bcrypt.hashSync(password.new)
       }).exec();
-      ctx.flash.set('密码修改成功');
-      ctx.redirect('/user/setting?' + ctx.session._id);
+      ctx.redirect('/user/setting?' + ctx.session.user._id);
     } else {
       await ctx.render('error', {
         message: '旧密码错误'

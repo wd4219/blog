@@ -1,0 +1,177 @@
+.article-page {
+  padding: 15px 20px 15px;
+}
+.article-page .article-header .article-title {
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.article-page .article-header .article-status {
+  font-size: 12px;
+  padding-bottom: 10px;
+  margin: 0;
+  border-bottom: 1px dashed #8492a6;
+  color: #99a9bf;
+}
+.article-page .article-header .article-status span {
+  margin-right: 20px;
+}
+.article-page .article-footer {
+  margin-top: 40px;
+  color: #404040;
+}
+.article-page .article-footer .footer-page {
+  padding: 15px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
+}
+.article-page .article-footer .footer-page a {
+  text-decoration: none;
+  color: #29b4f0;
+  font-size: 16px;
+}
+.article-page .article-footer .footer-page a.prev {
+  display: inline-block;
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.article-page .article-footer .footer-page a.next {
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.comment-container {
+  background-color: #f4f5f5;
+  padding-top: 30px;
+}
+.comment-container .comment-box {
+  background-color: #fff;
+  border-top: 1px solid #d7d7d7;
+  padding: 15px;
+}
+.comment-container .comment-box .bottom-bar {
+  font-size: 14px;
+  height: 32px;
+  margin-top: 20px;
+}
+.comment-container .comment-box .bottom-bar .submit-comment {
+  float: right;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  border-radius: 4px;
+  border: 1px solid #20a0ff;
+  color: #20a0ff;
+  cursor: pointer;
+  background-color: #fff;
+  outline: none;
+}
+.comment-container .comment-box .bottom-bar .submit-comment:hover {
+  background-color: #20a0ff;
+  color: #fff;
+}
+.comment-container .no-login {
+  height: 40px;
+  background: #fff;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.comment-container .no-login a {
+  color: #20a0ff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.comment-container .no-login a:hover {
+  text-decoration: underline;
+}
+.comment-container .comment-list {
+  background-color: #fff;
+}
+.comment-container .comment-list a {
+  color: #20a0ff;
+  text-decoration: none;
+}
+.comment-container .comment-list a:hover {
+  color: #20a0ff;
+  text-decoration: underline;
+  background: none;
+}
+.comment-container .comment-list .comment-list-item {
+  display: flex;
+  overflow: hidden;
+  padding: 10px 15px 10px 0;
+  border-bottom: 1px solid #d7d7d7;
+}
+.comment-container .comment-list .comment-list-item:last-child {
+  border-bottom: none;
+}
+.comment-container .comment-list .comment-list-item .avatar {
+  flex: 0 0 60px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 0;
+}
+.comment-container .comment-list .comment-list-item .avatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.comment-container .comment-list .comment-list-item .content {
+  flex: 1;
+}
+.comment-container .comment-list .comment-list-item .content .content-status {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1;
+  margin: 5px 0 2px;
+}
+.comment-container .comment-list .comment-list-item .content .content-status .username {
+  font-weight: 600;
+  margin-right: 10px;
+  color: #666;
+}
+.comment-container .comment-list .comment-list-item .content .content-status .comment-time {
+  color: #20a0ff;
+}
+.comment-container .comment-list .comment-list-item .content .content-center {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+.comment-container .comment-list .comment-list-item .content .content-center p {
+  margin: 0;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content {
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content .reply,
+.comment-container .comment-list .comment-list-item .content .bottom-content .delete {
+  float: left;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content .reply:hover,
+.comment-container .comment-list .comment-list-item .content .bottom-content .delete:hover {
+  color: #20a0ff;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content .like {
+  float: right;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content .like .iconfont {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #d7d7d7;
+}

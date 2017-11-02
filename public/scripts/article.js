@@ -198,23 +198,6 @@ $(function () {
 });
 
 function event_func() {
-  //点击发表评论栏的登录或注册
-  $('.comment-container .no-login').click(function (e) {
-    if ($(e.target).hasClass('signin')) {
-      $('.mask').fadeIn();
-      $('.sign-box').addClass('show');
-      $('.signin-box').show();
-      $('.email-phone input').focus();
-      $('.signup-box').hide();
-    }
-    if ($(e.target).hasClass('signup')) {
-      $('.mask').fadeIn();
-      $('.sign-box').addClass('show');
-      $('.signup-box').show();
-      $('.username input').focus();
-      $('.signin-box').hide();
-    }
-  });
   //删除评论
   $('.delete').click(function (e) {
     var msg = "你确定要删除这条评论吗？";
@@ -240,7 +223,7 @@ function event_func() {
       type: 'post',
       url: '/like',
       data: {
-        _csrf:$('.csrf').val(),
+        _csrf:$('meta[name="csrf-token"]').attr('content'),
         cid: $(e.target).data('cid')
       },
       success: function (response) {

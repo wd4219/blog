@@ -1,13 +1,19 @@
 extends layout
 block content
-  div.signin-container
+  div.sign-container
     a(href="/",class="logo")
       img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png", alt="网站logo")
     h3.title 请登录
-    form(action="/user/signin", method="post")
-      input(type="text", name="email_phone",autofocus="autofoucs",placeholder="邮箱")
-      input(type="password", name="password",autocomplete="new-password",placeholder="密码")
+    form(action="/user/signin", method="post",class="signin-form")
+      .email
+        input(type="text", name="email",autocomplete="off",autofocus="autofoucs",placeholder="邮箱")
+        span(class="error",aria-live="polite")
+      .password
+        input(type="password", name="password",placeholder="密码")
+        span(class="error",aria-live="polite")
       input(type="text", name="_csrf",value=csrf,hidden)
       button(type="submit") 登录
 block dynamic_css
-  link(rel="stylesheet", href="/stylesheets/signin.css")
+  link(rel="stylesheet", href="/stylesheets/sign.css")
+block dynamic_script
+  script(src="/scripts/sign.js")

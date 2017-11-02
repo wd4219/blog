@@ -1,0 +1,173 @@
+.sign-container {
+  text-align: center;
+  padding: 40px 0;
+}
+.sign-container form {
+  width: 400px;
+  margin: 0 auto;
+}
+.sign-container input {
+  border: none;
+  border-bottom: 1px solid #d7d7d7;
+  outline: none;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+.sign-container input:first-child {
+  margin-top: 10px;
+}
+.sign-container .error {
+  display: inline-block;
+  color: #f00;
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
+}
+.sign-container button {
+  height: 30px;
+  line-height: 30px;
+  width: 100px;
+  border: 1px solid #20a0ff;
+  color: #20a0ff;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  padding: 0;
+  margin: 20px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.sign-container .logo {
+  display: inline-block;
+  width: 120px;
+  background-color: #eee;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+.sign-container .logo img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.sign-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 400;
+}
+.signin-box,
+.signup-box {
+  display: none;
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 320px;
+  border-radius: 2px;
+}
+.signin-box .title,
+.signup-box .title {
+  text-align: center;
+  margin: 0px 0 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.signin-box .title .iconfont,
+.signup-box .title .iconfont {
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
+}
+.signin-box input,
+.signup-box input {
+  height: 40px;
+  border: 1px solid main-color;
+  padding: 0 10px;
+  vertical-align: middle;
+  outline: none;
+  background-color: #fff;
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 14px;
+}
+.signin-box input:focus,
+.signup-box input:focus {
+  border: 1px solid #20a0ff;
+}
+.signin-box .signin-btn,
+.signup-box .signin-btn,
+.signin-box .signup-btn,
+.signup-box .signup-btn {
+  background-color: #20a0ff;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 5px 0 15px;
+}
+.signin-box .prompt-box,
+.signup-box .prompt-box {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #8b9196;
+}
+.signin-box .prompt-box .lose-password,
+.signup-box .prompt-box .lose-password {
+  cursor: pointer;
+  color: #20a0ff;
+  float: right;
+}
+.signin-box .prompt-box .sign-up,
+.signup-box .prompt-box .sign-up {
+  cursor: pointer;
+  color: #20a0ff;
+  margin-left: 10px;
+}
+.signin-box .prompt-box .sign-in,
+.signup-box .prompt-box .sign-in {
+  display: block;
+  cursor: pointer;
+  color: #20a0ff;
+  text-align: center;
+}
+.signin-box .quick-login,
+.signup-box .quick-login {
+  display: flex;
+}
+.signin-box .quick-login .line,
+.signup-box .quick-login .line {
+  border-bottom: 1px solid #475669;
+  position: relative;
+  flex: 1;
+  top: -6px;
+}
+.signin-box .quick-login .text,
+.signup-box .quick-login .text {
+  display: inline-block;
+  padding: 0 10px;
+  color: #475669;
+  font-size: 14px;
+}
+.signin-box .quick-login-icon,
+.signup-box .quick-login-icon {
+  margin-top: 20px;
+  display: flex;
+}
+.signin-box .quick-login-icon .iconfont,
+.signup-box .quick-login-icon .iconfont {
+  flex: 1;
+  font-size: 40px;
+  color: #20a0ff;
+  margin: 0 10px;
+  cursor: pointer;
+}

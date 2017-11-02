@@ -10,7 +10,7 @@ let UserSchema = new Schema({
     type:String,
     unique:true,
   },
-  email_phone:{
+  email:{
     type:String,
     unique:true
   },
@@ -20,6 +20,10 @@ let UserSchema = new Schema({
   rule:{
     type:Number,
     default:0,
+  },
+  is_active:{
+    type:Boolean,
+    default:false
   },
   motto:{
     type:String,

@@ -1,4 +1,3 @@
-@import '../static/font/iconfont.css'
 @import 'mixin.styl'
 body
   background: #ffffff
@@ -23,131 +22,6 @@ ul
   z-index: 300
   display: none
   background-color: rgba(0,0,0,0.4)
-.message-box
-  height:40px
-  background-color:#fff
-  border-radius: 2px
-  min-width:250px
-  line-height:40px
-  position: fixed
-  top:-50px
-  left:50%
-  transform: translate3d(-50%,0,0)
-  font-size:0
-  transition: top 0.3s linear
-  z-index: 350
-  overflow: hidden
-  color:#8391a5
-  box-sizing: border-box
-  display: flex
-  box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
-  &.show
-    top:20px
-  span
-    font-size:14px
-    display: inline-block
-  .iconfont
-    flex: 0 0 40px
-    text-align: center;
-    line-height:40px
-    &.icon-success
-      color: #ffffff
-      background-color: #13CE66
-    &.icon-info
-      color: #ffffff
-      background: #20A0FF
-    &.icon-fail
-      color:#fff
-      background-color: #FF4949
-  .content
-    flex: 1
-    padding-left:10px
-.sign-box
-  position: fixed
-  top:50%;
-  left:50%;
-  transform:translate3d(-50%,-50%,0);
-  z-index:400
-.signin-box,.signup-box
-  display: none
-  background-color #fff
-  padding 20px
-  box-sizing border-box
-  width:320px
-  border-radius: 2px;
-  .title
-    text-align: center
-    margin: 0px 0 10px
-    font-size: 20px
-    font-weight: 600
-    .iconfont
-      font-size: 24px
-      float: right
-      cursor: pointer
-  input
-    height 40px
-    border-radius(2px)
-    border 1px solid main-color
-    padding 0 10px
-    vertical-align middle
-    outline none
-    background-color: #fff
-    width:100%
-    margin-bottom:15px
-    box-sizing:border-box
-    overflow: hidden;
-    display: inline-block
-    font-size:14px
-    &:focus
-      border 1px solid #20a0ff
-  .signin-btn,.signup-btn
-    background-color #20a0ff
-    height 40px
-    border-radius(2px)
-    line-height 40px
-    text-align center
-    color #fff
-    cursor pointer
-    font-size 14px
-    margin 5px 0 15px
-  .prompt-box
-    font-size: 14px
-    margin-bottom: 10px
-    color:#8b9196
-    .lose-password
-      cursor: pointer
-      color: #20a0ff
-      float: right
-    .sign-up
-      cursor: pointer
-      color: #20a0ff
-      margin-left:10px
-    .sign-in
-      display: block;
-      cursor: pointer
-      color: #20a0ff
-      text-align: center
-  .quick-login
-    display flex
-    .line
-      border-bottom 1px solid #475669
-      position relative
-      flex 1
-      top -6px
-    .text
-      display inline-block
-      padding 0 10px
-      color #475669
-      font-size 14px
-  .quick-login-icon
-    margin-top: 20px
-    display: flex;
-    .iconfont
-      flex: 1;
-      font-size: 40px
-      color: #20a0ff
-      margin: 0 10px;
-      cursor: pointer
 .header
   height 100px
   width 100%
@@ -264,49 +138,7 @@ ul
     transform-origin: center
     &.show
       opacity: 1
-      transform: scale(1)
-    .article-page
-      padding:15px 20px 15px
-      .article-header
-        .article-title
-          font-size:20px
-          margin-top:10px
-          font-weight:600
-          margin-bottom:10px
-        .article-status
-          font-size 12px
-          padding-bottom:10px
-          margin: 0
-          border-bottom:1px dashed #8492A6
-          color #99A9BF
-          span
-            margin-right:20px  
-      .article-footer
-        margin-top:40px
-        color: #404040
-        .footer-page
-          padding:15px 0
-          border-top:1px solid #dddddd
-          border-bottom: 1px solid #dddddd
-          font-size:0
-          a
-            text-decoration:none
-            color:#29B4F0
-            font-size:16px
-            &.prev
-              display:inline-block
-              width:50%
-              text-overflow: ellipsis
-              overflow: hidden
-              white-space: nowrap
-            &.next
-              display:inline-block
-              width:50%
-              text-align: right
-              text-overflow: ellipsis
-              overflow: hidden
-              white-space: nowrap;
-              
+      transform: scale(1)            
     .article-list
       padding:20px
       margin:0
@@ -457,11 +289,13 @@ ul
     display:inline-block
     a
       display: inline-block
-      width: 120px
+      width: 150px
       margin-right: 20px
       background-color: #eee
       padding: 10px 15px;
       border-radius: 4px;
+      height: 98px
+      box-sizing: border-box
       float: left;
       img
         display:block
@@ -569,102 +403,51 @@ ul
         text-align:center
         display:inline-block
         margin-right:5px
-
-.comment-container
-  background-color: #f4f5f5
-  padding-top:30px;
-  .comment-box
-    background-color: #fff;
-    border-top: 1px solid #d7d7d7
-    padding: 15px
-    .bottom-bar
-      font-size:14px;
-      height:32px;
-      margin-top:20px;
-      .submit-comment
-        float: right;
-        height: 32px;
-        line-height: 32px
-        padding: 0 15px
-        border-radius: 4px
-        border: 1px solid #20a0ff
-        color: #20a0ff
-        cursor: pointer
-        background-color: #fff;
-        outline: none;
-        &:hover
-          background-color: #20a0ff
-          color: #fff
-  .no-login
-    height:40px;
-    background: #fff;
-    text-align: center;
-    line-height: 40px
-    margin-top:20px;
-    font-size: 14px;
-    span
-      color: #20a0ff
-      cursor: pointer
-      text-decoration: underline
-  .comment-list
-    background-color: #fff;
-    a
-      color:#20a0ff;
-      text-decoration: none
+.notification
+  position: fixed
+  top: 10px
+  left: 50%
+  transform: translateX(-50%)
+  width: 350px
+  box-sizing: border-box
+  padding: 15px
+  font-size: 16px
+  background: #f2fae3
+  color: #659f13
+  border:1px solid  rgba(101,159,19,.3)
+  border-radius: 4px
+  cursor: pointer
+  &:hover
+    .content
+      .iconfont
+        visibility: visible
+        opacity 0.3
+  .iconfont
+    font-size: 30px
+    position: absolute
+    transform: translate3d(0,-50%,0)
+    top: 50%
+  &.success
+    background: #f2fae3
+    color: #659f13
+    border: 1px solid rgba(101,159,19,.3)
+  &.error
+    background: #fff1f0
+    color: #d85030
+    border:1px solid rgba(216,80,48,.3);
+  .content
+    margin: 0
+    line-height: 22px
+    position: relative
+    padding: 0 30px 0 40px
+    .iconfont
+      font-size: 20px
+      position: absolute
+      right: 0
+      font-weight: bold
+      visibility:hidden
+      opacity: 0
+      transform: all 0.5s
       &:hover
-        color:#20a0ff;
-        text-decoration: underline
-        background: none;
-    .comment-list-item
-      display: flex
-      overflow: hidden
-      padding: 10px 15px 10px 0
-      border-bottom: 1px solid #d7d7d7
-      &:last-child
-        border-bottom: none
-      .avatar
-        flex: 0 0 60px
-        overflow: hidden
-        text-align: center
-        font-size:0
-        img
-          width:30px
-          height:30px
-          border-radius: 4px
-          display: inline-block
-      .content
-        flex: 1
-        .content-status
-          font-size: 12px
-          margin: 0
-          line-height: 1
-          margin:5px 0 2px
-          .username
-            font-weight: 600
-            margin-right:10px
-            color:#666
-          .comment-time
-            color:#20a0ff
-        .content-center
-          margin:5px 0
-          line-height: 1.5
-          p
-            margin:0
-        .bottom-content
-          height:30px
-          font-size: 14px
-          line-height: 30px
-          .reply,.delete
-            float:left
-            margin-right:20px
-            cursor: pointer
-            &:hover
-              color: #20a0ff
-          .like
-            float: right
-            .iconfont
-              display: inline-block
-              font-size:20px
-              margin-right: 10px
-              cursor: pointer
-              color: #d7d7d7
+        opacity: 0.8
+

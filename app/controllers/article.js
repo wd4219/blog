@@ -69,7 +69,6 @@ exports.save_article = async(ctx, next) => {
 }
 // 获取文章摘要信息
 exports.find_article_all = async(ctx, next) => {
-  console.log(1);
   let page = ctx.request.query.page || 1;
   let num = 7;
   try {
@@ -116,31 +115,26 @@ exports.find_article_all = async(ctx, next) => {
 };
 // 获取文章列表信息
 exports.find_article_list = async(ctx, next) => {
-  try {
-    let result = {};
-    let list = await articleModel.find({}, {
-      meta: 0,
-      __v: 0,
-      tag: 0,
-      category: 0,
-      description: 0
-    }).populate('tag', {
-      meta: 0,
-      __v: 0,
-      _id: 0,
-      count: 0
-    }).exec();
-    if (!result) {
-      await ctx.render('error', {
-        message: '喔噢，文章列表不见了'
-      });
-    }
-    result.list = list;
-    await ctx.render('list', result);
-  } catch (err) {
-    ctx.err = err;
-    console.log(err);
+  let result = {};
+  let list = await articleModel.find({}, {
+    meta: 0,
+    __v: 0,
+    tag: 0,
+    category: 0,
+    description: 0
+  }).populate('tag', {
+    meta: 0,
+    __v: 0,
+    _id: 0,
+    count: 0
+  }).exec();
+  if (!list) {
+    await ctx.render('error', {
+      message: '喔噢，文章列表不见了'
+    });
   }
+  result.list = list;
+  await ctx.render('list', result);
 };
 
 // 通过tag获取文章列表

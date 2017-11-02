@@ -4,25 +4,23 @@ const views = require('koa-views');
 const json = require('koa-json');
 const bodyparser = require('koa-bodyparser');
 const mongoose = require('mongoose');
-const session = require('koa-session2');
+const session = require('koa-generic-session');
+const flash_message = require('koa-flash-message');
 const DB_URL = 'mongodb://localhost/myblog';
 const logger = require('./config/log');
 const CSRF = require('koa-csrf');
-const flash = require('koa-flash-simple');
 const middleware = require('./middleware/index');
 mongoose.connect(DB_URL,{ useMongoClient: true});
 const index = require('./routes/index')
-
 
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+app.keys = ['secret']
 app.use(session({
-  key:'ezblog_id',
-  maxAge:1000*60*60
-}))
-app.use(flash());
+  key:'ez_blog'
+}));
 app.use(json())
 app.use(require('koa-static')(__dirname + '/public'))
 
@@ -44,7 +42,7 @@ app.use(new CSRF({
 }));
 
 app.use(middleware.help);
-
+app.use(flash_message.default);
 // routes
 app.use(index.routes()).use(index.allowedMethods());
 

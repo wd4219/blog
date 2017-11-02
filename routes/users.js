@@ -19,7 +19,7 @@ router.get('/setting',User.check_signin,User.info);
 
 router.get('/check_username', User.check_username);
 
-router.get('/check_email_phone',User.check_email_phone);
+router.get('/check_email',User.check_email);
 
 router.post('/info_update',User.check_signin,User.info_update)
 

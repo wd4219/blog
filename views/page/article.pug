@@ -46,9 +46,11 @@ block content
             input(type="submit", value="发表评论",class="submit-comment")
     else
       .no-login
-        span.signin 登录 
+        span.signin
+          a(href="/user/signin") 登录 
         |/ 
-        span.signup 注册
+        span.signup 
+          a(href="/user/signup") 注册
         |之后评论
 block top_block
   if user && user.username
@@ -74,6 +76,7 @@ block dynamic_css
   link(rel="stylesheet", href="/stylesheets/atom-one-light.css")
   link(rel="stylesheet", href="/stylesheets/markdown.css")
   link(rel="stylesheet", href="/stylesheets/markdown-content.css")
+  link(rel="stylesheet", href="/stylesheets/article.css")
 block dynamic_script
   script(src="/scripts/jquery.timeago.js",type="text/javascript")
   script(src="/scripts/article.js")

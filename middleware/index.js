@@ -6,8 +6,8 @@ exports.help = async(ctx,next)=>{
   if(!ctx.state){
     ctx.state = {};
   }
-  if(ctx.session && ctx.session._id){
-    user = await UserModel.findById(ctx.session._id,{__v:0,password:0}).exec();
+  if(ctx.session && ctx.session.user && ctx.session.user._id){
+    user = await UserModel.findById(ctx.session.user._id,{__v:0,password:0}).exec();
   }
   let tags = await Tag.get_tag_list(ctx, next);
   let hot_article_list = await Article.find_hot_article_list(ctx, next);

@@ -37,7 +37,7 @@ exports.save_comment = async (ctx,next)=>{
             html = html.replace(eval("/@"+username+" /g"),`<a style="color:#20A0FF" href="/user?id=${_user.id}">@${username}</a>`)
           }
         };
-        let _comment = new CommentModel({content:html,article:id,user:ctx.session._id});
+        let _comment = new CommentModel({content:html,article:id,user:ctx.session.user._id});
         await _comment.save();
         ctx.redirect('/article/'+id);
       }catch(err){
@@ -88,8 +88,8 @@ exports.like_comment = async(ctx,next)=>{
   let cid = ctx.request.body.cid;
   try{
     let _comment = await CommentModel.findById(cid).exec();
-    if(_comment.like_user.indexOf(ctx.session._id)>-1){
-      _comment.like_user = _comment.like_user.replace(ctx.session._id+',','');
+    if(_comment.like_user.indexOf(ctx.session.user._id)>-1){
+      _comment.like_user = _comment.like_user.replace(ctx.session.user._id+',','');
       _comment.like_amount -= 1;
       await _comment.save();
       ctx.body = {
@@ -101,7 +101,7 @@ exports.like_comment = async(ctx,next)=>{
       }
     }
     else{
-      _comment.like_user += ctx.session._id+',';
+      _comment.like_user += ctx.session.user._id+',';
       _comment.like_amount += 1;
       await _comment.save();
       ctx.body = {
