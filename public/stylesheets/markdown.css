@@ -45,6 +45,8 @@
   margin: 0 5px;
   border-radius: 2px;
   display: inline-block;
+
+  box-sizing: border-box;
 }
 .markdown-wd pre {
   font-family: 12px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
@@ -52,7 +54,10 @@
 .markdown-wd pre code {
   padding:10px;
   font-size:12px;
-  border-left: 4px solid #13ce66;
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  max-height: 700px
 }
 .markdown-wd blockquote {
   padding: 10px 15px 10px 15px;

@@ -125,7 +125,10 @@ exports.info = async(ctx, next) => {
 }
 
 exports.findUserById = async(ctx, next) => {
-  try {
+    if(ctx.query.id.length !== 24){
+      ctx.flashMessage.danger = '用户不存在'
+      ctx.redirect('back');
+    }
     let user_info = await UserModel.findById(ctx.query.id, {
       __v: 0,
       password: 0,
@@ -141,9 +144,6 @@ exports.findUserById = async(ctx, next) => {
       };
       await ctx.render('user', data);
     }
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 exports.info_update = async(ctx, next) => {
@@ -171,7 +171,7 @@ exports.password_update = async(ctx, next) => {
       ctx.flashMessage.success = '密码修改成功'
       ctx.redirect('/user/setting?' + ctx.session.user._id);
     } else {
-      ctx.flashMessage.error = '旧密码错误';
+      ctx.flashMessage.danger = '旧密码错误';
       ctx.redirect('back');
     }
   } catch (err) {

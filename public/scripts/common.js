@@ -120,12 +120,6 @@ $(function(){
   $('a[href^="http"]').each(function () {
     $(this).attr('target', '_blank');
   });
-  // highlight高亮代码
-  $('pre code').each(function (i, block) {
-    hljs.highlightBlock(block);
-  });
-  $('.left-content').addClass('show');
-  $('.right-side').addClass('show');
 });
 
 
@@ -144,13 +138,8 @@ function click_event(){
       scrollTop: 0
     }, 300,'linear')
   });
-}
 
-function show_message(type, content) {
-  $('.message-box').addClass('show');
-  $('.message-box .iconfont')[0].className = 'iconfont icon-' + type;
-  $('.message-box .content').text(content);
-  setTimeout(function () {
-    $('.message-box').removeClass('show');
-  }, 1000);
+  $('.icon-menu').click(function(){
+    $('.collapse').slideToggle('slow');
+  });
 }

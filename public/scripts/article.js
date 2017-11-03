@@ -187,9 +187,9 @@ function editor() {
 $(function () {
   jQuery("time.timeago").timeago();
   // highlight高亮代码
-  $('pre code').each(function (i, block) {
-    hljs.highlightBlock(block);
-  });
+  // $('pre code').each(function (i, block) {
+  //   hljs.highlightBlock(block);
+  // });
 
   if (document.getElementById("comment-text")) {
     editor();
@@ -218,7 +218,7 @@ function event_func() {
     }
   });
   //点赞评论
-  $('.icon-dianzan').click(function (e) {
+  $('.like .icon-dianzan').click(function (e) {
     $.ajax({
       type: 'post',
       url: '/like',

@@ -17,7 +17,14 @@ hue-6:   #d19a66
 hue-6-2: #e6c07b
 
 */
-
+code[class^='lang']{
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #abb2bf;
+  background: #282c34;
+  border-radius: 5px;
+}
 .hljs {
   display: block;
   overflow-x: auto;

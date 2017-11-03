@@ -165,13 +165,18 @@
 .comment-container .comment-list .comment-list-item .content .bottom-content .delete:hover {
   color: #20a0ff;
 }
-.comment-container .comment-list .comment-list-item .content .bottom-content .like {
+.comment-container .comment-list .comment-list-item .content .bottom-content .like,
+.comment-container .comment-list .comment-list-item .content .bottom-content .show_like {
   float: right;
 }
-.comment-container .comment-list .comment-list-item .content .bottom-content .like .iconfont {
+.comment-container .comment-list .comment-list-item .content .bottom-content .like .iconfont,
+.comment-container .comment-list .comment-list-item .content .bottom-content .show_like .iconfont {
   display: inline-block;
   font-size: 20px;
   margin-right: 10px;
   cursor: pointer;
   color: #d7d7d7;
+}
+.comment-container .comment-list .comment-list-item .content .bottom-content .show_like .iconfont {
+  cursor: auto;
 }

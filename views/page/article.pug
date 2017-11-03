@@ -17,8 +17,9 @@ block content
     .comment-list
       each item in comment
         .comment-list-item
-          .avatar 
-            img(src=item.user.avatar, alt="用户头像")
+          .avatar
+            a(href="/user?id="+item.user._id) 
+              img(src=item.user.avatar, alt="用户头像")
           .content
             p.content-status
               span.username #{item.user.username}
@@ -28,15 +29,21 @@ block content
             if user  
               .bottom-content
                 div(class="reply",data-user=item.user.username,data-cid=item._id) 回复
-                if user._id.toString() == item.user._id.toString()
+                if user._id.toString() == item.user._id.toString() || user.role == 10
                   div(class="delete",data-cid=item._id) 删除 
-                .like
-                  if item.like_user.indexOf(user._id)>-1
+                if user._id.toString() != item.user._id.toString()
+                  .like
+                    if item.like_user.indexOf(user._id)>-1
+                      span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")
+                    else
+                      span(class="iconfont icon-dianzan",data-cid=item._id)
+                    |赞 
+                    span.like_count #{item.like_amount}
+                else
+                  .show_like
                     span(class="iconfont icon-dianzan",data-cid=item._id,style="color:#20a0ff")
-                  else
-                    span(class="iconfont icon-dianzan",data-cid=item._id)
-                  |赞 
-                  span.like_count #{item.like_amount}
+                    |赞 
+                    span.like_count #{item.like_amount}
     if user && user.username
       .comment-box
         form(action="/comment/"+_id, method="post",id="comment-form")

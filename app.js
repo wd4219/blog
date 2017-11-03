@@ -31,6 +31,7 @@ app.use(views(__dirname + '/views/page/', {
 app.use(middleware.error);
 
 app.use(logger());
+
 //csrf
 app.use(new CSRF({
   invalidSessionSecretMessage: 'Invalid session secret',
