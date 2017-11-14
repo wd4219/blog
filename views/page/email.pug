@@ -1,0 +1,25 @@
+extends  layout
+block content
+    .email-verify-container
+        a(href="/",class="logo")
+            img(src="//ezblog.oss-cn-beijing.aliyuncs.com/image/logo.png", alt="网站logo")
+        h3.title 邮件激活
+        p.message 感谢您注册ezblog网站，还差最后一步就可以登录网站了，请您查看您的邮箱，点击激活邮件中的激活链接对账号进行激活，方便以后找回忘记密码等操作使用。
+block dynamic_css 
+    style.
+        .email-verify-container{
+            padding:40px 100px;
+            text-align:center;
+        }
+        .email-verify-container .logo {
+            display: inline-block;
+            width: 120px;
+            background-color: #eee;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+        .email-verify-container .logo img {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }

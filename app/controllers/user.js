@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const UserModel = require('../models/user');
-const bcrypt = require('bcrypt-nodejs');
+const config = require('../../config');
 const tools = require('../../tools');
-
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 let res_model = (code, message, data) => {
   return {
@@ -14,17 +15,63 @@ let res_model = (code, message, data) => {
 //注册用户
 exports.sign_up = async(ctx, next) => {
   let user = ctx.request.body;
-  user.password = bcrypt.hashSync(ctx.request.body.password);
+  user.password = tools.sha1(ctx.request.body.password,config.secret);
   let _user = new UserModel(user);
   let result = await _user.save();
   if (result) {
-    ctx.session.user = result;
-    ctx.flashMessage.success = '注册成功'
-    ctx.redirect('/');
+    ctx.flashMessage.success = '注册成功';
+    ctx.redirect('email_verify?id='+result._id);
   } else {
     ctx.redirect('signup');
   }
 }
+exports.email_verify = async (ctx,next)=>{
+  const token = jwt.sign({
+    data:tools.enc_ase192(ctx.request.query.id,config.secret) 
+  }, config.secret, { expiresIn: 5 * 60 });
+  let _user = await UserModel.findById(ctx.request.query.id).exec();
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.mxhichina.com',
+    secure:true,
+    port:465,
+    auth: {
+      user: 'ezblog@ezblog.com.cn',
+      pass: 'honey77314..'
+    }
+  });
+  let mailOptions = {
+    from: 'ezblog@ezblog.com.cn',
+    to: _user.email,
+    subject: 'ezblog邮箱验证',
+    html:''
+  };
+  try{
+    await transporter.sendMail(mailOptions)
+    ctx.flashMessage.success = '邮件已发送，有效期5分钟！';
+    await ctx.render('email')
+  }catch(err){
+    ctx.flashMessage.danger = '邮件发送失败，请刷新页面重试！';
+    await ctx.render('email')
+  }
+  
+}
+exports.verify = async (ctx,next)=>{
+  try {
+    let decoded = jwt.verify(ctx.request.query.token, config.secret);
+    let _user = await UserModel.findByIdAndUpdate(tools.dec_ase192(decoded.data,config.secret),{active:true}).exec();
+    if (_user) {
+      ctx.flashMessage.success = '账号激活成功，请登录！';
+      ctx.redirect('signin')
+    } else {
+      ctx.flashMessage.danger = '激活失败，用户不存在';
+      ctx.redirect('signup');
+    }
+  }catch(err) {
+    ctx.flashMessage.danger = '链接已过期，已发送新的激活邮件，请查收！';
+    
+  }
+}
+
 // 登录
 exports.sign_in = async(ctx, next) => {
   let user = ctx.request.body;
@@ -32,13 +79,19 @@ exports.sign_in = async(ctx, next) => {
     email: user.email
   }).exec();
   if (_user) {
-    if (bcrypt.compareSync(user.password, _user.password)) {
-      ctx.session.user = _user;
-      ctx.flashMessage.success = '登录成功';
-      ctx.redirect('/');
-    } else {
-      ctx.flashMessage.danger = '登录失败，密码错误';
-      ctx.redirect('signin');
+    if(_user.active){
+      if (_user.password == tools.sha1(user.password,config.secret)) {
+        ctx.session.user = _user;
+        ctx.flashMessage.success = '登录成功';
+        ctx.redirect('/');
+      } else {
+        ctx.flashMessage.danger = '登录失败，密码错误';
+        ctx.redirect('signin');
+      }
+    }
+    else{
+      ctx.flashMessage.danger = '您还没有验证邮箱无法登录';
+      ctx.redirect('email');
     }
   } else {
     ctx.flashMessage.danger = '登录失败，用户不存在';

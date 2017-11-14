@@ -8,6 +8,10 @@ router.post('/signin',User.sign_in);
 
 router.get('/signout',User.sign_out);
 
+router.get('/email_verify',User.email_verify);
+
+router.get('/verify',User.verify)
+
 router.get('/',User.findUserById);
 
 router.get('/setting',User.check_signin,User.info);

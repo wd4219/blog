@@ -9,8 +9,13 @@ const flash_message = require('koa-flash-message');
 const DB_URL = 'mongodb://localhost/myblog';
 const logger = require('./config/log');
 const CSRF = require('koa-csrf');
+var options = {
+  user: 'root',
+  pass: '123456',
+  useMongoClient: true
+}
 const middleware = require('./middleware/index');
-mongoose.connect(DB_URL,{ useMongoClient: true});
+mongoose.connect(DB_URL,options);
 const index = require('./routes/index')
 
 // middlewares

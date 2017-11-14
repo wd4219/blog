@@ -1,7 +1,6 @@
-# Logs
-logs
+
 *.log
-/config/oss.js
+/config/index.js
 # Runtime data
 pids
 *.pid
