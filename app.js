@@ -6,12 +6,10 @@ const bodyparser = require('koa-bodyparser');
 const mongoose = require('mongoose');
 const session = require('koa-generic-session');
 const flash_message = require('koa-flash-message');
-const DB_URL = 'mongodb://localhost/myblog';
+const DB_URL = 'mongodb://localhost:31414/myblog';
 const logger = require('./config/log');
 const CSRF = require('koa-csrf');
 var options = {
-  user: 'root',
-  pass: '123456',
   useMongoClient: true
 }
 const middleware = require('./middleware/index');
