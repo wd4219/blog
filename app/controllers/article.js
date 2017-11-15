@@ -50,7 +50,7 @@ exports.save_article = async(ctx, next) => {
           updateAt: Date.now()
         }
       });
-      result = await client.put('article/content' + res._id + '.md', new Buffer(req.content));
+      result = await client.put('article/content/' + res._id + '.md', new Buffer(req.content));
     } else {
       _article = new articleModel({
         title: req.title,
@@ -59,7 +59,7 @@ exports.save_article = async(ctx, next) => {
         category: category_content
       });
       res = await _article.save();
-      result = await client.put('article/content' + res._id + '.md', new Buffer(req.content));
+      result = await client.put('article/content/' + res._id + '.md', new Buffer(req.content));
     }
     if (result.res.status == '200') {
       ctx.body = res_model(0, '保存成功', {});
@@ -175,7 +175,7 @@ exports.find_article_id = async(ctx, next) => {
     }).exec();
     if (result) {
       this.update_read_amount(ctx, next)
-      let article_content = await client.get('article/content' + article_id + '.md');
+      let article_content = await client.get('article/content/' + article_id + '.md');
       result.content =marked(article_content.content.toString('utf8'));
       result.comment = await Comment.find_comment_article(ctx, next);
       result.article_footer = await this.find_article_prev_next(ctx, next);

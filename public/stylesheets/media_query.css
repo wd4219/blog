@@ -113,6 +113,33 @@
   .main-container .left-content {
     width: 100%;
   }
+  .main-container .left-content .user-container label {
+    display: block;
+    line-height: 20px;
+    width: 100%;
+    text-align: left;
+  }
+  .main-container .left-content .user-container .avatar-box {
+    text-align: center;
+  }
+  .main-container .left-content .user-container .avatar-box label {
+    display: none;
+  }
+  .main-container .left-content .user-container .avatar-box .update {
+    display: none;
+  }
+  .main-container .left-content .user-container input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .main-container .left-content .user-container .motto-box label {
+    line-height: 20px;
+  }
+  .main-container .left-content .user-container .motto-box textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
   .right-side {
     display: none;
   }

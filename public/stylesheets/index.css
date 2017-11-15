@@ -1,3 +1,4 @@
+@import '../stylesheets/normalize.css';
 .clearfix:after {
   content: '.';
   height: 0;
@@ -479,13 +480,15 @@ ul {
   margin-bottom: 20px;
 }
 .main-container .left-content .article-list .article-item .article-title {
+  color: #20a0ff;
+  text-decoration: none;
+  display: block;
+}
+.main-container .left-content .article-list .article-item .article-title h2 {
+  margin: 0;
   font-size: 20px;
   font-weight: 600;
-  border-left: 5px solid #20a0ff;
-  height: 30px;
   line-height: 30px;
-  padding-left: 20px;
-  margin: 0;
 }
 .main-container .left-content .article-list .article-item .top-status {
   font-size: 12px;

@@ -94,7 +94,7 @@ exports.sign_in = async(ctx, next) => {
       }
     } else {
       ctx.flashMessage.danger = '您还没有验证邮箱无法登录';
-      ctx.redirect('email_verify');
+      ctx.redirect('email_verify?id=' + _user._id);
     }
   } else {
     ctx.flashMessage.danger = '登录失败，用户不存在';

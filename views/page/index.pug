@@ -4,7 +4,8 @@ block content
     each list_item in article_list
       li
         .article-item
-          h2.article-title #{list_item.title}
+          a(href="/article/"+list_item._id,class="article-title")
+            h2 #{list_item.title}
           p.top-status 
             span.publish-time 日期：#{list_item.publish_time}
             span.read-amount 阅读量：#{list_item.read_amount}
@@ -15,7 +16,7 @@ block content
               i.iconfont.icon-label
               each item in list_item.tag
                 a(href="/list/tag/"+item._id,class="label-item") #{item.content}
-            a(href="/article/"+list_item._id).read-total 阅读全文
+            
   if next != -1 || prev != -1
     .pagination
       if prev != -1
